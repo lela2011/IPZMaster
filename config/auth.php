@@ -61,14 +61,22 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'driver' => 'ldap',
+            'model' => App\Ldap\User::class,
+            'rules' => [
+                App\Rules\OnlyIPZ::class,
+            ],
+            'scopes' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => false,
+                'sync_attributes' => [
+                    'uid' => 'uid',
+                    'first_name' => 'givenName',
+                    'last_name' => 'sn',
+                ],
+            ],
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
