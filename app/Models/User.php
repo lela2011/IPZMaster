@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -10,16 +12,14 @@ use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 class User extends Authenticatable implements LdapAuthenticatable
 {
     use Notifiable, AuthenticatesWithLdap;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'uid',
+        'password'
     ];
 
     /**
@@ -42,13 +42,15 @@ class User extends Authenticatable implements LdapAuthenticatable
         'password' => 'hashed',
     ];
 
-    public function getAuthIdentifier(): ?string
-    {
-        return $this->uid;
-    }
+    protected $primaryKey = "uid";
+    public $incrementing = false;
 
-    public function getAuthIdentifierName(): string
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+
+    public function employeeProfile() : HasOne
     {
-        return 'uid';
+        return $this->hasOne(EmployeeProfile::class, 'uid', 'uid');
     }
 }

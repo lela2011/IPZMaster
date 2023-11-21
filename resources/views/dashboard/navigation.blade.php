@@ -1,34 +1,33 @@
-<section class="ContentArea">
-    <div class="TextImage">
-        <div class="TextImage--inner">
-            <div class="TextImage--content">
-                <div class="flex-container">
-                    <x-navtile>
-                        Persönliche Daten
-                        <x-slot:route>
-                            /bla
-                        </x-slot:route>
-                        <x-slot:image>
-                            personal_data.svg
-                        </x-slot:image>
-                        <x-slot:details>
-                            CV, ORCID, transversale Forschungsbereiche, ...
-                        </x-slot:details>
-                    </x-navtile>
-                    <x-navtile>
-                        <x-slot:route>
-                            /bla2
-                        </x-slot:route>
-                        <x-slot:image>
-                            press_information.svg
-                        </x-slot:image>
-                        <x-slot:details>
-                            Kompetenzen, Kontaktaufnahme, ...
-                        </x-slot:details>
-                        Medienauskunft
-                    </x-navtile>
-                </div>
+
+<div class="TextImage">
+    <div class="TextImage--inner">
+        <div class="TextImage--content">
+            <div class="flex-container">
+                <x-navtile>
+                    Personal data
+                    <x-slot:route>
+                        /personal
+                    </x-slot:route>
+                    <x-slot:image>
+                        personal_data.svg
+                    </x-slot:image>
+                    <x-slot:details>
+                        CV, ORCID, Transversal research area, ...
+                    </x-slot:details>
+                </x-navtile>
+                <x-navtile>
+                    Press information
+                    <x-slot:route>
+                        /bla2
+                    </x-slot:route>
+                    <x-slot:image>
+                        press_information.svg
+                    </x-slot:image>
+                    <x-slot:details>
+                        Competences, Preferred contact method, ...
+                    </x-slot:details>
+                </x-navtile>
             </div>
         </div>
     </div>
-</section>
+</div>

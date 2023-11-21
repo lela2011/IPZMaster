@@ -9,7 +9,7 @@
 </section>
 <section class="ContentArea">
     <form class="Form js-Form" id="IPZ Master Login" method="POST" action="/authenticate">
-        @csrf
+        @csrf <!-- Prevents cross site scripting attacks -->
         <div class="Form--body">
             <div class="FormInput">
                 <label class="FormLabel" for="uid">
@@ -28,7 +28,7 @@
                 </label>
                 <input type="password" class="Input" name="password"/>
                 @error('password')
-                <p class="has-error">
+                <p class="has-error" style="color: red">
                     {{$message}}
                 </p>
                 @enderror

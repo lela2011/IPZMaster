@@ -13,4 +13,9 @@ class User extends OpenLDAPUser
     {
         return $this->hasMany(Group::class, 'member');
     }
+
+    public function getAuthIdentifier(): ?string
+    {
+        return $this->getFirstAttribute($this->guidKey);
+    }
 }

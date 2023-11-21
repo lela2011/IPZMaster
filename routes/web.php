@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'home']);
+// Home Route
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
+// Post request to validate Login-Credentials against LDAP-Database
 Route::post('/authenticate', [AuthController::class, 'authenticate']);
 
+// Post request to log out user. Only accessible when logged in
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+// Display personal data in form to be edited. Only accessible when logged in
+Route::get('/personal', [UsersController::class, 'show'])->middleware('auth');
+
+// Post request to update personal data in DB
+Route::post('/personal/update', [UsersController::class, 'update'])->middleware('auth');
