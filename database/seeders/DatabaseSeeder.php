@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
+        // pre-populates transv_research_prio table
         $transv_research_area_data = [
             [
                 'transv_id' => 'default',

@@ -72,7 +72,12 @@ return [
                 'sync_passwords' => false,
                 'sync_attributes' => [
                     'uid' => 'uid',
+                    'first_name' => 'givenName',
+                    'last_name' => 'sn'
                 ],
+                'sync_existing' => [
+                    'uid' => 'uid'
+                ]
             ],
         ],
     ],

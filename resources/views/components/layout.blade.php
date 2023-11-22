@@ -12,6 +12,8 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
+        <x-head.tinymce-config/>
     </head>
     <body class="template-st04">
         <x-header/>

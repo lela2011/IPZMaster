@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -19,7 +17,13 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     protected $fillable = [
         'uid',
-        'password'
+        'password',
+        'first_name',
+        'last_name',
+        'orcid',
+        'research_areas',
+        'transv_research_prio',
+        'cv'
     ];
 
     /**
@@ -40,17 +44,10 @@ class User extends Authenticatable implements LdapAuthenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'research_areas' => 'array'
     ];
 
+    //Sets id-key to 'uid' and ensures that it's not auto-incremented
     protected $primaryKey = "uid";
     public $incrementing = false;
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-
-    public function employeeProfile() : HasOne
-    {
-        return $this->hasOne(EmployeeProfile::class, 'uid', 'uid');
-    }
 }

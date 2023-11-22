@@ -2,7 +2,7 @@
     <div class="Intro--inner">
         <div class="Intro--top">
             <h1 class="Intro--title richtext">
-                Bitte melden Sie sich an, um fortzufahren.
+                Please sign in with your UZH-Account to continue.
             </h1>
         </div>
     </div>
@@ -24,7 +24,7 @@
             </div>
             <div class="FormInput">
                 <label class="FormLabel" for="password">
-                    Passwort
+                    Password
                 </label>
                 <input type="password" class="Input" name="password"/>
                 @error('password')
