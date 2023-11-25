@@ -6,12 +6,12 @@
             </a>
         </div>
         <h2 class="Header--department">
-            <a class="Header--department--link" href="/">
+            <a class="Header--department--link" href="{{ route('home') }}">
                 Institut für Politikwissenschaft
             </a>
         </h2>
         @auth
-            <form method="POST" action="/logout" style="margin-left: auto;">
+            <form method="POST" action=" {{ route('logout') }} " style="margin-left: auto;">
                 @csrf
                 <button type="submit">
                     <i class="fa fa-sign-out"></i>

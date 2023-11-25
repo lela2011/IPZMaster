@@ -8,7 +8,7 @@
     </div>
 </section>
 <section class="ContentArea">
-    <form class="Form js-Form" id="IPZ Master Login" method="POST" action="/authenticate">
+    <form class="Form js-Form" id="IPZ Master Login" method="POST" action=" {{route('auth')}} ">
         @csrf <!-- Prevents cross site scripting attacks -->
         <div class="Form--body">
             <div class="FormInput">

@@ -6,7 +6,7 @@
                 <x-navtile>
                     Personal data
                     <x-slot:route>
-                        /personal
+                        {{ route('personal') }}
                     </x-slot:route>
                     <x-slot:image>
                         personal_data.svg
@@ -18,7 +18,7 @@
                 <x-navtile>
                     Press information
                     <x-slot:route>
-                        /bla2
+                        {{ url('bla') }}
                     </x-slot:route>
                     <x-slot:image>
                         press_information.svg

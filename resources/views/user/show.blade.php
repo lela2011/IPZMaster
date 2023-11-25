@@ -2,7 +2,7 @@
     <div class="ContentArea">
         <x-back/>
         <x-flash-message />
-        <form class="Form js-Form" method="POST" id="Personal Data Edit" action="/personal/update">
+        <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('personal.update')}}">
             @csrf
             <div class="Form--header">
                 <h2 class="Form--title">
@@ -79,7 +79,7 @@
                     </select>
                 </div>
                 <div class="FormButtons">
-                    <a href="/" class="Button color-border-white size-large">
+                    <a href="{{route('home')}}" class="Button color-border-white size-large">
                         <span class="Button--inner">
                             Cancel
                         </span>
