@@ -16,9 +16,21 @@
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
+                    Research Projects
+                    <x-slot:route>
+                        {{ route('research.index') }}
+                    </x-slot:route>
+                    <x-slot:image>
+                        research_projects.svg
+                    </x-slot:image>
+                    <x-slot:details>
+                        Creating, managing and updating completed and ongoing research projects
+                    </x-slot:details>
+                </x-navtile>
+                <x-navtile>
                     Press information
                     <x-slot:route>
-                        {{ url('bla') }}
+                        {{ route('media') }}
                     </x-slot:route>
                     <x-slot:image>
                         press_information.svg

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +32,10 @@ Route::get('/personal', [UsersController::class, 'show'])->middleware('auth')->n
 
 // Post request to update personal data in DB
 Route::post('/personal/update', [UsersController::class, 'update'])->middleware('auth')->name('personal.update');
+
+// All research routes
+Route::resource('research', '\App\Http\Controllers\ResearchController');
+
+Route::get('/media', [MediaController::class, 'index'])->middleware('auth')->name('media');
+
+Route::post('/media/update', [MediaController::class, 'update'])->middleware('auth')->name('media.update');

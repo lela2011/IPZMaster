@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('research_areas')->default('default');
             $table->string('transv_research_prio')->nullable();
             $table->longText('cv')->nullable();
+            $table->boolean('media_mail')->default(false);
+            $table->boolean('media_phone')->default(false);
+            $table->boolean('media_secretariat')->default(false);
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();

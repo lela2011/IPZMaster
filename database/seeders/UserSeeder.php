@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // reads employee data from csv and loads it into user table to provide functionality when not yet signed in
-        User::truncate();
 
         $csvFile = fopen(public_path('data/employee.csv'), "r");
         while (($data = fgetcsv($csvFile)) !== FALSE) {
