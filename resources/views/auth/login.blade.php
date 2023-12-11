@@ -8,6 +8,23 @@
     </div>
 </section>
 <section class="ContentArea">
+    @error('serverError')
+        <div x-data="{show: true}"
+             x-init="setTimeout(() => show = false, 6000)"
+             x-show="show"
+             class="TextImage "
+             style="text-align: center">
+            <p style="
+            background: red;
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: bold;
+            color: white;
+        ">
+                {{$message}}
+            </p>
+        </div>
+    @enderror
     <form class="Form js-Form" id="IPZ Master Login" method="POST" action=" {{route('auth')}} ">
         @csrf <!-- Prevents cross site scripting attacks -->
         <div class="Form--body">
@@ -18,7 +35,9 @@
                 <input type="text" class="Input" name="uid" value="{{old('uid')}}"/>
                 @error('uid')
                 <p class="has-error" style="color: red">
-                    {{$message}}
+                    <small>
+                        {{$message}}
+                    </small>
                 </p>
                 @enderror
             </div>
@@ -29,7 +48,9 @@
                 <input type="password" class="Input" name="password"/>
                 @error('password')
                 <p class="has-error" style="color: red">
-                    {{$message}}
+                    <small>
+                        {{$message}}
+                    </small>
                 </p>
                 @enderror
             </div>

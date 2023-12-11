@@ -3,7 +3,7 @@
         <img class="image"
             src="{{asset('images/' . $image )}}">
     </div>
-    <div class="LinkList">
+    <div class="LinkList" style="box-shadow: none">
         <div class="LinkList--header">
             <h3 class="LinkList--title">
                 {{ $slot }}

@@ -12,6 +12,7 @@ class PersonalDataRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // allows form submits from every user
         return true;
     }
 
@@ -22,28 +23,31 @@ class PersonalDataRequest extends FormRequest
      */
     public function rules(): array
     {
+        // sets validation rules for form data
         return [
             'orcid' => ['nullable', new OrcidValidation],
-            'cv' => 'nullable',
+            'website' => 'nullable|url',
+            'cv_english' => 'nullable',
+            'cv_german' => 'nullable',
+            'research_focus_english' => 'nullable',
+            'research_focus_german' => 'nullable',
             'research_areas' => 'nullable',
-            'transv_research_prio' => 'required'
+            'transv_research_prios' => 'nullable'
         ];
     }
 
     protected function prepareForValidation()
     {
-        // removes the last item from array
-        $temp_research_ares = $this->research_areas;
-        array_pop($temp_research_ares);
-
         // merges the array into a hyphen-separated string
         $temp_orcid = implode('-', $this->orcid);
         $temp_orcid = $temp_orcid === "---" ? '' : $temp_orcid;
 
         // merges the correction with the
         $this->merge([
-            'research_areas' => $temp_research_ares,
-            'orcid' => $temp_orcid
+            'research_areas' => filterEmptyArray($this->research_areas),
+            'orcid' => $temp_orcid,
+            'research_areas' => $this->research_areas ?? [],
+            'transv_research_prios' => $this->transv_research_prios ?? []
         ]);
     }
 }

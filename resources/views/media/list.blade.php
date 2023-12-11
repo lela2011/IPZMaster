@@ -56,7 +56,9 @@
                     </div>
                     @error('contact_method')
                     <p class="has-error" style="color: red">
-                        {{$message}}
+                        <small>
+                            {{$message}}
+                        </small>
                     </p>
                     @enderror
                 </div>
@@ -78,41 +80,38 @@
 </x-layout>
 
 <script>
-    // listens to inputs being made on the website
-    document.addEventListener('input', function(event) {
-        // retrieves all research-area input fields
-        const inputs = document.querySelectorAll('.media-competences');
-        // retrieves current empty last input
-        const lastInput = inputs[inputs.length - 1];
-        // checks if user types into currently last input
-        if (event.target === lastInput && lastInput.value.trim() !== '') {
-            // creates new empty input
-            const newField = `<input name="media_competences[]" class="Input media-competences" list="competences" id="competence_${inputs.length + 1}" style='margin-bottom: 8px;'>`;
-            // appends it to list but not movable list
-            document.getElementById('description').insertAdjacentHTML('beforebegin', newField);
-        }
-    });
+    $(document).ready(function () {
+        // listens to inputs being made on the website
+        $(document).on('input', '.media-competences', function(event) {
+            // retrieves all research-area input fields
+            const inputs = $('.media-competences');
+            // retrieves current empty last input
+            const lastInput = inputs.last();
+            // checks if user types into currently last input
+            if (this === lastInput[0] && lastInput.val().trim() !== '') {
+                // creates new empty input
+                const newField = `<input name="media_competences[]" class="Input media-competences" list="competences" id="competence_${inputs.length + 1}" style='margin-bottom: 8px;'>`;
+                // appends it to list but not movable list
+                $('#description').before(newField)
+            }
+        });
 
-    // listens for lost of focus
-    document.addEventListener('blur', function(event) {
-        // stores input that lost focus in variable
-        const currentInput = event.target;
-
-        // checks if input is for research-area
-        if (currentInput.classList.contains('media-competences')) {
+        // listens to loss of focus on media-competence inputs
+        $(document).on('blur', '.media-competences', function(event) {
+            // stores input that lost focus in variable
+            const currentInput = $(this);
             // retrieves all research-area inputs
-            const inputs = document.querySelectorAll('.media-competences');
+            const inputs = $('.media-competences');
 
             // checks if current input is empty and whether unfocused input is the last one in the list
-            if (currentInput.value.trim() === '' && inputs.length > 1 && currentInput !== inputs[inputs.length - 1]) {
+            if (currentInput.val().trim() === '' && inputs.length > 1 && currentInput[0] !== inputs.last()[0]) {
                 // animates removal of input
-                currentInput.style.transition = 'opacity 0.5s ease-out';
-                currentInput.style.opacity = '0';
+                currentInput.css('transition', 'opacity 0.5s ease-out').css('opacity', '0');
 
                 setTimeout(() => {
                     currentInput.remove();
                 }, 500);
             }
-        }
-    }, true);
+        });
+    });
 </script>

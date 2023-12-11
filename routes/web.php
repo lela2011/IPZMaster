@@ -36,6 +36,11 @@ Route::post('/personal/update', [UsersController::class, 'update'])->middleware(
 // All research routes
 Route::resource('research', '\App\Http\Controllers\ResearchController');
 
+// Post request to create external contact
+Route::post('/research/create-contact', [ResearchController::class, 'createContact'])->middleware('auth')->name('contact.create');
+
+// Display current media competence preferences
 Route::get('/media', [MediaController::class, 'index'])->middleware('auth')->name('media');
 
-Route::post('/media/update', [MediaController::class, 'update'])->middleware('auth')->name('media.update');
+// Submit media competences update
+Route::post('/update', [MediaController::class, 'update'])->middleware('auth')->name('media.update');

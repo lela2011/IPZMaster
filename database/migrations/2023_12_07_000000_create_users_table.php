@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('orcid')->nullable();
-            $table->string('research_areas')->default('default');
-            $table->string('transv_research_prio')->nullable();
-            $table->longText('cv')->nullable();
+            $table->string('website')->nullable();
+            $table->longText('cv_english')->nullable();
+            $table->longText('cv_german')->nullable();
+            $table->longText('research_focus_english')->nullable();
+            $table->longText('research_focus_german')->nullable();
             $table->boolean('media_mail')->default(false);
             $table->boolean('media_phone')->default(false);
             $table->boolean('media_secretariat')->default(false);

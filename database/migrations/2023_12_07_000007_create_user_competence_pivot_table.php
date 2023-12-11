@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_competence', function (Blueprint $table) {
-            $table->string('foreign_uid');
-            $table->string('foreign_competence');
+            $table->string('user_id');
+            $table->string('competence_id');
 
-            $table->foreign('foreign_uid')->references('uid')->on('users')->onDelete('cascade');
-            $table->foreign('foreign_competence')->references('competence')->on('competences')->onDelete('cascade');
+            $table->foreign('user_id')->references('uid')->on('users')->onDelete('cascade');
+            $table->foreign('competence_id')->references('competence')->on('competences')->onDelete('cascade');
 
-            $table->primary(['foreign_uid', 'foreign_competence']);
+            $table->primary(['user_id', 'competence_id']);
         });
     }
 

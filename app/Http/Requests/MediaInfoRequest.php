@@ -12,6 +12,7 @@ class MediaInfoRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // allows form submits from every user
         return true;
     }
 
@@ -22,6 +23,7 @@ class MediaInfoRequest extends FormRequest
      */
     public function rules(): array
     {
+        // sets validation rules for form data
         return [
             'media_competences' => 'nullable',
             'contact_method' => 'required|array|min:1'
@@ -30,6 +32,7 @@ class MediaInfoRequest extends FormRequest
 
     public function messages()
     {
+        // sets custom error messages
         return [
             'contact_method' => 'At least one mean of contact must be selected.'
         ];
@@ -37,11 +40,9 @@ class MediaInfoRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $temp_media_competences = $this->media_competences;
-        array_pop($temp_media_competences);
-
+        // filters empty items from array
         $this->merge([
-            'media_competences' => $temp_media_competences,
+            'media_competences' => filterEmptyArray($this->media_competences),
         ]);
     }
 }

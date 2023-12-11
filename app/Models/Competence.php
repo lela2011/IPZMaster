@@ -13,7 +13,8 @@ class Competence extends Model
     protected $primaryKey = "competence";
     public $incrementing = false;
 
+    // sets relationship between user and competence
     public function users() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'user_competence', 'foreign_competence', 'foreign_uid');
+        return $this->belongsToMany(User::class, 'user_competence', 'competence_id', 'user_id');
     }
 }

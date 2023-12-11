@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // defines the table structure of Transversal Research Priorities Table
-        Schema::create('transv_research_prios', function (Blueprint $table) {
-            $table->string('transv_id')->primary();
+        Schema::create('research_areas', function (Blueprint $table) {
+            $table->string('id')->primary();
             $table->string('english');
             $table->string('german');
         });
@@ -24,7 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // drops table on migration refresh
-        Schema::dropIfExists('transv_research_prios');
+        Schema::dropIfExists('research_areas');
     }
 };
