@@ -78,7 +78,7 @@ class User extends Authenticatable implements LdapAuthenticatable
 
     // sets relation between research area and user
     public function researchAreas() : BelongsToMany {
-        return $this->belongsToMany(ResearchArea::class, 'user_research_area', 'user_id', 'research_area_id')->withPivot('role');
+        return $this->belongsToMany(ResearchArea::class, 'user_research_area', 'user_id', 'research_area_id');
     }
 
     // sets relation between research priority and user

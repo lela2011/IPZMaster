@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,10 +33,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 Route::get('/personal', [UsersController::class, 'show'])->middleware('auth')->name('personal');
 
 // Post request to update personal data in DB
-Route::post('/personal/update', [UsersController::class, 'update'])->middleware('auth')->name('personal.update');
+Route::post('/personal', [UsersController::class, 'update'])->middleware('auth')->name('personal.update');
 
 // All research routes
-Route::resource('research', '\App\Http\Controllers\ResearchController');
+Route::resource('research', '\App\Http\Controllers\ResearchController')
+    ->missing(function () {
+        return Redirect::route('research.index');
+    })
+    ->middleware('auth');
 
 // Post request to create external contact
 Route::post('/research/create-contact', [ResearchController::class, 'createContact'])->middleware('auth')->name('contact.create');
@@ -43,4 +49,7 @@ Route::post('/research/create-contact', [ResearchController::class, 'createConta
 Route::get('/media', [MediaController::class, 'index'])->middleware('auth')->name('media');
 
 // Submit media competences update
-Route::post('/update', [MediaController::class, 'update'])->middleware('auth')->name('media.update');
+Route::post('/media', [MediaController::class, 'update'])->middleware('auth')->name('media.update');
+
+// Create new media competence
+Route::post('/media/create-competence', [MediaController::class, 'createCompetence'])->middleware('auth')->name('competence.create');

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title_original')->nullable();
             $table->longText('summary')->nullable();
             $table->string('summary_urls')->nullable();
-            $table->text('zora_ids')->nullable();
+            $table->string('zora_ids')->nullable();
             $table->string('publication_url')->nullable();
             $table->string('project_urls')->nullable();
             $table->string('fundings')->nullable();

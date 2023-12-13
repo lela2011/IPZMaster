@@ -125,8 +125,8 @@ class ResearchRequest extends FormRequest
 
         try {
             // tries to read date from input string
-            $startDate = date_create_from_format('l jS F Y', trim($dates[0]));
-            $endDate = date_create_from_format('l jS F Y', trim($dates[1]));
+            $startDate = date_create_from_format('l, jS F Y', trim($dates[0]));
+            $endDate = date_create_from_format('l, jS F Y', trim($dates[1]));
 
             // formats dates to sql format
             $formattedStartDate = $startDate->format('Y-m-d');

@@ -36,19 +36,24 @@ class ResearchProject extends Model
         'institutions' => 'array',
         'countrys' => 'array',
         'keywords' => 'array',
-        'publish' => 'boolean'
+        'publish' => 'bool'
     ];
 
     public $timestamps = false;
 
     // sets relationship between members/users and research project
-    public function associates() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'user_research_project', 'research_project_id', 'user_id')->withPivot('role');
+
+    public function leaders() : BelongsToMany {
+        return $this->belongsToMany(User::class, 'user_research_project', 'research_project_id', 'user_id')->wherePivot('role', 'leader')->select('uid', 'first_name', 'last_name');
+    }
+
+    public function members() : BelongsToMany {
+        return $this->belongsToMany(User::class, 'user_research_project', 'research_project_id', 'user_id')->wherePivot('role', 'member')->select('uid', 'first_name', 'last_name');
     }
 
     // sets relationship between research project and internal contacts
     public function internalContacts() : BelongsToMany {
-        return $this->belongsToMany(User::class, 'research_project_contact', 'research_project_id', 'user_id');
+        return $this->belongsToMany(User::class, 'research_project_contact', 'research_project_id', 'user_id')->select('uid', 'first_name', 'last_name', 'email');
     }
 
     // sets relationship between research project and external contacts

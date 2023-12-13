@@ -35,6 +35,7 @@ class UserSeeder extends Seeder
                 'uid' => $data[0],
                 'first_name' => $data[1],
                 'last_name' => $data[2],
+                'email' => $data[3],
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);

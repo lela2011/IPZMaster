@@ -1,6 +1,11 @@
 <x-layout>
     <div class="ContentArea">
-        <x-back/>
+        <x-back>
+            <x-slot:route>
+                {{ route('home') }}
+            </x-slot:route>
+            Return to dashboard
+        </x-back>
         <x-flash-message/>
         <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('personal.update')}}">
             @csrf

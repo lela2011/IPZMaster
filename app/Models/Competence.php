@@ -12,6 +12,11 @@ class Competence extends Model
 
     protected $primaryKey = "competence";
     public $incrementing = false;
+    public $timestamps = false;
+
+    protected $fillable = [
+        'competence',
+    ];
 
     // sets relationship between user and competence
     public function users() : BelongsToMany {

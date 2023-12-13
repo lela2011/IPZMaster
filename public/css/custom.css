@@ -153,3 +153,26 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.quickaction {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    position: relative;
+}
+
+.delete:hover {
+    color: #f00; /* Color on hover */
+}
+
+.edit:hover {
+    color: green; /* Color on hover */
+}
+
+.divider {
+    width: 1px; /* Width of the divider */
+    background-color: #666666; /* Color of the divider */
+    margin: 0 10px; /* Adjust margin for spacing */
+}

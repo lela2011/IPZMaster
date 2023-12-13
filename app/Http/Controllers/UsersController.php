@@ -55,20 +55,12 @@ class UsersController extends Controller
         $user->save();
 
         // compare current database state and remove/insert research areas
-        $currentResearchAreas = $user->researchAreas()->pluck('id')->all();
         $newResearchAreas = $formData['research_areas'];
-        $insertResearchAreas = array_diff($newResearchAreas, $currentResearchAreas);
-        $removeResearchAreas = array_diff($currentResearchAreas, $newResearchAreas);
-        $user->researchAreas()->attach($insertResearchAreas);
-        $user->researchAreas()->detach($removeResearchAreas);
+        $user->researchAreas()->sync($newResearchAreas);
 
         // compare current databasae state and remove/insert transversal research priorities
-        $currentTransvResearchPrios = Auth::user()->transversalResearchPriorities()->pluck('id')->all();
         $newTransvResearchPrios = $formData['transv_research_prios'];
-        $insertTransvResearchPrios = array_diff($newTransvResearchPrios, $currentTransvResearchPrios);
-        $removeTransvResearchPrios = array_diff($currentTransvResearchPrios, $newTransvResearchPrios);
-        $user->transversalResearchPriorities()->attach($insertTransvResearchPrios);
-        $user->transversalResearchPriorities()->detach($removeTransvResearchPrios);
+        $user->transversalResearchPriorities()->sync($newTransvResearchPrios);
 
         return redirect()->back()->with('message', 'Personal data successfully updated.');
     }

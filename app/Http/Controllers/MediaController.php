@@ -6,6 +6,7 @@ use App\Http\Requests\MediaInfoRequest;
 use App\Models\Competence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class MediaController extends Controller
@@ -15,7 +16,6 @@ class MediaController extends Controller
      */
     public function index() : View
     {
-
         $userCompetences = Auth::user()->competences()->pluck('competence')->toArray();
         $allCompetences = Competence::all();
 
@@ -35,49 +35,13 @@ class MediaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(MediaInfoRequest $request)
     {
         $formdata = $request->validated();
 
-        $currentCompetences = Auth::user()->competences()->pluck('competence')->toArray();
         $newCompetences = $formdata['media_competences'];
-
-        $insert = array_diff($newCompetences, $currentCompetences);
-        $remove = array_diff($currentCompetences, $newCompetences);
 
         $userContact = [
             'media_mail' => in_array("mail", $formdata['contact_method'], true),
@@ -87,8 +51,7 @@ class MediaController extends Controller
 
         $user = Auth::user();
 
-        $user->competences()->attach($insert);
-        $user->competences()->detach($remove);
+        $user->competences()->sync($newCompetences);
 
         $user->fill($userContact);
         $user->save();
@@ -96,11 +59,24 @@ class MediaController extends Controller
         return redirect()->back()->with('message', 'Media competences successfully updated.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+    public function createCompetence(Request $request) {
+        // retrieves entered competence
+        $name = $request->input('competence');
+
+        try{
+            Competence::create([
+                'competence' => $name
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'competence' => $name
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false
+            ]);
+        }
     }
 }

@@ -1,4 +1,3 @@
-@php use Webpatser\Countries\Countries; @endphp
 <x-layout>
     <div class="ContentArea">
         <x-back>
@@ -10,7 +9,8 @@
         <x-flash-message/>
         <x-contact-modal/>
         <x-confirm-modal/>
-        <form class="Form js-Form" method="POST" id="Create Research Project" action="{{ route('research.store') }}">
+        <form class="Form js-Form" method="POST" id="Create Research Project" action="{{ route('research.update', ['research' => $researchProject->id]) }}">
+            @method('PUT')
             @csrf
             <div class="Form--header">
                 <h2 class="Form--title">
@@ -23,7 +23,7 @@
                     <label class="FormLabel" for="title">
                         English title
                     </label>
-                    <input class="Input" id="title" name="title" value="{{ old('title') }}">
+                    <input class="Input" id="title" name="title" value="{{ old('title', $researchProject->title) }}">
                     @error('title')
                     <p class="has-error" style="color: red">
                         <small>
@@ -37,7 +37,7 @@
                     <label class="FormLabel" for="title_original">
                         Original title
                     </label>
-                    <input class="Input" id="title_original" name="title_original" value="{{ old('title_original') }}">
+                    <input class="Input" id="title_original" name="title_original" value="{{ old('title_original', $researchProject->title_original) }}">
                     @error('title_original')
                     <p class="has-error" style="color: red">
                         <small>
@@ -56,7 +56,7 @@
                     </label>
                     <div class="Options js-OptionInput" id="contactOption">
                         <div class="OptionInput">
-                            <input type="checkbox" id="publish" value="1" name="publish" @if(old('publish')) checked @endif>
+                            <input type="checkbox" id="publish" value="1" name="publish" @if(old('publish', $researchProject->publish)) checked @endif>
                             <label for="publish">
                                 Publish
                             </label>
@@ -68,7 +68,7 @@
                     <label class="FormLabel" for="date_range">
                         Time Frame
                     </label>
-                    <input class="Input" type="text" id="date_range" name="date_range" value="{{ old('date_range') }}">
+                    <input class="Input" type="text" id="date_range" name="date_range" value="{{ old('date_range', \Carbon\Carbon::parse($researchProject->start_date)->format('l, jS F Y') . " to " . \Carbon\Carbon::parse($researchProject->end_date)->format('l, jS F Y')) }}">
                     @error('start_date')
                     <p class="has-error" style="color: red">
                         <small>
@@ -89,7 +89,7 @@
                     <label class="FormLabel" for="summary">
                         Summary
                     </label>
-                    <textarea class="Input wysiwyg" id="summary" name="summary">{{ old('summary') }}</textarea>
+                    <textarea class="Input wysiwyg" id="summary" name="summary">{{ old('summary', $researchProject->summary) }}</textarea>
                     @error('summary')
                     <p class="has-error" style="color: red">
                         <small>
@@ -103,7 +103,7 @@
                     <label class="FormLabel" for="summary_url">
                         Summary links
                     </label>
-                    @foreach(filterEmptyArray(old('summary_urls')) as $link)
+                    @foreach(filterEmptyArray(old('summary_urls', $researchProject->summary_urls)) as $link)
                         <input class="Input summary_url"
                                name="summary_urls[]"
                                id="summary_url_{{$loop->iteration}}"
@@ -119,7 +119,7 @@
                     @endforeach
                     <input class="Input summary_url"
                            name="summary_urls[]"
-                           id="summary_url_{{count(filterEmptyArray(old('summary_url'))) + 1}}"
+                           id="summary_url_{{count(filterEmptyArray(old('summary_url', $researchProject->summary_urls))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="summary_urls_description">
                         Type into the empty field to add a new summary link. / Remove a summary link by deleting the
@@ -138,7 +138,7 @@
                     <label class="FormLabel" for="zora_ids">
                         Zora IDs
                     </label>
-                    @foreach(filterEmptyArray(old('zora_ids')) as $id)
+                    @foreach(filterEmptyArray(old('zora_ids', $researchProject->zora_ids)) as $id)
                         <input class="Input zora_id"
                                name="zora_ids[]"
                                id="zora_id_{{$loop->iteration}}"
@@ -154,7 +154,7 @@
                     @endforeach
                     <input class="Input zora_id"
                            name="zora_ids[]"
-                           id="zora_id_{{count(filterEmptyArray(old('zora_ids'))) + 1}}"
+                           id="zora_id_{{count(filterEmptyArray(old('zora_ids', $researchProject->zora_ids))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="zora_ids_description">
                         Type into the empty field to add a new Zora id. / Remove a Zora id by deleting the text of a
@@ -174,7 +174,7 @@
                         Publication link
                     </label>
                     <input class="Input" id="publication_url" name="publication_url"
-                           value="{{ old('publication_url') }}">
+                           value="{{ old('publication_url', $researchProject->publication_url) }}">
                     @error('publication_url')
                     <p class="has-error" style="color: red">
                         <small>
@@ -188,7 +188,7 @@
                     <label class="FormLabel" for="project_urls">
                         Project links
                     </label>
-                    @foreach(filterEmptyArray(old('project_urls')) as $url)
+                    @foreach(filterEmptyArray(old('project_urls', $researchProject->project_urls)) as $url)
                         <input class="Input project_url"
                                name="project_urls[]"
                                id="project_url_{{$loop->iteration}}"
@@ -204,7 +204,7 @@
                     @endforeach
                     <input class="Input project_url"
                            name="project_urls[]"
-                           id="project_url_{{count(filterEmptyArray(old('project_urls'))) + 1}}"
+                           id="project_url_{{count(filterEmptyArray(old('project_urls', $researchProject->project_urls))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="project_urls_description">
                         Type into the empty field to add a new project url. / Remove a project url by deleting the text
@@ -223,7 +223,7 @@
                     <label class="FormLabel" for="funding">
                         Funding
                     </label>
-                    @foreach(filterEmptyArray(old('fundings')) as $funding)
+                    @foreach(filterEmptyArray(old('fundings', $researchProject->fundings)) as $funding)
                         <input class="Input funding"
                                name="fundings[]"
                                id="funding_{{$loop->iteration}}"
@@ -239,7 +239,7 @@
                     @endforeach
                     <input class="Input funding"
                            name="fundings[]"
-                           id="funding_{{count(filterEmptyArray(old('fundings'))) + 1}}"
+                           id="funding_{{count(filterEmptyArray(old('fundings', $researchProject->fundings))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="fundings_description">
                         Type into the empty field to add a new source of funding. / Remove a source of funding by
@@ -251,7 +251,7 @@
                     <label class="FormLabel" for="institution">
                         Collaborating institutions
                     </label>
-                    @foreach(filterEmptyArray(old('institutions')) as $institution)
+                    @foreach(filterEmptyArray(old('institutions', $researchProject->institutions)) as $institution)
                         <input class="Input institution"
                                name="institutions[]"
                                id="institution_{{$loop->iteration}}"
@@ -267,7 +267,7 @@
                     @endforeach
                     <input class="Input institution"
                            name="institutions[]"
-                           id="institution_{{count(filterEmptyArray(old('institutions'))) + 1}}"
+                           id="institution_{{count(filterEmptyArray(old('institutions', $researchProject->institutions))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="institutions_description">
                         Type into the empty field to add a new collaborating institution. / Remove a collaborating
@@ -279,7 +279,7 @@
                     <label class="FormLabel" for="country">
                         Collaborating countries
                     </label>
-                    @foreach(filterEmptyArray(old('countrys')) as $country)
+                    @foreach(filterEmptyArray(old('countrys', $researchProject->countrys)) as $country)
                         <input class="Input country"
                                name="countrys[]"
                                id="country_{{$loop->iteration}}"
@@ -295,7 +295,7 @@
                     @endforeach
                     <input class="Input country"
                            name="countrys[]"
-                           id="country_{{count(filterEmptyArray(old('countrys'))) + 1}}"
+                           id="country_{{count(filterEmptyArray(old('countrys', $researchProject->countrys))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="countrys_description">
                         Type into the empty field to add a new collaborating country. / Remove a collaborating country
@@ -313,7 +313,7 @@
                             multiple>
                         @foreach($ipzMembers as $ipzMember)
                             <option value="{{ $ipzMember->uid }}"
-                                    @if(collect(old('leaders'))->contains($ipzMember->uid) || Auth::user()->uid == $ipzMember->uid) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
+                                    @if(collect(old('leaders', $researchProject->leaders->pluck('uid')))->contains($ipzMember->uid)) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -328,7 +328,7 @@
                             multiple>
                         @foreach($ipzMembers as $ipzMember)
                             <option value="{{ $ipzMember->uid }}"
-                                    @if(collect(old('members'))->contains($ipzMember->uid)) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
+                                    @if(collect(old('members', $researchProject->members->pluck('uid')))->contains($ipzMember->uid)) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -343,11 +343,11 @@
                             multiple>
                         @foreach($ipzMembers as $ipzMember)
                             <option value="{{ $ipzMember->uid }}.int"
-                                    @if(collect(old('contacts'))->contains($ipzMember->uid . ".int")) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
+                                    @if(collect(old('contacts', array_map(function ($element) {return $element . '.int';}, $researchProject->internalContacts->pluck('uid')->toArray())))->contains($ipzMember->uid . ".int")) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
                         @endforeach
                         @foreach($externalContacts as $externalContact)
                             <option value="{{ $externalContact->id }}.ext"
-                                    @if(collect(old('contacts'))->contains($externalContact->id . ".ext")) selected @endif>{{ $externalContact->name }} (external)</option>
+                                @if(collect(old('contacts', array_map(function ($element) {return $element . '.ext';}, $researchProject->externalContacts->pluck('id')->toArray())))->contains($externalContact->id . ".ext")) selected @endif>{{ $externalContact->name }} (external)</option>
                         @endforeach
                     </select>
                     <p class="FormDescription" id="contacts-description">
@@ -360,7 +360,7 @@
                     <select class="multiselect" id="transv_research_prios" name="transv_research_prios[]" multiple>
                         @foreach($transvResearchPrios as $prio)
                             <option value="{{ $prio->id }}"
-                                    @if(collect(old('transv_research_prios'))->contains($prio->id)) selected @endif>{{ $prio->english }}</option>
+                                    @if(collect(old('transv_research_prios', $researchProject->transversalResearchPrios->pluck('id')))->contains($prio->id)) selected @endif>{{ $prio->english }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -370,7 +370,7 @@
                     <select class="multiselect" id="research_areas" name="research_areas[]" multiple>
                         @foreach($researchAreas as $area)
                             <option value="{{ $area->id }}"
-                                    @if(collect(old('research_areas'))->contains($area->id)) selected @endif>{{ $area->english }}</option>
+                                    @if(collect(old('research_areas', $researchProject->researchAreas->pluck('id')))->contains($area->id)) selected @endif>{{ $area->english }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -379,7 +379,7 @@
                     <label class="FormLabel" for="keywords">
                         Keywords
                     </label>
-                    @foreach(filterEmptyArray(old('keywords')) as $keyword)
+                    @foreach(filterEmptyArray(old('keywords', $researchProject->keywords)) as $keyword)
                         <input class="Input keyword"
                                name="keywords[]"
                                id="keyword_{{$loop->iteration}}"
@@ -395,7 +395,7 @@
                     @endforeach
                     <input class="Input keyword"
                            name="keywords[]"
-                           id="keyword_{{count(filterEmptyArray(old('keywords'))) + 1}}"
+                           id="keyword_{{count(filterEmptyArray(old('keywords', $researchProject->keywords))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="keywords_description">
                         Type into the empty field to add a new keyword. / Remove a keyword by deleting the text of a
@@ -411,7 +411,7 @@
                 </a>
                 <button class="Button color-primary size-large" type="submit">
                     <span class="Button--inner">
-                        Create
+                        Update
                     </span>
                 </button>
             </div>
@@ -474,7 +474,6 @@
                 for (const value of selectedValues) {
                     $('#leaders')[0].selectize.removeOption(value, true);
                 }
-
             },
             onItemRemove: function (value) {
                 var text = $('#members')[0].selectize.options[value].text;
@@ -664,31 +663,38 @@
         $('#leaders')[0].selectize.trigger('change');
         $('#members')[0].selectize.trigger('change');
 
+        // opens confirmation modal
         function showModal(message) {
             $('#confirmationMessage').text(message);
             $('#confirmModal').css('display', 'block');
         }
 
+        // closes confirmation modal and removes listeners
         function closeModal() {
             $('#confirmModal').css('display', 'none');
             $('#confirmButton').off('click');
             $('#cancelButton').off('click');
         }
 
+        // creates custom confirm modal by using promises
         function customConfirm(message) {
             return new Promise(function (resolve, reject) {
+                // opens modal
                 showModal(message);
 
+                // attaches listeners to buttons
                 $('#confirmButton').on('click', function () {
+                    // closes modal
                     closeModal();
+                    // returns confirmation
                     resolve(true);
-                    console.log('Remove confirmed');
                 });
 
                 $('#cancelButton').on('click', function () {
+                    // closes modal
                     closeModal();
+                    // returns rejection
                     resolve(false);
-                    console.log('Remove aborted');
                 });
             });
         }

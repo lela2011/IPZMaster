@@ -7,7 +7,7 @@
         </div>
         <h2 class="Header--department">
             <a class="Header--department--link" href="{{ route('home') }}">
-                Institut für Politikwissenschaft
+                Department of Political Science
             </a>
         </h2>
         @auth
