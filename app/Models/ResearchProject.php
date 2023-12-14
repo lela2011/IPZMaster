@@ -25,7 +25,8 @@ class ResearchProject extends Model
         'fundings',
         'institutions',
         'countrys',
-        'keywords'
+        'keywords',
+        'contributors'
     ];
 
     protected $casts = [
@@ -35,6 +36,7 @@ class ResearchProject extends Model
         'fundings' => 'array',
         'institutions' => 'array',
         'countrys' => 'array',
+        'contributors' => 'array',
         'keywords' => 'array',
         'publish' => 'bool'
     ];

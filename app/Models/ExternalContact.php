@@ -12,7 +12,12 @@ class ExternalContact extends Model
 
     protected $fillable = [
         'name',
-        'email'
+        'email',
+        'organization'
+    ];
+
+    protected $attributes = [
+        'organization' => 'external',
     ];
 
     public $timestamps = false;

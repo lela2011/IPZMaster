@@ -23,8 +23,6 @@ class ResearchController extends Controller
      */
     public function index(Request $request) : View
     {
-        //dd($request->all());
-
         // validates filter to reduce the danger of SQL injections
         $validator = Validator::make($request->all(), [
             'filter' => 'nullable|string'
@@ -75,7 +73,7 @@ class ResearchController extends Controller
         // retrieves all internal contacts
         $ipzMembers = User::select('uid', 'first_name', 'last_name')->get();
         // retrieves all external contacts
-        $externalContacts = ExternalContact::select('id', 'name')->get();
+        $externalContacts = ExternalContact::select('id', 'name', 'organization')->get();
 
         // displays create page
         return view('research.create', [
@@ -84,64 +82,6 @@ class ResearchController extends Controller
             'transvResearchPrios' => $transvResearchPrios,
             'researchAreas' => $researchAreas
         ]);
-    }
-
-    public function createContact(Request $request) {
-
-        // retrieves entered name into modal
-        $name = $request->input('name');
-        // retrieves entered email into modal
-        $email = $request->input('email');
-
-        // checks if name is empty
-        $emptyName = empty($name);
-        // checks if email is empty
-        $emptyMail = empty($email);
-        // checks if email is valid
-        $invalidMail = !filter_var($email, FILTER_VALIDATE_EMAIL);
-
-        // sets failure messages
-        if($emptyName || $emptyMail ||$invalidMail) {
-            $responseData = [
-                'isValid' => false,
-                'errorMessages' => [
-                    'emptyNameError' => $emptyName,
-                    'emptyMailError' => $emptyMail,
-                    'invalidMailError' => !$emptyMail && $invalidMail,
-                    'duplicateMailError' => false
-                ]
-            ];
-
-            // returns failure and errors
-            return response()->json($responseData);
-        }
-        try {
-            // tries to create external contact
-            $newContact = ExternalContact::create([
-                'name' => $name,
-                'email' => $email
-            ]);
-
-            // returns success as well as details
-            return response()->json([
-                'isValid' => true,
-                'contactId' => $newContact->id,
-                'contactName' => $newContact->name . " (external)"
-            ]);
-        } catch (UniqueConstraintViolationException) { // handles already existing email
-            // sets errors
-            $responseData = [
-                'isValid' => false,
-                'errorMessages' => [
-                    'emptyNameError' => false,
-                    'emptyMailError' => false,
-                    'invalidMailError' => false,
-                    'duplicateMailError' => true
-                ]
-            ];
-             // returns failure and errors
-            return response()->json($responseData);
-        }
     }
 
     /**
@@ -215,7 +155,7 @@ class ResearchController extends Controller
         // retrieves all internal contacts
         $ipzMembers = User::select('uid', 'first_name', 'last_name')->get();
         // retrieves all external contacts
-        $externalContacts = ExternalContact::select('id', 'name')->get();
+        $externalContacts = ExternalContact::select('id', 'name', 'organization')->get();
         // loads all relations
         $research->load('leaders', 'members', 'internalContacts', 'externalContacts', 'researchAreas', 'transversalResearchPrios');
 

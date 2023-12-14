@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Redirect;
@@ -42,9 +43,6 @@ Route::resource('research', '\App\Http\Controllers\ResearchController')
     })
     ->middleware('auth');
 
-// Post request to create external contact
-Route::post('/research/create-contact', [ResearchController::class, 'createContact'])->middleware('auth')->name('contact.create');
-
 // Display current media competence preferences
 Route::get('/media', [MediaController::class, 'index'])->middleware('auth')->name('media');
 
@@ -53,3 +51,13 @@ Route::post('/media', [MediaController::class, 'update'])->middleware('auth')->n
 
 // Create new media competence
 Route::post('/media/create-competence', [MediaController::class, 'createCompetence'])->middleware('auth')->name('competence.create');
+
+Route::resource('externalContact', '\App\Http\Controllers\ExternalContactController')
+    ->missing(function () {
+        return Redirect::route('externalContact.index');
+    })
+    ->except(['show'])
+    ->middleware('auth');
+
+// Post request to create external contact
+Route::post('/externalContact/createJSON', [ExternalContactController::class, 'createJSON'])->middleware('auth')->name('externalContact.createJSON');

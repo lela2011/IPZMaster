@@ -73,7 +73,8 @@ return [
                 'sync_attributes' => [
                     'uid' => 'uid',
                     'first_name' => 'givenName',
-                    'last_name' => 'sn'
+                    'last_name' => 'sn',
+                    'email' => 'mail'
                 ],
                 'sync_existing' => [
                     'uid' => 'uid'

@@ -305,7 +305,7 @@
                 <!-- Project leaders -->
                 <div class="FormInput">
                     <label class="FormLabel" for="leaders">
-                        Project leaders
+                        Project managers
                     </label>
                     <select class="multiselect"
                             id="leaders"
@@ -316,6 +316,16 @@
                                     @if(collect(old('leaders', $researchProject->leaders->pluck('uid')))->contains($ipzMember->uid)) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
                         @endforeach
                     </select>
+                    <p class="FormDescription">
+                        This field is solely for access management and affiliation purposes. The project will be listed under all selected leaders and members. It will however not be displayed on the detailed project page.
+                    </p>
+                    @error('leaders')
+                        <p class="has-error" style="color: red"">
+                            <small>
+                                {{$message}}
+                            </small>
+                        </p>
+                    @enderror
                 </div>
                 <!-- Project members -->
                 <div class="FormInput">
@@ -331,6 +341,9 @@
                                     @if(collect(old('members', $researchProject->members->pluck('uid')))->contains($ipzMember->uid)) selected @endif>{{$ipzMember->first_name}} {{$ipzMember->last_name}}</option>
                         @endforeach
                     </select>
+                    <p class="FormDescription">
+                        This field is solely for access management and affiliation purposes. The project will be listed under all selected leaders and members. It will however not be displayed on the detailed project page.
+                    </p>
                 </div>
                 <!-- Contacts -->
                 <div class="FormInput">
@@ -347,11 +360,39 @@
                         @endforeach
                         @foreach($externalContacts as $externalContact)
                             <option value="{{ $externalContact->id }}.ext"
-                                @if(collect(old('contacts', array_map(function ($element) {return $element . '.ext';}, $researchProject->externalContacts->pluck('id')->toArray())))->contains($externalContact->id . ".ext")) selected @endif>{{ $externalContact->name }} (external)</option>
+                                @if(collect(old('contacts', array_map(function ($element) {return $element . '.ext';}, $researchProject->externalContacts->pluck('id')->toArray())))->contains($externalContact->id . ".ext")) selected @endif>{{ $externalContact->name }} ({{ $externalContact->organization }})</option>
                         @endforeach
                     </select>
                     <p class="FormDescription" id="contacts-description">
                         Select contacts from the list or add additional contacts by typing their name and hitting enter.
+                    </p>
+                </div>
+                <!-- Keywords -->
+                <div class="FormInput">
+                    <label class="FormLabel" for="contributors">
+                        Contributors
+                    </label>
+                    @foreach(filterEmptyArray(old('contributors', $researchProject->contributors)) as $contributor)
+                        <input class="Input contributor"
+                               name="contributors[]"
+                               id="contributor_{{$loop->iteration}}"
+                               value="{{ $contributor }}"
+                               style="margin-bottom: 8px">
+                        @error('contributors.' . $loop->index)
+                        <p class="has-error" style="color: red" id="contributor_{{$loop->iteration}}_error">
+                            <small>
+                                {{$message}}
+                            </small>
+                        </p>
+                        @enderror
+                    @endforeach
+                    <input class="Input contributor"
+                           name="contributors[]"
+                           id="contributor_{{count(filterEmptyArray(old('contributors', $researchProject->contributors))) + 1}}"
+                           style="margin-bottom: 8px">
+                    <p class="FormDescription" id="contributors_description">
+                        Type into the empty field to add a new contributor. / Remove a keyword by deleting the text of a
+                        field and clicking out of it. / You may define roles by adding it in braces behind the name of the contributor. (e.g. John Doe (Project Leader))
                     </p>
                 </div>
                 <!-- Transversal research priority -->
@@ -496,9 +537,10 @@
                     $('#duplicateMailError').hide()
                     $('#validationSpinner').hide()
                     $('#contactName').val(input);
-                    $('#contactName').focus();
                     $('#contactMail').val('');
+                    $('#organization').val('');
                     $('#externalContactModal').css('display', 'block');
+                    $('#contactName').focus();
                 }
 
                 // closes modal when conacel button was clicked, sets focus back to input form
@@ -533,6 +575,7 @@
                     // Get the entered contact name and email
                     const contactName = $('#contactName').val();
                     const contactEmail = $('#contactMail').val();
+                    const organization = $('#organization').val();
 
                     // adds CSRF-Token to ajax request
                     $.ajaxSetup({
@@ -543,11 +586,12 @@
 
                     // makes ajax post request
                     $.ajax({
-                        url: "{{ route('contact.create') }}",
+                        url: "{{ route('externalContact.createJSON') }}",
                         method: 'POST',
                         data: {
                             name: contactName,
-                            email: contactEmail
+                            email: contactEmail,
+                            organization: organization
                         },
                         success: function (response) { // success message
                             // checks if provided contact details are valid
@@ -557,7 +601,7 @@
                                 // closes modal
                                 closeModalSuccess()
                                 // adds external contact to list
-                                callback({value: response.contactId + ".ext", text: response.contactName})
+                                callback({value: response.contactId + ".ext", text: response.contactName + " (" + response.organization + ")"})
                             } else {
                                 // sets empty name error
                                 if (response.errorMessages.emptyNameError) {
@@ -607,6 +651,7 @@
             'funding',
             'institution',
             'country',
+            'contributor',
             'keyword'
         ]
 

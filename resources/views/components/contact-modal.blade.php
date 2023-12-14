@@ -32,6 +32,10 @@
                     </small>
                 </p>
             </div>
+            <div class="FormInput">
+                <label class="FormLabel" for="organization">Organization:</label>
+                <input class="Input" type="text" id="organization" name="organization">
+            </div>
             <div class="FormButtons" style="margin-top: 2rem">
                 <div style="display: flex; align-items: center" id="validationSpinner">
                     <div class="loader"></div>

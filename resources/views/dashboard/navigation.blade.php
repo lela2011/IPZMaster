@@ -39,6 +39,18 @@
                         Competences, Preferred contact method, ...
                     </x-slot:details>
                 </x-navtile>
+                <x-navtile>
+                    External contacts
+                    <x-slot:route>
+                        {{ route('externalContact.index') }}
+                    </x-slot:route>
+                    <x-slot:image>
+                        external_contact.svg
+                    </x-slot:image>
+                    <x-slot:details>
+                        Create, manage and update external contacts
+                    </x-slot:details>
+                </x-navtile>
             </div>
         </div>
     </div>

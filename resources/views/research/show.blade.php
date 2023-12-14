@@ -36,6 +36,18 @@
                             </a><br>
                         @endforeach
                     @endif
+                    @if($research->contributors)
+                        <h4>
+                            Contributors:
+                        </h4>
+                        <ul>
+                            @foreach ($research->contributors as $contributor)
+                                <li>
+                                    {{ $contributor }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                     @if ($research->fundings)
                         <h4>
                             Sources of Funding:
@@ -121,7 +133,7 @@
                             </h5>
                             @foreach ($research->externalContacts as $contact)
                                 <a href="mailto:{{ $contact->email }}">
-                                    {{ $contact->name }}
+                                    {{ $contact->name }} ({{ $contact->organization }})
                                 </a>
                                 <br>
                             @endforeach

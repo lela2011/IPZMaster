@@ -5,9 +5,9 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to dashsboard
+                Return to dashboard
             </a>
-            <a href="{{ route('research.create') }}" class="Button color-border-white size-large">
+            <a href="{{ route('research.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 Create research project
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
@@ -33,14 +33,14 @@
                         @enderror
                     </div>
                 </form>
-                <div class="TextImage">
-                    <p class="TextImage--inner richtext">
+                <div class="TextImage TextImage--inner TextImage--content richtext">
+                    <p>
                         There are no research projects under the name "{{ $filter }}" yet. Consider creating a new research project.
                     </p>
                 </div>
             @else
-                <div class="TextImage">
-                    <p class="TextImage--inner richtext">
+                <div class="TextImage TextImage--inner TextImage--content richtext">
+                    <p>
                         You are not part of any research projects yet. Consider creating a new research project.
                     </p>
                 </div>
