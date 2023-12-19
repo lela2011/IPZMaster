@@ -82,6 +82,25 @@ class CompetenceController extends Controller
         return redirect()->route('competence.index')->with('message', 'Competence updated successfully');
     }
 
+    public function store(Request $request)
+    {
+        // validates input to reduce the danger of SQL injections
+        $formInput = $request->validate([
+            'competence' => 'required|string|unique:competences,name'
+        ],[
+            'competence.unique' => 'The competence already exists.',
+            'competence.required' => 'Please enter a competence.'
+        ]);
+
+        // creates new competence
+        Competence::create([
+            'name' => $request->input('competence')
+        ]);
+
+        // redirects to index page to display success message
+        return redirect()->route('competence.index')->with('message', 'Competence created successfully');
+    }
+
     public function destroy(Competence $competence)
     {
 

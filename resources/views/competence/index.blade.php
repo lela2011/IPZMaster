@@ -8,6 +8,29 @@
                 Return to dashboard
             </a>
         </div>
+        <form class="Form js-Form" method="POST" action="{{ route('competence.store') }}">
+            @csrf
+            <div class="FormInput">
+                <div style="display: flex">
+                    <input class="Input" name="competence" id="competence" value="{{ old('competence') }}" placeholder="Create a new competence">
+                    <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
+                    <span class="Button--inner">
+                        Create
+                    </span>
+                    </button>
+                </div>
+                @error('competence')
+                <p class="has-error" style="color: red">
+                    <small>
+                        {{$message}}
+                    </small>
+                </p>
+                @enderror
+            </div>
+        </form>
+        <div class="TextImage">
+            <div style="width: 100%; height: 1px; background-color:#666666"></div>
+        </div>
         @if ($competences->isEmpty())
             @if ($filter)
                 <form class="Form js-Form" method="GET" action="{{route('competence.index')}}">
