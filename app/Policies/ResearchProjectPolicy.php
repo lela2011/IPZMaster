@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\ResearchProject;
-use Illuminate\Support\Facades\Log;
 
 class ResearchProjectPolicy
 {
@@ -14,7 +13,9 @@ class ResearchProjectPolicy
      */
     public function edit(User $user, ResearchProject $researchProject): bool
     {
-        return $researchProject->leaders->contains($user);
+        $isAdmin = $user->adminLevel > 0;
+        $isLeader = $researchProject->leaders->contains($user);
+        return $isAdmin || $isLeader;
     }
 
     /**
@@ -22,7 +23,9 @@ class ResearchProjectPolicy
      */
     public function update(User $user, ResearchProject $researchProject): bool
     {
-        return $researchProject->leaders->contains($user);
+        $isAdmin = $user->adminLevel > 0;
+        $isLeader = $researchProject->leaders->contains($user);
+        return $isAdmin || $isLeader;
     }
 
     /**
@@ -30,6 +33,8 @@ class ResearchProjectPolicy
      */
     public function delete(User $user, ResearchProject $researchProject): bool
     {
-        return $researchProject->leaders->contains($user);
+        $isAdmin = $user->adminLevel > 0;
+        $isLeader = $researchProject->leaders->contains($user);
+        return $isAdmin || $isLeader;
     }
 }

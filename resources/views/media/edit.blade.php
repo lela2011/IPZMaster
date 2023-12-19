@@ -4,10 +4,11 @@
             <x-slot:route>
                 {{ route('home') }}
             </x-slot:route>
-            Return to dashboard
+            Return to media page
         </x-back>
         <x-flash-message/>
-        <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('media.update')}}">
+        <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('media.update', $user->uid)}}">
+            @method('PUT')
             @csrf
             <div class="FormInput" id="media-competences">
                 <label class="FormLabel">

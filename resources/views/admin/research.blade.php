@@ -3,23 +3,16 @@
         <x-confirm-modal/>
         <x-flash-message/>
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            @if (Auth::user()->adminLevel > 0)
-                <a href="{{ route('admin.research') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                    <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                    Return to list
-                </a>
-            @else
-                <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                    <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                    Return to dashboard
-                </a>
-            @endif
+            <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
+                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                Return to admin panel
+            </a>
             <a href="{{ route('research.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 Create research project
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
-        @if ($manageableProjects->isEmpty() && $memberProjects->isEmpty())
+        @if ($projects->isEmpty())
             @if ($filter)
                 <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('research.index')}}">
                     <div class="FormInput">
@@ -48,7 +41,7 @@
             @else
                 <div class="TextImage TextImage--inner TextImage--content richtext">
                     <p>
-                        You are not part of any research projects yet. Consider creating a new research project.
+                        There are no research projects yet. Consider creating a new research project.
                     </p>
                 </div>
             @endif
@@ -73,13 +66,10 @@
                 </div>
             </form>
         @endif
-        @if($manageableProjects->isNotEmpty())
-            <div class="TextImage">
-                <h2 class="TextImage--title  richtext">Manageable projects</h2>
-            </div>
+        @if($projects->isNotEmpty())
             <section class="ZoraPublications js-ZoraPublications">
                 <ul class="ZoraPublications--list" data-level="1">
-                    @foreach($manageableProjects as $project)
+                    @foreach($projects as $project)
                         <li>
                             <div class="ZoraCitation">
                                 <span class="ZoraCitation--author">
@@ -123,37 +113,6 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-            </section>
-        @endif
-        @if($memberProjects->isNotEmpty())
-            <div class="TextImage">
-                <h2 class="TextImage--title  richtext">View only projects</h2>
-            </div>
-            <section class="ZoraPublications js-ZoraPublications">
-                <ul class="ZoraPublications--list" data-level="1">
-                    @foreach($memberProjects as $project)
-                        <li>
-                            <div class="ZoraCitation">
-                                <span class="ZoraCitation--author">
-                                    {{ \Carbon\Carbon::parse($project->start_date)->format('l, jS F Y') }} until {{ \Carbon\Carbon::parse($project->end_date)->format('l, jS F Y') }}
-                                </span>
-                                <a class="Link size-small" href="{{ route('research.show', $project->id) }}">
-                                    {{ $project->title }}
-                                </a>
-                                @if ($project->researchAreas()->pluck('english'))
-                                    <span class="ZoraCitation--publication">
-                                        <b style="font-weight: bold;">Research Areas:</b> {{ $project->researchAreas()->pluck('english')->implode(', ') }}
-                                    </span>
-                                @endif
-                                @if ($project->transversalResearchPrios()->pluck('english'))
-                                    <span class="ZoraCitation--publication">
-                                        <b style="font-weight: bold;">Transversal Research Priorities:</b> {{ $project->transversalResearchPrios()->pluck('english')->implode(', ') }}
-                                    </span>
-                                @endif
                             </div>
                         </li>
                     @endforeach

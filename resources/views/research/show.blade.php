@@ -8,130 +8,130 @@
     <div class="ContentArea">
         <div class="TextImage">
             <h2 class="TextImage--title richtext">
-                {{ $research->title }}
+                {{ $researchProject->title }}
             </h2>
             <div class="TextImage--inner">
                 <div class="TextImage--text richtext">
-                    @if ($research->title_original)
+                    @if ($researchProject->title_original)
                         <h3>
-                            {{ $research->title_original }}
+                            {{ $researchProject->title_original }}
                         </h3>
                     @endif
                     <p>
-                        {{ \Carbon\Carbon::parse($research->start_date)->format('l, jS F Y') }} until {{ \Carbon\Carbon::parse($research->end_date)->format('l, jS F Y') }}
+                        {{ \Carbon\Carbon::parse($researchProject->start_date)->format('l, jS F Y') }} until {{ \Carbon\Carbon::parse($researchProject->end_date)->format('l, jS F Y') }}
                     </p>
-                    @if($research->summary)
+                    @if($researchProject->summary)
                         <h4>
                             Summary:
                         </h4>
-                        {!! $research->summary !!}
+                        {!! $researchProject->summary !!}
                     @endif
-                    @if($research->summary_urls)
+                    @if($researchProject->summary_urls)
                         <h4>
                             Summary Links:
                         </h4>
-                        @foreach ($research->summary_urls as $url)
+                        @foreach ($researchProject->summary_urls as $url)
                             <a href="{{ $url }}" target="_blank">
                                 {{ parse_url($url)['host'] }}
                             </a><br>
                         @endforeach
                     @endif
-                    @if($research->contributors)
+                    @if($researchProject->contributors)
                         <h4>
                             Contributors:
                         </h4>
                         <ul>
-                            @foreach ($research->contributors as $contributor)
+                            @foreach ($researchProject->contributors as $contributor)
                                 <li>
                                     {{ $contributor }}
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-                    @if ($research->fundings)
+                    @if ($researchProject->fundings)
                         <h4>
                             Sources of Funding:
                         </h4>
                         <ul>
-                            @foreach ($research->fundings as $funding)
+                            @foreach ($researchProject->fundings as $funding)
                                 <li>
                                     {{ $funding }}
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-                    @if ($research->institutions)
+                    @if ($researchProject->institutions)
                         <h4>
                             Collaborating institutions:
                         </h4>
                         <ul>
-                            @foreach ($research->institutions as $institution)
+                            @foreach ($researchProject->institutions as $institution)
                                 <li>
                                     {{ $institution }}
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-                    @if ($research->countrys)
+                    @if ($researchProject->countrys)
                         <h4>
                             Collaborating Countries:
                         </h4>
                         <ul>
-                            @foreach ($research->countrys as $country)
+                            @foreach ($researchProject->countrys as $country)
                                 <li>
                                     {{ $country }}
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-                    @if ($research->zora_ids)
+                    @if ($researchProject->zora_ids)
                         <h4>
                             ZORA:
                         </h4>
-                        @foreach ($research->zora_ids as $zora_id)
+                        @foreach ($researchProject->zora_ids as $zora_id)
                             <a href="https://www.zora.uzh.ch/id/eprint/{{ $zora_id }}" target="_blank">
                                 {{ $zora_id }}
                             </a><br>
                         @endforeach
                     @endif
-                    @if ($research->publication_url)
+                    @if ($researchProject->publication_url)
                         <h4>
                             Published in:
                         </h4>
-                        <a href="{{ $research->publication_url }}" target="_blank">
-                            {{ parse_url($research->publication_url)['host'] }}
+                        <a href="{{ $researchProject->publication_url }}" target="_blank">
+                            {{ parse_url($researchProject->publication_url)['host'] }}
                         </a>
                     @endif
-                    @if ($research->project_urls)
+                    @if ($researchProject->project_urls)
                         <h4>
                             External Resources:
                         </h4>
-                        @foreach ($research->project_urls as $url)
+                        @foreach ($researchProject->project_urls as $url)
                             <a href="{{ $url }}" target="_blank">
                                 {{ parse_url($url)['host'] }}
                             </a><br>
                         @endforeach
                     @endif
-                    @if($research->internalContacts->isNotEmpty() || $research->externalContacts->isNotEmpty())
+                    @if($researchProject->internalContacts->isNotEmpty() || $researchProject->externalContacts->isNotEmpty())
                         <h4>
                             Contacts:
                         </h4>
-                        @if($research->internalContacts->isNotEmpty())
+                        @if($researchProject->internalContacts->isNotEmpty())
                             <h5>
                                 Internal:
                             </h5>
-                            @foreach ($research->internalContacts as $contact)
+                            @foreach ($researchProject->internalContacts as $contact)
                                 <a href="mailto:{{ $contact->email }}" target="_blank">
                                     {{ $contact->first_name }} {{ $contact->last_name }}
                                 </a>
                                 <br>
                             @endforeach
                         @endif
-                        @if($research->externalContacts->isNotEmpty())
+                        @if($researchProject->externalContacts->isNotEmpty())
                             <h5>
                                 External:
                             </h5>
-                            @foreach ($research->externalContacts as $contact)
+                            @foreach ($researchProject->externalContacts as $contact)
                                 <a href="mailto:{{ $contact->email }}">
                                     {{ $contact->name }} ({{ $contact->organization }})
                                 </a>
@@ -139,36 +139,36 @@
                             @endforeach
                         @endif
                     @endif
-                    @if ($research->researchAreas->isNotEmpty())
+                    @if ($researchProject->researchAreas->isNotEmpty())
                         <h4>
                             Research Areas:
                         </h4>
                         <ul>
-                            @foreach ($research->researchAreas as $researchArea)
+                            @foreach ($researchProject->researchAreas as $researchArea)
                                 <li>
                                     {{ $researchArea->english }}
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-                    @if ($research->transversalResearchPrios->isNotEmpty())
+                    @if ($researchProject->transversalResearchPrios->isNotEmpty())
                         <h4>
                             Transversal Research Priorities:
                         </h4>
                         <ul>
-                            @foreach ($research->transversalResearchPrios as $prio)
+                            @foreach ($researchProject->transversalResearchPrios as $prio)
                                 <li>
                                     {{ $prio->english }}
                                 </li>
                             @endforeach
                         </ul>
                     @endif
-                    @if ($research->keywords)
+                    @if ($researchProject->keywords)
                         <h4>
                             Keywords:
                         </h4>
                         <ul>
-                            @foreach ($research->keywords as $keyword)
+                            @foreach ($researchProject->keywords as $keyword)
                                 <li>
                                     {{ $keyword }}
                                 </li>

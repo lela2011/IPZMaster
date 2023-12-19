@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,28 +33,35 @@ Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('aut
 // Post request to log out user. Only accessible when logged in
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Display personal data in form to be edited. Only accessible when logged in
-Route::get('/personal', [UsersController::class, 'show'])->middleware('auth')->name('personal');
-
-// Post request to update personal data in DB
-Route::post('/personal', [UsersController::class, 'update'])->middleware('auth')->name('personal.update');
+// All personal data routes
+Route::resource('personal', '\App\Http\Controllers\UserController')
+    ->parameter('personal', 'user')
+    ->missing(function () {
+        return Redirect::route('personal.show', Auth::user()->uid);
+    })
+    ->except(['index'])
+    ->middleware('auth');
 
 // All research routes
 Route::resource('research', '\App\Http\Controllers\ResearchController')
+    ->parameter('research', 'researchProject')
     ->missing(function () {
         return Redirect::route('research.index');
     })
     ->middleware('auth');
 
-// Display current media competence preferences
-Route::get('/media', [MediaController::class, 'index'])->middleware('auth')->name('media');
-
-// Submit media competences update
-Route::post('/media', [MediaController::class, 'update'])->middleware('auth')->name('media.update');
+// All media competence routes
+Route::resource('media', '\App\Http\Controllers\MediaController')
+    ->parameter('media', 'user')
+    ->missing(function () {
+        return Redirect::route('media.show', Auth::user()->uid);
+    })
+    ->middleware('auth');
 
 // Create new media competence
 Route::post('/media/create-competence', [MediaController::class, 'createCompetence'])->middleware('auth')->name('competence.create');
 
+// All contact routes
 Route::resource('externalContact', '\App\Http\Controllers\ExternalContactController')
     ->missing(function () {
         return Redirect::route('externalContact.index');
@@ -61,3 +71,14 @@ Route::resource('externalContact', '\App\Http\Controllers\ExternalContactControl
 
 // Post request to create external contact
 Route::post('/externalContact/createJSON', [ExternalContactController::class, 'createJSON'])->middleware('auth')->name('externalContact.createJSON');
+
+// All administration routes
+Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('admin');
+
+Route::get('/admin/personal', [AdminController::class, 'personal'])->name('admin.personal')->middleware('admin');
+
+Route::post('/admin/promote/{user}', [AdminController::class, 'promote'])->name('admin.promote')->middleware('admin');
+
+Route::post('/admin/demote/{user}', [AdminController::class, 'demote'])->name('admin.demote')->middleware('admin');
+
+Route::get('/admin/research', [AdminController::class, 'research'])->name('admin.research')->middleware('admin');

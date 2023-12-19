@@ -5,34 +5,48 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PersonalDataRequest;
 use App\Models\ResearchArea;
 use App\Models\TransversalReserachPrio;
-use App\Rules\OrcidValidation;
-use Faker\Provider\Person;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(User $user)
     {
+        $this->authorize('view', $user);
+
+        // load research areas and transversal research priorities
+        $user->load('researchAreas', 'transversalResearchPriorities');
+
+        // Display personal data
+        return view('user.show', compact('user'));
+    }
+
+    public function edit(User $user) {
+
+        $this->authorize('edit', $user);
+
         // retrieve all possible research areas from DB
         $researchAreaOptions = ResearchArea::all();
         // retrieve selected research areas form DB
-        $researchAreas = Auth::user()->researchAreas()->pluck('id')->all();
+        $researchAreas = $user->researchAreas()->pluck('id')->all();
 
         // retrieve all possible transversal reserach priorities from DB
         $transvResearchPrioOptions = TransversalReserachPrio::all();
         // retrieve selected research areas from DB
-        $transvResearchPrios = Auth::user()->transversalResearchPriorities()->pluck('id')->all();
+        $transvResearchPrios = $user->transversalResearchPriorities()->pluck('id')->all();
 
         // retrieve orcid from DB and convert to array
-        $orcid = explode('-', Auth::user()->orcid);
+        $orcid = explode('-', $user->orcid);
 
         // Display edit form
-        return view('user.show', [
+        return view('user.edit', [
+            'user' => $user,
             'researchAreaOptions' => $researchAreaOptions,
             'researchAreas' => $researchAreas,
             'transvResearchPrioOptions' => $transvResearchPrioOptions,
@@ -44,13 +58,16 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PersonalDataRequest $request)
+    public function update(PersonalDataRequest $request, string $id)
     {
         // retrieves validated form data
         $formData = collect($request->validated());
 
         // update user data and submit to DB
-        $user = Auth::user();
+        $user = User::findOrFail($id);
+
+        $this->authorize('view', $user);
+
         $user->fill($formData->except(['research_areas', 'transv_research_prios'])->toArray());
         $user->save();
 
@@ -62,6 +79,7 @@ class UsersController extends Controller
         $newTransvResearchPrios = $formData['transv_research_prios'];
         $user->transversalResearchPriorities()->sync($newTransvResearchPrios);
 
-        return redirect()->back()->with('message', 'Personal data successfully updated.');
+        // redirect to personal data page
+        return redirect()->route('personal.show', $id)->with('message', 'Personal data updated successfully');
     }
 }

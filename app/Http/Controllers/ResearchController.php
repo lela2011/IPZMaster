@@ -125,28 +125,32 @@ class ResearchController extends Controller
         $researchProject->externalContacts()->attach($extContacts);
 
         // redirects to index page to display success message
-        return redirect()->route('research.index')->with('message', 'Research project created successfully');
+        if(Auth::user()->adminLevel > 0) {
+            return redirect()->route('admin.research')->with('message', 'Research project created successfully');
+        } else {
+            return redirect()->route('research.index')->with('message', 'Research project created successfully');
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ResearchProject $research)
+    public function show(ResearchProject $researchProject)
     {
         // loads all realtions
-        $research->load('internalContacts', 'externalContacts', 'researchAreas', 'transversalResearchPrios');
+        $researchProject->load('internalContacts', 'externalContacts', 'researchAreas', 'transversalResearchPrios');
 
         // displays show page
-        return view('research.show', compact('research'));
+        return view('research.show', compact('researchProject'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ResearchProject $research)
+    public function edit(ResearchProject $researchProject)
     {
         // checks if user is authorized to edit the research project
-        $this->authorize('edit', $research);
+        $this->authorize('edit', $researchProject);
 
         // retrieves all transversal research priorities
         $transvResearchPrios = TransversalReserachPrio::select('id', 'english')->get();
@@ -157,11 +161,11 @@ class ResearchController extends Controller
         // retrieves all external contacts
         $externalContacts = ExternalContact::select('id', 'name', 'organization')->get();
         // loads all relations
-        $research->load('leaders', 'members', 'internalContacts', 'externalContacts', 'researchAreas', 'transversalResearchPrios');
+        $researchProject->load('leaders', 'members', 'internalContacts', 'externalContacts', 'researchAreas', 'transversalResearchPrios');
 
         // displays edit page
         return view('research.edit', [
-            'researchProject' => $research,
+            'researchProject' => $researchProject,
             'ipzMembers' => $ipzMembers,
             'externalContacts' => $externalContacts,
             'transvResearchPrios' => $transvResearchPrios,
@@ -175,7 +179,7 @@ class ResearchController extends Controller
     public function update(ResearchRequest $request, string $id)
     {
         // retrieves research project
-        $researchProject = ResearchProject::find($id);
+        $researchProject = ResearchProject::findOrFail($id);
 
         // checks if user is authorized to update the research project
         $this->authorize('update', $researchProject);
@@ -217,20 +221,28 @@ class ResearchController extends Controller
         $researchProject->save();
 
         // redirects to index page to display success message
-        return redirect()->route('research.index')->with('message', 'Research project updated successfully');
+        if(Auth::user()->adminLevel > 1) {
+            return redirect()->route('admin.research')->with('message', 'Research project updated successfully');
+        } else {
+            return redirect()->route('research.index')->with('message', 'Research project updated successfully');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ResearchProject $research)
+    public function destroy(ResearchProject $researchProject)
     {
         // checks if user is authorized to delete the research project
-        $this->authorize('delete', $research);
+        $this->authorize('delete', $researchProject);
         // deletes the research Project
-        $research->delete();
+        $researchProject->delete();
 
         // redirects to index page to display success message
-        return redirect()->route('research.index')->with('message', 'Research project deleted successfully');
+        if(Auth::user()->adminLevel > 1) {
+            return redirect()->route('admin.research')->with('message', 'Research project deleted successfully');
+        } else {
+            return redirect()->route('research.index')->with('message', 'Research project deleted successfully');
+        }
     }
 }

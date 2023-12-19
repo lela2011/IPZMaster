@@ -30,7 +30,8 @@ class User extends Authenticatable implements LdapAuthenticatable
         'research_focus_german',
         'media_mail',
         'media_phone',
-        'media_secretariat'
+        'media_secretariat',
+        'adminLevel'
     ];
 
     /**

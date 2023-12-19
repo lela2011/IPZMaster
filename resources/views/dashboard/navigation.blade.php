@@ -1,12 +1,25 @@
-
 <div class="TextImage">
     <div class="TextImage--inner">
         <div class="TextImage--content">
             <div class="flex-container">
+                @if (Auth::user()->adminLevel > 0)
+                    <x-navtile>
+                        Admin Panel
+                        <x-slot:route>
+                            {{ route('admin.dashboard') }}
+                        </x-slot:route>
+                        <x-slot:image>
+                            admin.svg
+                        </x-slot:image>
+                        <x-slot:details>
+                            Manage all Users, Research Projects, ...
+                        </x-slot:details>
+                    </x-navtile>
+                @endif
                 <x-navtile>
                     Personal data
                     <x-slot:route>
-                        {{ route('personal') }}
+                        {{ route('personal.show', Auth::user()->uid) }}
                     </x-slot:route>
                     <x-slot:image>
                         personal_data.svg
@@ -30,7 +43,7 @@
                 <x-navtile>
                     Press information
                     <x-slot:route>
-                        {{ route('media') }}
+                        {{ route('media.show', Auth::user()->uid) }}
                     </x-slot:route>
                     <x-slot:image>
                         press_information.svg

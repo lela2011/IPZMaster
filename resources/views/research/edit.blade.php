@@ -9,7 +9,7 @@
         <x-flash-message/>
         <x-contact-modal/>
         <x-confirm-modal/>
-        <form class="Form js-Form" method="POST" id="Create Research Project" action="{{ route('research.update', ['research' => $researchProject->id]) }}">
+        <form class="Form js-Form" method="POST" id="Create Research Project" action="{{ route('research.update', $researchProject->id) }}">
             @method('PUT')
             @csrf
             <div class="Form--header">
