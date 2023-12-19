@@ -34,6 +34,18 @@
                                 Creating, managing and updating completed and ongoing research projects
                             </x-slot:details>
                         </x-navtile>
+                        <x-navtile>
+                            Press information
+                            <x-slot:route>
+                                {{ route('admin.media') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                press_information.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Competences and Preferred contact method
+                            </x-slot:details>
+                        </x-navtile>
                     </div>
                 </div>
             </div>

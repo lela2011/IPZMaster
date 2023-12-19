@@ -49,7 +49,7 @@
                         press_information.svg
                     </x-slot:image>
                     <x-slot:details>
-                        Competences, Preferred contact method, ...
+                        Competences and Preferred contact method
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
@@ -59,6 +59,18 @@
                     </x-slot:route>
                     <x-slot:image>
                         external_contact.svg
+                    </x-slot:image>
+                    <x-slot:details>
+                        Create, manage and update external contacts
+                    </x-slot:details>
+                </x-navtile>
+                <x-navtile>
+                    Competences
+                    <x-slot:route>
+                        {{ route('competence.index') }}
+                    </x-slot:route>
+                    <x-slot:image>
+                        competences.svg
                     </x-slot:image>
                     <x-slot:details>
                         Create, manage and update external contacts

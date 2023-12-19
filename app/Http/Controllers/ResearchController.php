@@ -125,7 +125,7 @@ class ResearchController extends Controller
         $researchProject->externalContacts()->attach($extContacts);
 
         // redirects to index page to display success message
-        if(Auth::user()->adminLevel > 0) {
+        if($request->session()->get('mode', 'user') == 'admin') {
             return redirect()->route('admin.research')->with('message', 'Research project created successfully');
         } else {
             return redirect()->route('research.index')->with('message', 'Research project created successfully');
@@ -221,7 +221,7 @@ class ResearchController extends Controller
         $researchProject->save();
 
         // redirects to index page to display success message
-        if(Auth::user()->adminLevel > 1) {
+        if($request->session()->get('mode', 'user') == 'admin') {
             return redirect()->route('admin.research')->with('message', 'Research project updated successfully');
         } else {
             return redirect()->route('research.index')->with('message', 'Research project updated successfully');
@@ -239,7 +239,7 @@ class ResearchController extends Controller
         $researchProject->delete();
 
         // redirects to index page to display success message
-        if(Auth::user()->adminLevel > 1) {
+        if(request()->session()->get('mode', 'user') == 'admin') {
             return redirect()->route('admin.research')->with('message', 'Research project deleted successfully');
         } else {
             return redirect()->route('research.index')->with('message', 'Research project deleted successfully');

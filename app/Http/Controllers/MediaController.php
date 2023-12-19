@@ -23,7 +23,7 @@ class MediaController extends Controller
     public function edit(User $user) : View {
         $this->authorize('edit', $user);
 
-        $userCompetences = $user->competences()->pluck('competence')->toArray();
+        $userCompetences = $user->competences()->pluck('name')->toArray();
         $allCompetences = Competence::all();
 
         $selectedContact = [
@@ -67,26 +67,5 @@ class MediaController extends Controller
         $user->save();
 
         return redirect()->route('media.show', $user->uid)->with('message', 'Media competences successfully updated.');
-    }
-
-    public function createCompetence(Request $request) {
-        // retrieves entered competence
-        $name = $request->input('competence');
-
-        try{
-            Competence::create([
-                'competence' => $name
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'competence' => $name
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false
-            ]);
-        }
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\ResearchController;
@@ -58,9 +59,6 @@ Route::resource('media', '\App\Http\Controllers\MediaController')
     })
     ->middleware('auth');
 
-// Create new media competence
-Route::post('/media/create-competence', [MediaController::class, 'createCompetence'])->middleware('auth')->name('competence.create');
-
 // All contact routes
 Route::resource('externalContact', '\App\Http\Controllers\ExternalContactController')
     ->missing(function () {
@@ -72,6 +70,17 @@ Route::resource('externalContact', '\App\Http\Controllers\ExternalContactControl
 // Post request to create external contact
 Route::post('/externalContact/createJSON', [ExternalContactController::class, 'createJSON'])->middleware('auth')->name('externalContact.createJSON');
 
+// All competence routes
+Route::resource('competence', '\App\Http\Controllers\CompetenceController')
+    ->missing(function () {
+        return Redirect::route('competence.index');
+    })
+    ->except(['show', 'create', 'edit'])
+    ->middleware('auth');
+
+// Create new media competence
+Route::post('/competence/createJSON', [CompetenceController::class, 'createJSON'])->middleware('auth')->name('competence.createJSON');
+
 // All administration routes
 Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('admin');
 
@@ -82,3 +91,5 @@ Route::post('/admin/promote/{user}', [AdminController::class, 'promote'])->name(
 Route::post('/admin/demote/{user}', [AdminController::class, 'demote'])->name('admin.demote')->middleware('admin');
 
 Route::get('/admin/research', [AdminController::class, 'research'])->name('admin.research')->middleware('admin');
+
+Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media')->middleware('admin');

@@ -1,15 +1,24 @@
 @php use Webpatser\Countries\Countries; @endphp
 <x-layout>
+    <x-contact-modal/>
+    <x-confirm-modal/>
     <div class="ContentArea">
-        <x-back>
-            <x-slot:route>
-                {{ route('research.index') }}
-            </x-slot:route>
-            Return to list
-        </x-back>
+        @if (request()->session()->get('mode', 'user') == 'admin')
+            <x-back>
+                <x-slot:route>
+                    {{ route('admin.research') }}
+                </x-slot:route>
+                Return to list
+            </x-back>
+        @else
+            <x-back>
+                <x-slot:route>
+                    {{ route('research.index') }}
+                </x-slot:route>
+                Return to list
+            </x-back>
+        @endif
         <x-flash-message/>
-        <x-contact-modal/>
-        <x-confirm-modal/>
         <form class="Form js-Form" method="POST" id="Create Research Project" action="{{ route('research.store') }}">
             @csrf
             <div class="Form--header">
@@ -445,7 +454,7 @@
                 </div>
             </div>
             <div class="FormButtons">
-                <a href="{{route('research.index')}}" class="Button color-border-white size-large">
+                <a href="@if(request()->session()->get('mode', 'user') == 'admin') {{route('admin.research')}} @else {{route('research.index')}} @endif" class="Button color-border-white size-large">
                     <span class="Button--inner">
                         Cancel
                     </span>

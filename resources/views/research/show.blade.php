@@ -1,11 +1,20 @@
 <x-layout>
-    <x-back>
-        <x-slot:route>
-            {{ route('research.index') }}
-        </x-slot:route>
-        Return to list
-    </x-back>
     <div class="ContentArea">
+        @if (request()->session()->get('mode', 'user') == 'admin')
+            <x-back>
+                <x-slot:route>
+                    {{ route('admin.research') }}
+                </x-slot:route>
+                Return to list
+            </x-back>
+        @else
+            <x-back>
+                <x-slot:route>
+                    {{ route('research.index') }}
+                </x-slot:route>
+                Return to list
+            </x-back>
+        @endif
         <div class="TextImage">
             <h2 class="TextImage--title richtext">
                 {{ $researchProject->title }}

@@ -1,9 +1,9 @@
 <x-layout>
+    <x-confirm-modal/>
     <div class="ContentArea">
-        <x-confirm-modal/>
         <x-flash-message/>
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            @if (Auth::user()->adminLevel > 0)
+            @if (request()->session()->get('mode', 'user') == 'admin')
                 <a href="{{ route('admin.research') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                     <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
                     Return to list

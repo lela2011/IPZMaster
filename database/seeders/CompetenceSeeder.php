@@ -19,7 +19,7 @@ class CompetenceSeeder extends Seeder
             while (($line = fgets($file)) !== false) {
                 try {
                     DB::table('competences')->insert([
-                        'competence' => str_replace(array("\r", "\n"), "", $line)
+                        'name' => str_replace(array("\r", "\n"), "", $line)
                     ]);
                 } catch (UniqueConstraintViolationException) {
                     continue;

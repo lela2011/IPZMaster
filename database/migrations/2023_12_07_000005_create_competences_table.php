@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('competences', function (Blueprint $table) {
-            $table->string('competence')->primary();
+            $table->id();
+            $table->string('name')->unique();
         });
     }
 

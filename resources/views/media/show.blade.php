@@ -1,23 +1,23 @@
 <x-layout>
-    <x-flash-message />
-    <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-        @if (Auth::user()->adminLevel > 0)
-            <a href="{{ route('admin.personal') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to list
-            </a>
-        @else
-            <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to dashboard
-            </a>
-        @endif
-        <a href="{{ route('media.edit', $user->uid) }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-            Edit media information
-            <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
-        </a>
-    </div>
     <div class="ContentArea">
+        <x-flash-message />
+        <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            @if (request()->session()->get('mode', 'user') == 'admin')
+                <a href="{{ route('admin.media') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
+                    <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                    Return to list
+                </a>
+            @else
+                <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
+                    <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                    Return to dashboard
+                </a>
+            @endif
+            <a href="{{ route('media.edit', $user->uid) }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
+                Edit media information
+                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+            </a>
+        </div>
         <div class="TextImage">
             <h2 class="TextImage--title richtext">
                 {{ $user->first_name }} {{ $user->last_name }}
@@ -32,7 +32,7 @@
                             <ul>
                                 @foreach ($user->competences as $competence)
                                     <li>
-                                        {{ $competence->competence }}
+                                        {{ $competence->name }}
                                     </li>
                                 @endforeach
                             </ul>

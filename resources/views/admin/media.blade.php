@@ -9,7 +9,7 @@
         </div>
         @if ($users->isEmpty())
             @if ($filter)
-                <form class="Form js-Form" method="GET" action="{{route('admin.personal')}}">
+                <form class="Form js-Form" method="GET" action="{{route('admin.media')}}">
                     <div class="FormInput">
                         <div style="display: flex">
                             <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter personal by name">
@@ -41,7 +41,7 @@
                 </div>
             @endif
         @else
-        <form class="Form js-Form" method="GET" action="{{route('admin.personal')}}">
+        <form class="Form js-Form" method="GET" action="{{route('admin.media')}}">
             <div class="FormInput">
                 <div style="display: flex">
                     <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter personal by name">
@@ -65,46 +65,14 @@
             <div class="TextImage">
                 <div class="contactGrid">
                     @foreach ($users as $user)
-                        <a href="{{ route('personal.show', $user->uid) }}" class="contactGridItem">
-                            <div style="display: flex; white-space: nowrap; flex: 1; justify-content: space-between">
-                                <div>
-                                    @if($user->adminLevel > 0)
-                                        <span class="LinkList--text">
-                                            Admin, Level: {{ $user->adminLevel }}
-                                        </span>
-                                        <br>
-                                    @endif
-                                    <span class="LinkList--text" style="font-weight: bold;">
-                                        {{ $user->first_name }} {{ $user->last_name }}
-                                    </span>
-                                    <br>
-                                    <span class="LinkList--text">
-                                        {{ $user->email }}
-                                    </span>
-                                </div>
-                                @if(Auth::user()->adminLevel > 1)
-                                    @if ($user->adminLevel == 0)
-                                        <form style="align-self: center" method="POST" action="{{ route('admin.promote', $user->uid) }}">
-                                            @csrf
-                                            <button style="display: flex;" title="Click to promote user to admin" type="submit">
-                                                <span class="material-icons" style="font-size: 36px;">
-                                                    key
-                                                </span>
-                                            </button>
-                                        </form>
-                                    @endif
-                                    @if($user->adminLevel == 1)
-                                        <form style="align-self: center" method="POST" action="{{ route('admin.demote', $user->uid) }}">
-                                            @csrf
-                                            <button style="display: flex;" title="Click to promote user to admin" type="submit">
-                                                <span class="material-icons" style="font-size: 36px;">
-                                                    key_off
-                                                </span>
-                                            </button>
-                                        </form>
-                                    @endif
-                                @endif
-                            </div>
+                        <a href="{{ route('media.show', $user->uid) }}" class="contactGridItem">
+                            <span class="LinkList--text" style="font-weight: bold;">
+                                {{ $user->first_name }} {{ $user->last_name }}
+                            </span>
+                            <br>
+                            <span class="LinkList--text">
+                                {{ $user->email }}
+                            </span>
                         </a>
                     @endforeach
                 </div>

@@ -10,12 +10,10 @@ class Competence extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = "competence";
-    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
-        'competence',
+        'name',
     ];
 
     // sets relationship between user and competence

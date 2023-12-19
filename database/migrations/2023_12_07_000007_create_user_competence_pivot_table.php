@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_competence', function (Blueprint $table) {
             $table->string('user_id');
-            $table->string('competence_id');
+            $table->unsignedBigInteger('competence_id');
 
             $table->foreign('user_id')->references('uid')->on('users')->onDelete('cascade');
-            $table->foreign('competence_id')->references('competence')->on('competences')->onDelete('cascade');
+            $table->foreign('competence_id')->references('id')->on('competences')->onDelete('cascade');
 
             $table->primary(['user_id', 'competence_id']);
         });

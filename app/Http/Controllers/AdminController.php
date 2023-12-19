@@ -14,8 +14,9 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
+        $request->session()->put('mode', 'admin');
         return view('admin.dashboard');
     }
 
@@ -110,6 +111,38 @@ class AdminController extends Controller
         // displays list page
         return view('admin.research', [
             'projects' => $projects,
+            'filter' => $request->input('filter')
+        ]);
+    }
+
+    public function media(Request $request) : View {
+
+        // validates filter to reduce the danger of SQL injections
+        $validator = Validator::make($request->all(), [
+            'filter' => 'nullable|string'
+        ]);
+
+        // checks if validation failed
+        if ($validator->fails()) {
+            // redirects to index page to display error message
+            return redirect()->route('user.index')->withErrors($validator)->withInput();
+        }
+
+        $userQuery = User::query();
+
+        if($request->has('filter')) {
+            // prepares filter value
+            $filterValue = "%" . $request->input('filter') . "%";
+            // applies filter to query
+            $userQuery->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["$filterValue"]);
+        }
+
+        // gets all external contacts from DB
+        $users = $userQuery->get();
+
+        // returns index view with external contacts
+        return view('admin.media', [
+            'users' => $users,
             'filter' => $request->input('filter')
         ]);
     }

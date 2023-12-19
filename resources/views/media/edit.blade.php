@@ -2,7 +2,7 @@
     <div class="ContentArea">
         <x-back>
             <x-slot:route>
-                {{ route('home') }}
+                {{ route('media.show', $user->uid) }}
             </x-slot:route>
             Return to media page
         </x-back>
@@ -16,7 +16,7 @@
                 </label>
                 <select class="multiselect" name="media_competences[]" id="media_competences" multiple>
                     @foreach($allCompetences as $competence)
-                        <option value="{{$competence->competence}}" @if (collect(old('media_competences', $userCompetences))->contains($competence->competence)) selected @endif>{{$competence->competence}}</option>
+                        <option value="{{$competence->id}}" @if (collect(old('media_competences', $userCompetences))->contains($competence->id)) selected @endif>{{$competence->name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="FormButtons">
-                <a href="{{route('home')}}" class="Button color-border-white size-large">
+                <a href="{{route('media.show', $user->uid)}}" class="Button color-border-white size-large">
                     <span class="Button--inner">
                         Cancel
                     </span>
@@ -82,7 +82,7 @@
                 });
 
                 $.ajax({
-                    url: "{{ route('competence.create') }}",
+                    url: "{{ route('competence.createJSON') }}",
                     method: "POST",
                     data: {
                         competence: input

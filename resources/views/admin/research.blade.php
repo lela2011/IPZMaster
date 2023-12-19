@@ -1,6 +1,6 @@
 <x-layout>
+    <x-confirm-modal/>
     <div class="ContentArea">
-        <x-confirm-modal/>
         <x-flash-message/>
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
