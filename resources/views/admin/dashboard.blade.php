@@ -46,6 +46,18 @@
                                 Competences and Preferred contact method
                             </x-slot:details>
                         </x-navtile>
+                        <x-navtile>
+                            Files
+                            <x-slot:route>
+                                {{ route('file.index') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                file.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Create, manage and update files
+                            </x-slot:details>
+                        </x-navtile>
                     </div>
                 </div>
             </div>

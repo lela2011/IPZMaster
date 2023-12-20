@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
@@ -93,3 +94,9 @@ Route::post('/admin/demote/{user}', [AdminController::class, 'demote'])->name('a
 Route::get('/admin/research', [AdminController::class, 'research'])->name('admin.research')->middleware('admin');
 
 Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media')->middleware('admin');
+
+Route::get('file', [FileController::class, 'index'])->name('file.index')->middleware('auth');
+
+Route::post('file/upload', [FileController::class, 'upload'])->name('file.upload')->middleware('auth');
+
+Route::delete('file/{file}', [FileController::class, 'destroy'])->name('file.destroy')->middleware('auth');
