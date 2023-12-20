@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Ldap\User;
+use App\Models\User;
 use App\Models\File;
 use Illuminate\Auth\Access\Response;
 
