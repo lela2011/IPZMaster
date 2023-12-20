@@ -19,6 +19,7 @@
                         <option value="{{$competence->id}}" @if (collect(old('media_competences', $userCompetences))->contains($competence->id)) selected @endif>{{$competence->name}}</option>
                     @endforeach
                 </select>
+                <p id="competence_error" class="has-error" style="color: red; display: none;"></p>
             </div>
             <div class="FormInput">
                 <label class="FormLabel" for="contactOption">
@@ -89,7 +90,12 @@
                     },
                     success: function (response) {
                         if (response.success) {
+                            $('#competence_error').hide();
                             callback({value: response.competence, text: response.competence});
+                        } else {
+                            $('#competence_error').html('<small>' + response.error + '</small>');
+                            $('#competence_error').show();
+                            callback({});
                         }
                     },
                     error: function (err) {

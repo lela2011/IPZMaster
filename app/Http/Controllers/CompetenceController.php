@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Competence;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class CompetenceController extends Controller
@@ -46,7 +48,7 @@ class CompetenceController extends Controller
 
         try{
             Competence::create([
-                'competence' => $name
+                'name' => $name
             ]);
 
             return response()->json([
@@ -54,9 +56,15 @@ class CompetenceController extends Controller
                 'competence' => $name
             ]);
 
-        } catch (\Exception $e) {
+        } catch(UniqueConstraintViolationException) {
             return response()->json([
-                'success' => false
+                'success' => false,
+                'error' => 'The competence already exists in the list'
+            ]);
+        } catch (\Exception) {
+            return response()->json([
+                'success' => false,
+                'error' => 'The competence could not be created. Please try again.'
             ]);
         }
     }
