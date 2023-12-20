@@ -147,7 +147,7 @@ class ExternalContactController extends Controller
         ExternalContact::create($formData);
 
         // redirects to index page with success message
-        return redirect()->route('externalContact.index')->with('message', 'External contact created successfully');
+        return redirect()->route('externalContact.index')->with('message', 'External Contact created successfully');
     }
 
     /**
@@ -183,7 +183,7 @@ class ExternalContactController extends Controller
         $externalContact->update($formData);
 
         // redirects to index page with success message
-        return redirect()->route('externalContact.index')->with('message', 'External contact updated successfully.');
+        return redirect()->route('externalContact.index')->with('message', 'External Contact updated successfully.');
     }
 
     /**
@@ -203,6 +203,6 @@ class ExternalContactController extends Controller
         $externalContact->delete();
 
         // redirects to index page with success message
-        return redirect()->route('externalContact.index')->with('message', 'External contact deleted successfully.');
+        return redirect()->route('externalContact.index')->with('message', 'External Contact deleted successfully.');
     }
 }

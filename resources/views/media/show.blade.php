@@ -5,16 +5,16 @@
             @if (request()->session()->get('mode', 'user') == 'admin')
                 <a href="{{ route('admin.media') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                     <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                    Return to list
+                    Return to List
                 </a>
             @else
                 <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                     <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                    Return to dashboard
+                    Return to Dashboard
                 </a>
             @endif
             <a href="{{ route('media.edit', $user->uid) }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                Edit media information
+                Edit Press Information
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
@@ -63,7 +63,7 @@
                 @else
                     <div class="TextImage--text richtext">
                         <p>
-                            Please edit your media data to add more information.
+                            Please edit your press information.
                         </p>
                     </div>
                 @endif

@@ -4,7 +4,7 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to admin panel
+                Return to Admin Panel
             </a>
         </div>
         @if ($users->isEmpty())
@@ -36,7 +36,7 @@
             @else
                 <div class="TextImage TextImage--inner TextImage--content richtext">
                     <p>
-                        There are no users. Something went wrong
+                        There are no users. Something went wrong.
                     </p>
                 </div>
             @endif
@@ -71,6 +71,11 @@
                                     @if($user->adminLevel > 0)
                                         <span class="LinkList--text">
                                             Admin, Level: {{ $user->adminLevel }}
+                                        </span>
+                                        <br>
+                                    @else
+                                        <span class="LinkList--text">
+                                            User
                                         </span>
                                         <br>
                                     @endif

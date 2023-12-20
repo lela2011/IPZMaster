@@ -17,7 +17,7 @@
                     </x-navtile>
                 @endif
                 <x-navtile>
-                    Personal data
+                    Personal Data
                     <x-slot:route>
                         {{ route('personal.show', Auth::user()->uid) }}
                     </x-slot:route>
@@ -25,7 +25,7 @@
                         personal_data.svg
                     </x-slot:image>
                     <x-slot:details>
-                        CV, ORCID, Transversal research area, ...
+                        CV, ORCID, Research Areas, ...
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
@@ -37,11 +37,11 @@
                         research_projects.svg
                     </x-slot:image>
                     <x-slot:details>
-                        Creating, managing and updating completed and ongoing research projects
+                        Creating, Managing and Updating Completed and Ongoing Research Projects
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
-                    Press information
+                    Press Information
                     <x-slot:route>
                         {{ route('media.show', Auth::user()->uid) }}
                     </x-slot:route>
@@ -49,11 +49,11 @@
                         press_information.svg
                     </x-slot:image>
                     <x-slot:details>
-                        Competences and Preferred contact method
+                        Competences and Preferred Contact Method
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
-                    External contacts
+                    External Contacts
                     <x-slot:route>
                         {{ route('externalContact.index') }}
                     </x-slot:route>
@@ -61,7 +61,7 @@
                         external_contact.svg
                     </x-slot:image>
                     <x-slot:details>
-                        Create, manage and update external contacts
+                        Create, Manage and Update External Contacts
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
@@ -73,7 +73,7 @@
                         competences.svg
                     </x-slot:image>
                     <x-slot:details>
-                        Create, manage and update external contacts
+                        Create, Manage and Update Competences
                     </x-slot:details>
                 </x-navtile>
                 <x-navtile>
@@ -85,7 +85,7 @@
                         file.svg
                     </x-slot:image>
                     <x-slot:details>
-                        Create, manage and update files
+                        Create and Manage Files
                     </x-slot:details>
                 </x-navtile>
             </div>

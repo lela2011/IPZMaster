@@ -5,10 +5,10 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to admin panel
+                Return to Admin Panel
             </a>
             <a href="{{ route('research.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                Create research project
+                Create Research Project
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
@@ -17,7 +17,7 @@
                 <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('research.index')}}">
                     <div class="FormInput">
                         <div style="display: flex">
-                            <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research Projects by name">
+                            <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research projects by name">
                             <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
                             <span class="Button--inner">
                                 Search
@@ -49,7 +49,7 @@
             <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('research.index')}}">
                 <div class="FormInput">
                     <div style="display: flex">
-                        <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research Projects by name">
+                        <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research projects by name">
                         <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
                         <span class="Button--inner">
                             Search
@@ -78,12 +78,12 @@
                                 <a class="Link size-small" href="{{ route('research.show', $project->id) }}">
                                     {{ $project->title }}
                                 </a>
-                                @if ($project->researchAreas()->pluck('english'))
+                                @if ($project->researchAreas()->pluck('english')->isNotEmpty())
                                     <span class="ZoraCitation--publication">
                                         <b style="font-weight: bold;">Research Areas:</b> {{ $project->researchAreas()->pluck('english')->implode(', ') }}
                                     </span>
                                 @endif
-                                @if ($project->transversalResearchPrios()->pluck('english'))
+                                @if ($project->transversalResearchPrios()->pluck('english')->isNotEmpty())
                                     <span class="ZoraCitation--publication">
                                         <b style="font-weight: bold;">Transversal Research Priorities:</b> {{ $project->transversalResearchPrios()->pluck('english')->implode(', ') }}
                                     </span>

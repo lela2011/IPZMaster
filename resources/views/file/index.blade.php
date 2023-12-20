@@ -6,12 +6,12 @@
             @if (request()->session()->get('mode', 'user') == 'admin')
                 <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                     <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                    Return to admin panel
+                    Return to Admin Panel
                 </a>
             @else
                 <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                     <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                    Return to dashboard
+                    Return to Dashboard
                 </a>
             @endif
         </div>
@@ -46,7 +46,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">File Name</th>
-                                <th scope="col" colspan="2">Action</th>
+                                <th scope="col" colspan="2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>

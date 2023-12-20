@@ -7,14 +7,14 @@
                 <x-slot:route>
                     {{ route('admin.research') }}
                 </x-slot:route>
-                Return to list
+                Return to List
             </x-back>
         @else
             <x-back>
                 <x-slot:route>
                     {{ route('research.index') }}
                 </x-slot:route>
-                Return to list
+                Return to List
             </x-back>
         @endif
         <x-flash-message/>
@@ -23,14 +23,14 @@
             @csrf
             <div class="Form--header">
                 <h2 class="Form--title">
-                    Fill in the details to create a new research project
+                    Edit the Research Project {{ $researchProject->title }}
                 </h2>
             </div>
             <div class="Form--body">
                 <!-- English Title -->
                 <div class="FormInput">
                     <label class="FormLabel" for="title">
-                        English title
+                        English Title
                     </label>
                     <input class="Input" id="title" name="title" value="{{ old('title', $researchProject->title) }}">
                     @error('title')
@@ -44,7 +44,7 @@
                 <!-- Original Title -->
                 <div class="FormInput">
                     <label class="FormLabel" for="title_original">
-                        Original title
+                        Original Title
                     </label>
                     <input class="Input" id="title_original" name="title_original" value="{{ old('title_original', $researchProject->title_original) }}">
                     @error('title_original')
@@ -55,13 +55,13 @@
                     </p>
                     @enderror
                     <p class="FormDescription">
-                        Only fill this field with the original projects title if it differs from the english title field.
+                        Only fill this field with the original language project title if it differs from the English title field.
                     </p>
                 </div>
                 <!-- Publish -->
                 <div class="FormInput">
                     <label class="FormLabel" for="contactOption">
-                        Display research project publicly
+                        Display Research Project publicly
                     </label>
                     <div class="Options js-OptionInput" id="contactOption">
                         <div class="OptionInput">
@@ -110,7 +110,7 @@
                 <!-- Summary URLs -->
                 <div class="FormInput">
                     <label class="FormLabel" for="summary_url">
-                        Summary links
+                        Summary Links
                     </label>
                     @foreach(filterEmptyArray(old('summary_urls', $researchProject->summary_urls)) as $link)
                         <input class="Input summary_url"
@@ -166,7 +166,7 @@
                            id="zora_id_{{count(filterEmptyArray(old('zora_ids', $researchProject->zora_ids))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="zora_ids_description">
-                        Type into the empty field to add a new Zora id. / Remove a Zora id by deleting the text of a
+                        Type into the empty field to add a new Zora ID. / Remove a Zora ID by deleting the text of a
                         field and clicking out of it.
                     </p>
                     @error('zora_ids')
@@ -180,7 +180,7 @@
                 <!-- publication url -->
                 <div class="FormInput">
                     <label class="FormLabel" for="publication_url">
-                        Publication link
+                        Publication Link
                     </label>
                     <input class="Input" id="publication_url" name="publication_url"
                            value="{{ old('publication_url', $researchProject->publication_url) }}">
@@ -195,7 +195,7 @@
                 <!-- Project urls -->
                 <div class="FormInput">
                     <label class="FormLabel" for="project_urls">
-                        Project links
+                        Project Links
                     </label>
                     @foreach(filterEmptyArray(old('project_urls', $researchProject->project_urls)) as $url)
                         <input class="Input project_url"
@@ -216,7 +216,7 @@
                            id="project_url_{{count(filterEmptyArray(old('project_urls', $researchProject->project_urls))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="project_urls_description">
-                        Type into the empty field to add a new project url. / Remove a project url by deleting the text
+                        Type into the empty field to add a new project link. / Remove a project link by deleting the text
                         of a field and clicking out of it.
                     </p>
                     @error('project_urls')
@@ -258,7 +258,7 @@
                 <!-- Collaborating institutions -->
                 <div class="FormInput">
                     <label class="FormLabel" for="institution">
-                        Collaborating institutions
+                        Collaborating Institutions
                     </label>
                     @foreach(filterEmptyArray(old('institutions', $researchProject->institutions)) as $institution)
                         <input class="Input institution"
@@ -286,7 +286,7 @@
                 <!-- Collaborating countries -->
                 <div class="FormInput">
                     <label class="FormLabel" for="country">
-                        Collaborating countries
+                        Collaborating Countries
                     </label>
                     @foreach(filterEmptyArray(old('countrys', $researchProject->countrys)) as $country)
                         <input class="Input country"
@@ -314,7 +314,7 @@
                 <!-- Project leaders -->
                 <div class="FormInput">
                     <label class="FormLabel" for="leaders">
-                        Project managers
+                        Project Leaders
                     </label>
                     <select class="multiselect"
                             id="leaders"
@@ -326,7 +326,7 @@
                         @endforeach
                     </select>
                     <p class="FormDescription">
-                        This field is solely for access management and affiliation purposes. The project will be listed under all selected leaders and members. It will however not be displayed on the detailed project page.
+                        This field is solely for access management and affiliation purposes. The project will be publicly listed on all selected leaders and members pages. Leaders and Members will however not be displayed on the public detailed project page.
                     </p>
                     @error('leaders')
                         <p class="has-error" style="color: red"">
@@ -339,7 +339,7 @@
                 <!-- Project members -->
                 <div class="FormInput">
                     <label class="FormLabel" for="members">
-                        Project members
+                        Project Members
                     </label>
                     <select class="multiselect"
                             id="members"
@@ -351,7 +351,7 @@
                         @endforeach
                     </select>
                     <p class="FormDescription">
-                        This field is solely for access management and affiliation purposes. The project will be listed under all selected leaders and members. It will however not be displayed on the detailed project page.
+                        This field is solely for access management and affiliation purposes. The project will be publicly listed on all selected leaders and members pages. Leaders and Members will however not be displayed on the public detailed project page.
                     </p>
                 </div>
                 <!-- Contacts -->
@@ -400,8 +400,8 @@
                            id="contributor_{{count(filterEmptyArray(old('contributors', $researchProject->contributors))) + 1}}"
                            style="margin-bottom: 8px">
                     <p class="FormDescription" id="contributors_description">
-                        Type into the empty field to add a new contributor. / Remove a keyword by deleting the text of a
-                        field and clicking out of it. / You may define roles by adding it in braces behind the name of the contributor. (e.g. John Doe (Project Leader))
+                        Type into the empty field to add a new contributor. / Remove a contributor by deleting the text of a
+                        field and clicking out of it. / You may define roles by adding it in braces behind the name of the contributor. E.g. John Doe (Project Leader). Entries will be displayed like they are entered without any sanitation.
                     </p>
                 </div>
                 <!-- Transversal research priority -->
@@ -413,6 +413,9 @@
                                     @if(collect(old('transv_research_prios', $researchProject->transversalResearchPrios->pluck('id')))->contains($prio->id)) selected @endif>{{ $prio->english }}</option>
                         @endforeach
                     </select>
+                    <p class="FormDescription" id="contributors_description">
+                        Select one or multiple transversal research priorities.
+                    </p>
                 </div>
                 <!-- research areas -->
                 <div class="FormInput">
@@ -423,6 +426,9 @@
                                     @if(collect(old('research_areas', $researchProject->researchAreas->pluck('id')))->contains($area->id)) selected @endif>{{ $area->english }}</option>
                         @endforeach
                     </select>
+                    <p class="FormDescription" id="contributors_description">
+                        Select one or multiple research areas.
+                    </p>
                 </div>
                 <!-- Keywords -->
                 <div class="FormInput">

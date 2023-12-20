@@ -5,7 +5,7 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to dashboard
+                Return to Dashboard
             </a>
         </div>
         <form class="Form js-Form" method="POST" action="{{ route('competence.store') }}">

@@ -64,7 +64,7 @@ class ResearchRequest extends FormRequest
     {
         // set custom error messages
         return [
-            'title_original.different' => "The original title may not be the same as it's english translation. If the original language is english consider removing the original title.",
+            'title_original.different' => "The original title may not be the same as it's english translation. If the original language is English consider removing the original title.",
             'start_date.required' => 'Please provide a time frame for the project.',
             'start_date.date' => 'The provided start date is not valid.',
             'end_date.required' => 'Please provide a time frame for the project.',

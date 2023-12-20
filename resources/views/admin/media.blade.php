@@ -4,7 +4,7 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to admin panel
+                Return to Admin Panel
             </a>
         </div>
         @if ($users->isEmpty())
@@ -12,7 +12,7 @@
                 <form class="Form js-Form" method="GET" action="{{route('admin.media')}}">
                     <div class="FormInput">
                         <div style="display: flex">
-                            <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter personal by name">
+                            <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter person by name">
                             <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
                             <span class="Button--inner">
                                 Search
@@ -44,7 +44,7 @@
         <form class="Form js-Form" method="GET" action="{{route('admin.media')}}">
             <div class="FormInput">
                 <div style="display: flex">
-                    <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter personal by name">
+                    <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter person by name">
                     <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
                     <span class="Button--inner">
                         Search

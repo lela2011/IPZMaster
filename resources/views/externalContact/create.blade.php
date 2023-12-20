@@ -4,7 +4,7 @@
             @csrf
             <div class="Form--header">
                 <h2 class="Form--title">
-                    Create new contact
+                    Create a new External Contact
                 </h2>
             </div>
             <div class="Form--body">

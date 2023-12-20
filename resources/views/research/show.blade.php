@@ -5,14 +5,14 @@
                 <x-slot:route>
                     {{ route('admin.research') }}
                 </x-slot:route>
-                Return to list
+                Return to List
             </x-back>
         @else
             <x-back>
                 <x-slot:route>
                     {{ route('research.index') }}
                 </x-slot:route>
-                Return to list
+                Return to List
             </x-back>
         @endif
         <div class="TextImage">
@@ -71,7 +71,7 @@
                     @endif
                     @if ($researchProject->institutions)
                         <h4>
-                            Collaborating institutions:
+                            Collaborating Institutions:
                         </h4>
                         <ul>
                             @foreach ($researchProject->institutions as $institution)

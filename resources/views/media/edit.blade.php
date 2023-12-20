@@ -4,7 +4,7 @@
             <x-slot:route>
                 {{ route('media.show', $user->uid) }}
             </x-slot:route>
-            Return to media page
+            Return to Press Information
         </x-back>
         <x-flash-message/>
         <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('media.update', $user->uid)}}">
@@ -19,6 +19,9 @@
                         <option value="{{$competence->id}}" @if (collect(old('media_competences', $userCompetences))->contains($competence->id)) selected @endif>{{$competence->name}}</option>
                     @endforeach
                 </select>
+                <p class="FormDescription" id="contributors_description">
+                    Select one or multiple competences or create a new one by typing the name and hitting enter.
+                </p>
                 <p id="competence_error" class="has-error" style="color: red; display: none;"></p>
             </div>
             <div class="FormInput">

@@ -4,7 +4,7 @@
             <x-slot:route>
                 {{ route('personal.show', $user->uid) }}
             </x-slot:route>
-            Return to personal page
+            Return to Personal Page
         </x-back>
         <x-flash-message/>
         <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('personal.update', $user->uid)}}">
@@ -43,7 +43,7 @@
                     </p>
                     @enderror
                     <p class="FormDescription">
-                        Type or paste ORCID. When pasting hyphens may be pasted.
+                        Type or paste an ORCID. When pasting hyphens may be pasted.
                     </p>
                 </div>
                 <div class="FormInput">
@@ -60,7 +60,7 @@
                     </p>
                     @enderror
                     <p class="FormDescription">
-                        Please enter the linkt to your personal website in the form http(s)://www.website.com.
+                        Please enter the link to your personal website.
                     </p>
                 </div>
                 <div class="FormInput">
@@ -104,6 +104,9 @@
                             >{{ $researchAreaOption->english }}</option>
                         @endforeach
                     </select>
+                    <p class="FormDescription">
+                        Select one or multiple research areas.
+                    </p>
                 </div>
                 <div class="FormInput">
                     <label class="FormLabel" for="transv_research_prios">
@@ -118,6 +121,9 @@
                             >{{ $prio->english }}</option>
                         @endforeach
                     </select>
+                    <p class="FormDescription">
+                        Select one or multiple transversal research priorities.
+                    </p>
                 </div>
                 <div class="FormButtons">
                     <a href="{{route('personal.show', $user->uid)}}" class="Button color-border-white size-large">

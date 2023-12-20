@@ -5,7 +5,7 @@
             @csrf
             <div class="Form--header">
                 <h2 class="Form--title">
-                    Edit contact: {{ $externalContact->name }}
+                    Edit Contact {{ $externalContact->name }}
                 </h2>
             </div>
             <div class="Form--body">

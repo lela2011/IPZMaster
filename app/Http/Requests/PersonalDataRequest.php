@@ -36,6 +36,13 @@ class PersonalDataRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            'website.url' => 'The website must be a valid URL.',
+        ];
+    }
+
     protected function prepareForValidation()
     {
         // merges the array into a hyphen-separated string

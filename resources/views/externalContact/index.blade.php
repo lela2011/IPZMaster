@@ -5,10 +5,10 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to dashboard
+                Return to Dashboard
             </a>
             <a href="{{ route('externalContact.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                Create a new external contact
+                Create a new External Contact
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
@@ -161,7 +161,7 @@
             var email = form.data('mail');
             var organization = form.data('organization');
             // opens confirmation modal
-            customConfirm('Are you sure you want to delete the user <b style="font-weight: bold;">' + name + ' (' + organization + ' | ' + email + ')</b>?')
+            customConfirm('Are you sure you want to delete the external contact <b style="font-weight: bold;">' + name + ' (' + organization + ' | ' + email + ')</b>?')
                 .then(function (result) {
                     // if confirmed, submits form
                     if (result) {

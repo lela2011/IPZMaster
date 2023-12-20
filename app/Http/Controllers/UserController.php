@@ -80,6 +80,6 @@ class UserController extends Controller
         $user->transversalResearchPriorities()->sync($newTransvResearchPrios);
 
         // redirect to personal data page
-        return redirect()->route('personal.show', $id)->with('message', 'Personal data updated successfully');
+        return redirect()->route('personal.show', $id)->with('message', 'Personal Data successfully updated.');
     }
 }
