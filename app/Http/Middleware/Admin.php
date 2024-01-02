@@ -16,10 +16,12 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // checks if the user is logged in and has admin rights
         if(Auth::user() && Auth::user()->adminLevel > 0) {
             return $next($request);
         }
 
+        // if not, abort with 403
         abort(403);
     }
 }

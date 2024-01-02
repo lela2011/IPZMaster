@@ -95,6 +95,7 @@ Route::get('/admin/research', [AdminController::class, 'research'])->name('admin
 
 Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media')->middleware('admin');
 
+// All file routes
 Route::get('file', [FileController::class, 'index'])->name('file.index')->middleware('auth');
 
 Route::post('file/upload', [FileController::class, 'upload'])->name('file.upload')->middleware('auth');

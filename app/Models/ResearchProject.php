@@ -43,12 +43,12 @@ class ResearchProject extends Model
 
     public $timestamps = false;
 
-    // sets relationship between members/users and research project
-
+    // sets relationship between leaders and research project
     public function leaders() : BelongsToMany {
         return $this->belongsToMany(User::class, 'user_research_project', 'research_project_id', 'user_id')->wherePivot('role', 'leader')->select('uid', 'first_name', 'last_name');
     }
 
+    // sets relationship between members and research project
     public function members() : BelongsToMany {
         return $this->belongsToMany(User::class, 'user_research_project', 'research_project_id', 'user_id')->wherePivot('role', 'member')->select('uid', 'first_name', 'last_name');
     }

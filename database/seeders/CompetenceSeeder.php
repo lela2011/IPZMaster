@@ -14,17 +14,22 @@ class CompetenceSeeder extends Seeder
      */
     public function run(): void
     {
+        // opens the file
         $file = fopen(public_path('data/medienauskunft_Kompetenzen.txt'), "r");
         if($file) {
+            // reads the file line by line
             while (($line = fgets($file)) !== false) {
                 try {
+                    // inserts the line into the database
                     DB::table('competences')->insert([
                         'name' => str_replace(array("\r", "\n"), "", $line)
                     ]);
                 } catch (UniqueConstraintViolationException) {
+                    // if the line already exists, skip it
                     continue;
                 }
             }
+            // closes the file
             fclose($file);
         }
     }
