@@ -423,6 +423,8 @@ All additional model and database information is well documented [here](https://
 ## Publication
 Due to a bug in pleks (hosting service), the publication of the project is a bit difficult. The entire project first has to be uploaded to `httpdocs/apps/IPZMaster`. If this happend by using Git by pulling the project from a GitHub repository the two files `.env` and `./config/ldap.php` have to be uploaded to the appropriate folders.
 
+After that in `.env` the `APP_URL` must be changed to `https://www.ipz.uzh.ch/apps/IPZMaster` and in `./config/app` the `APP_URL` must also be changed to `https://www.ipz.uzh.ch/apps/IPZMaster`
+
 Now you can switch to the composer section of plesk and install and update all the packages.
 
 After that the entire `IPZMaster` folder must be moved to the servers rood directory.

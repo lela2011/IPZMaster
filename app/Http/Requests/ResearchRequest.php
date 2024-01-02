@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Mews\Purifier\Facades\Purifier;
+use Mews\Purifier\Purifier\Facades;
 
 class ResearchRequest extends FormRequest
 {
@@ -91,6 +93,7 @@ class ResearchRequest extends FormRequest
     {
         // prepares data for validation
         $this->merge([
+            "summary" => Purifier::clean($this->summary) ?? "",
             "summary_urls" => filterEmptyArray($this->summary_urls),
             "zora_ids" => filterEmptyArray($this->zora_ids),
             "project_urls" => filterEmptyArray($this->project_urls),

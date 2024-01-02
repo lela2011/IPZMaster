@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\OrcidValidation;
 use Illuminate\Foundation\Http\FormRequest;
+use Mews\Purifier\Facades\Purifier;
 
 class PersonalDataRequest extends FormRequest
 {
@@ -54,7 +55,11 @@ class PersonalDataRequest extends FormRequest
             'research_areas' => filterEmptyArray($this->research_areas),
             'orcid' => $temp_orcid,
             'research_areas' => $this->research_areas ?? [],
-            'transv_research_prios' => $this->transv_research_prios ?? []
+            'transv_research_prios' => $this->transv_research_prios ?? [],
+            'cv_english' => Purifier::clean($this->cv_english) ?? '',
+            'cv_german' => Purifier::clean($this->cv_german) ?? '',
+            'research_focus_english' => Purifier::clean($this->research_focus_english) ?? '',
+            'research_focus_german' => Purifier::clean($this->research_focus_german) ?? '',
         ]);
     }
 }
