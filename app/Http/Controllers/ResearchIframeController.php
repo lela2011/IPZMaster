@@ -39,7 +39,7 @@ class ResearchIframeController extends Controller
             ->where('end_date', '>=', $currentTime)
             ->orderBy('start_date', 'desc')
             ->orderBy('end_date', 'asc')
-            ->paginate(1);
+            ->paginate(10);
 
         $transvResearchPrios = TransversalReserachPrio::all();
         $researchAreas = ResearchArea::all();
@@ -80,7 +80,7 @@ class ResearchIframeController extends Controller
             ->where('end_date', '<', $currentTime)
             ->orderBy('start_date', 'desc')
             ->orderBy('end_date', 'desc')
-            ->paginate(1);
+            ->paginate(10);
 
         $transvResearchPrios = TransversalReserachPrio::all();
         $researchAreas = ResearchArea::all();
