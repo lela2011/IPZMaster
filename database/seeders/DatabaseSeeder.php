@@ -44,82 +44,114 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 'pol_sociology',
                 'english' => 'Political Sociology',
-                'german' => 'Politische Soziologie'
+                'german' => 'Politische Soziologie',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/politischesoziologie.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/politischesoziologie.html'
             ],
             [
                 'id' => 'comp_politics',
                 'english' => 'Comparative Politics',
-                'german' => 'Vergleichende Politik'
+                'german' => 'Vergleichende Politik',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/vergleichende-politik.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/vergleichende-politik.html'
             ],
             [
                 'id' => 'pol_philo',
                 'english' => 'Political Philosophy',
-                'german' => 'Politische Philosophie'
+                'german' => 'Politische Philosophie',
+                'english_url' => 'https://www.philosophie.uzh.ch/en/research/professorial_chair/politics_cheneval.html',
+                'german_url' => 'https://www.philosophie.uzh.ch/de/research/professorial_chair/politics_cheneval.html'
             ],
             [
                 'id' => 'pol_behav_digi_media',
                 'english' => 'Political Behavior and Digital Media',
-                'german' => 'Political Behavior and Digital Media'
+                'german' => 'Political Behavior and Digital Media',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/bdm.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/bdm.html'
             ],
             [
                 'id' => 'pol_analy',
                 'english' => 'Policy Analysis',
-                'german' => 'Policy-Analyse'
+                'german' => 'Policy-Analyse',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/pa.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/pa.html'
             ],
             [
                 'id' => 'int_sec',
                 'english' => 'International Security Peace and Conflict',
-                'german' => 'Internationale Sicherheit, Frieden und Konflikt'
+                'german' => 'Internationale Sicherheit, Frieden und Konflikt',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/isfk.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/isfk.html'
             ],
             [
                 'id' => 'swiss_pol',
                 'english' => 'Swiss Politics and Comparative political Economy',
-                'german' => 'Schweizer Politik und Vergleichende politische Ökonomie'
+                'german' => 'Schweizer Politik und Vergleichende politische Ökonomie',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/sp.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/sp.html'
             ],
             [
                 'id' => 'demo_pub',
                 'english' => 'Democracy and Public Governance',
-                'german' => 'Demokratieforschung und Public Governance'
+                'german' => 'Demokratieforschung und Public Governance',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/df.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/df.html'
             ],
             [
                 'id' => 'pol_ineq',
                 'english' => 'Politics and Inequality',
-                'german' => 'Politik und Ungleichheit'
+                'german' => 'Politik und Ungleichheit',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/pu.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/pu.html'
             ],
             [
                 'id' => 'comp_politics_emp_demo_res',
                 'english' => 'Comparative Politics and Empirical Democracy Research',
-                'german' => 'Vergleichende Politik mit Schwerpunkt empirische Demokratieforschung'
+                'german' => 'Vergleichende Politik mit Schwerpunkt empirische Demokratieforschung',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/cpedr.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/cpedr.html'
             ],
             [
                 'id' => 'pol_eco',
                 'english' => 'Political Economy and Development',
-                'german' => 'Politische Ökonomie der Entwicklungs- und Schwellenländer'
+                'german' => 'Politische Ökonomie der Entwicklungs- und Schwellenländer',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/ep.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/ep.html'
             ],
             [
                 'id' => 'pol_insiti',
                 'english' => 'Political Institutions and European Politics',
-                'german' => 'Politische Institutionen und Europäische Politik'
+                'german' => 'Politische Institutionen und Europäische Politik',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/politischeinstitutionen.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/politischeinstitutionen.html'
             ],
             [
                 'id' => 'pol_metho',
                 'english' => 'Political Methodology',
-                'german' => 'Methoden der Politikwissenschaft'
+                'german' => 'Methoden der Politikwissenschaft',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/mp.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/mp.html'
             ],
             [
                 'id' => 'int_rel',
                 'english' => 'International Relations and International Political Economy',
-                'german' => 'Internationale Beziehungen und Internationale Politische Ökonomie'
+                'german' => 'Internationale Beziehungen und Internationale Politische Ökonomie',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/ibpe.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/ibpe.html'
             ],
             [
                 'id' => 'comp_politics_dem_rep',
                 'english' => 'Comparative Politics with a special focus on Democratic Representation',
-                'german' => 'Vergleichende Politikwissenschaft mit Schwerpunkt Demokratische Repräsentation'
+                'german' => 'Vergleichende Politikwissenschaft mit Schwerpunkt Demokratische Repräsentation',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/cpdr.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/cpdr.html'
             ],
             [
                 'id' => 'pol_analy_eval',
                 'english' => 'Policy Analysis & Evaluation',
-                'german' => 'Policy-Analyse & Evaluation'
+                'german' => 'Policy-Analyse & Evaluation',
+                'english_url' => 'https://www.ipz.uzh.ch/en/research/professorships-and-research-areas/fbpa.html',
+                'german_url' => 'https://www.ipz.uzh.ch/de/forschung/professuren-und-forschungsbereiche/fbpa.html'
             ],
         ];
 

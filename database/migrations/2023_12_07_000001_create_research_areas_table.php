@@ -15,6 +15,8 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('english');
             $table->string('german');
+            $table->string('english_url');
+            $table->string('german_url');
         });
     }
 

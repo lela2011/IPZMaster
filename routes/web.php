@@ -8,7 +8,9 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\ResearchIframeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserIframeController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -101,3 +103,61 @@ Route::get('file', [FileController::class, 'index'])->name('file.index')->middle
 Route::post('file/upload', [FileController::class, 'upload'])->name('file.upload')->middleware('auth');
 
 Route::delete('file/{file}', [FileController::class, 'destroy'])->name('file.destroy')->middleware('auth');
+
+// Iframe routes
+Route::prefix('iframe/{language}')->group(function() {
+    Route::prefix('users/{user}')->group(function() {
+        Route::get('/cv', [UserIframeController::class, 'cv'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+        Route::get('/research-focus', [UserIframeController::class, 'researchFocus'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::get('/research-areas', [UserIframeController::class, 'researchAreas'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::get('/transversal-research-priorities', [UserIframeController::class, 'transversalResearchPrios'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::prefix('research-projects')->group(function () {
+            Route::get('/current', [UserIframeController::class, 'currentResearchProjects'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+            Route::get('/completed', [UserIframeController::class, 'completedResearchProjects'])
+                ->missing(function () {
+                    return Redirect::route('empty.iframe');
+                });
+        });
+
+        Route::get('orcid', [UserIframeController::class, 'orcid'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+    });
+
+    Route::prefix('research')->group(function() {
+        Route::get('/current', [ResearchIframeController::class, 'currentResearchProjects'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::get('/completed', [ResearchIframeController::class, 'completedResearchProjects'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+    });
+});
+
+Route::get('iframe', function() {
+    return view('empty-iframe');
+})->name('empty.iframe');
