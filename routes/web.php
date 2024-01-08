@@ -106,7 +106,7 @@ Route::delete('file/{file}', [FileController::class, 'destroy'])->name('file.des
 
 // Iframe routes
 Route::prefix('iframe/{language}')->group(function() {
-    Route::prefix('users/{user}')->group(function() {
+    Route::prefix('user/{user}')->group(function() {
         Route::get('/cv', [UserIframeController::class, 'cv'])
             ->missing(function () {
                 return Redirect::route('empty.iframe');
@@ -126,7 +126,7 @@ Route::prefix('iframe/{language}')->group(function() {
                 return Redirect::route('empty.iframe');
             });
 
-        Route::prefix('research-projects')->group(function () {
+        Route::prefix('research')->group(function () {
             Route::get('/current', [UserIframeController::class, 'currentResearchProjects'])
             ->missing(function () {
                 return Redirect::route('empty.iframe');
