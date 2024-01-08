@@ -8,8 +8,8 @@
                         <div class="NewsListItem research">
                             <div class="NewsListItem--content">
                                 <div class="NewsListItem--date">
-                                    {{ \Carbon\Carbon::parse($project->start_date)->format('l, jS F Y') }} —
-                                    {{ \Carbon\Carbon::parse($project->end_date)->format('l, jS F Y') }}
+                                    {{ \Carbon\Carbon::parse($project->start_date)->locale('de')->isoFormat('dddd, D. MMMM YYYY') }} —
+                                    {{ \Carbon\Carbon::parse($project->end_date)->locale('de')->isoFormat('dddd, D. MMMM YYYY') }}
                                 </div>
                                 <h3 class="NewsListItem--title">
                                     {{ $project->title }}
