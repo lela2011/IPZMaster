@@ -24,7 +24,8 @@ class MediaController extends Controller
         // checks if user is allowed to access the resource
         $this->authorize('edit', $user);
         // loads the competences of the user
-        $userCompetences = $user->competences()->pluck('name')->toArray();
+        $user->load('competences');
+        $userCompetences = $user->competences->pluck('id')->toArray();
         // loads all competences that are available
         $allCompetences = Competence::all();
 

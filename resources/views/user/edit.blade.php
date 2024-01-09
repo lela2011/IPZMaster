@@ -64,6 +64,26 @@
                     </p>
                 </div>
                 <div class="FormInput">
+                    <label class="FormLabel" for="phone">
+                        Phone
+                    </label>
+                    <div style="display: flex; align-items: center;">
+                        <span style="margin-right: 8px">+41</span>
+                        <input class="Input" name="phone" id="phone"
+                           value="{{ old('phone', substr($user->phone, 4)) }}">
+                    </div>
+                    @error('phone')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter your office phone number.
+                    </p>
+                </div>
+                <div class="FormInput">
                     <label class="FormLabel" for="cv_english">
                         CV - English
                     </label>
@@ -145,6 +165,42 @@
 <script>
     // Executes when the document is fully loaded
     $(document).ready(function () {
+
+        // styles phone input
+        $('#phone').on('input', function () {
+            // Removes non-numeric characters
+            let input = $(this).val().replace(/\D/g, '');
+            let diff = 1;
+
+            if (event.inputType === 'deleteContentBackward') {
+                diff = 0;
+            }
+
+            // Save current cursor position
+            let cursorPosition = this.selectionStart;
+
+            // Adds spaces after 2, 6 and 9 digits
+            if (input.length > 2) {
+                input = input.substring(0, 2) + ' ' + input.substring(2);
+            }
+            if (input.length > 6) {
+                input = input.substring(0, 6) + ' ' + input.substring(6);
+            }
+            if (input.length > 9) {
+                input = input.substring(0, 9) + ' ' + input.substring(9);
+            }
+
+            // Limits input length to 12 characters
+            if (input.length > 12) {
+                input = input.substring(0, 12);
+            }
+
+            // Sets the cleaned input value
+            $(this).val(input);
+
+            // Moves cursor to the right position
+            this.setSelectionRange(cursorPosition + diff, cursorPosition + diff);
+        });
 
         // For each element with class 'orcid-input'
         $('.orcid-input').each(function (index) {

@@ -264,3 +264,12 @@
 .toggle-research-detail {
     cursor: pointer;
 }
+
+.iframe-form {
+    margin: 16px 0px 0px 0px;
+    padding: 0px;
+}
+
+.iframe-form-body {
+    padding-right: 0px;
+}

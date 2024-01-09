@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
+            $table->string('phone')->nullable();
             $table->string('orcid')->nullable();
             $table->string('website')->nullable();
             $table->longText('cv_english')->nullable();

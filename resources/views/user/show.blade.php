@@ -23,7 +23,7 @@
                 {{ $user->first_name }} {{ $user->last_name }}
             </h2>
             <div class="TextImage--inner">
-                @if ($user->orcid || $user->website || $user->cv_english || $user->cv_german || $user->research_focus_english || $user->research_focus_german || $user->researchAreas->isNotEmpty() || $user->transversalResearchPriorities->isNotEmpty())
+                @if ($user->orcid || $user->website || $user->phone || $user->cv_english || $user->cv_german || $user->research_focus_english || $user->research_focus_german || $user->researchAreas->isNotEmpty() || $user->transversalResearchPriorities->isNotEmpty())
                     <div class="TextImage--text richtext">
                         @if ($user->orcid)
                             <h4>
@@ -37,6 +37,14 @@
                             </h4>
                             <a href="{{ $user->website }}" target="_blank">
                                 {{ parse_url($user->website)['host'] }}
+                            </a>
+                        @endif
+                        @if ($user->phone)
+                            <h4>
+                                Phone:
+                            </h4>
+                            <a href="tel:{{ $user->phone }}">
+                                {{ $user->phone }}
                             </a>
                         @endif
                         @if ($user->cv_english)

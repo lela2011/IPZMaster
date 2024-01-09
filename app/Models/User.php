@@ -24,6 +24,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         'last_name',
         'orcid',
         'website',
+        'phone',
         'cv_english',
         'cv_german',
         'research_focus_english',

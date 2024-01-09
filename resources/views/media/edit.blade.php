@@ -36,7 +36,7 @@
                         </label>
                     </div>
                     <div class="OptionInput">
-                        <input type="checkbox" id="media_phone" value="phone" name="contact_method[]" @if(in_array("phone", old('contact_method', $selectedContact), true)) checked @endif>
+                        <input type="checkbox" id="media_phone" value="phone" name="contact_method[]" @if(in_array("phone", old('contact_method', $selectedContact), true)) checked @endif @if(empty($user->phone)) disabled @endif>
                         <label for="media_phone">
                             Phone
                         </label>

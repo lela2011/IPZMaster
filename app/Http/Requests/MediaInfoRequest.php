@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PhoneExists;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,7 +27,7 @@ class MediaInfoRequest extends FormRequest
         // sets validation rules for form data
         return [
             'media_competences' => 'nullable',
-            'contact_method' => 'required|array|min:1'
+            'contact_method' => ['required','array','min:1', new PhoneExists]
         ];
     }
 
@@ -34,7 +35,7 @@ class MediaInfoRequest extends FormRequest
     {
         // sets custom error messages
         return [
-            'contact_method' => 'At least one mean of contact must be selected.'
+            'contact_method*min' => 'At least one mean of contact must be selected.'
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\OrcidValidation;
+use App\Rules\PhoneValidation;
 use Illuminate\Foundation\Http\FormRequest;
 use Mews\Purifier\Facades\Purifier;
 
@@ -28,6 +29,7 @@ class PersonalDataRequest extends FormRequest
         return [
             'orcid' => ['nullable', new OrcidValidation],
             'website' => 'nullable|url',
+            'phone' => ['nullable', new PhoneValidation],
             'cv_english' => 'nullable',
             'cv_german' => 'nullable',
             'research_focus_english' => 'nullable',
@@ -50,10 +52,15 @@ class PersonalDataRequest extends FormRequest
         $temp_orcid = implode('-', $this->orcid);
         $temp_orcid = $temp_orcid === "---" ? '' : $temp_orcid;
 
+        $phone = trim("+41 " . $this->phone);
+        if($phone === "+41") $phone = "";
+
+
         // merges the correction with the
         $this->merge([
             'research_areas' => filterEmptyArray($this->research_areas),
             'orcid' => $temp_orcid,
+            'phone' => $phone,
             'research_areas' => $this->research_areas ?? [],
             'transv_research_prios' => $this->transv_research_prios ?? [],
             'cv_english' => Purifier::clean($this->cv_english) ?? '',

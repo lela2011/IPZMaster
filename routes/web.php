@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\CompetenceIframeController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\FileController;
@@ -156,6 +157,11 @@ Route::prefix('iframe/{language}')->group(function() {
                 return Redirect::route('empty.iframe');
             });
     });
+
+    Route::get('/competence', [CompetenceIframeController::class, 'competence'])
+        ->missing(function () {
+            return Redirect::route('empty.iframe');
+        });
 });
 
 Route::get('iframe', function() {
