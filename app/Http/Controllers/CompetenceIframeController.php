@@ -28,7 +28,13 @@ class CompetenceIframeController extends Controller
         }
         $competences = $competencesQuery->get()->load('users');
 
-        return view('media.iframe.competence-finder-de', [
+        if($language == "en") {
+            $view = 'media.iframe.competence-finder-en';
+        } else {
+            $view = 'media.iframe.competence-finder-de';
+        }
+
+        return view($view, [
             'filter' => $request->input('filter'),
             'competences' => $competences,
             'allCompetences' => $allCompetences
