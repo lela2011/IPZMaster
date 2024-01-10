@@ -68,6 +68,13 @@ class UserController extends Controller
 
         $this->authorize('view', $user);
 
+        // check if phone is empty
+        $isPhoneEmpty = empty($formData['phone']);
+        if($isPhoneEmpty) {
+            // sets phone contact method to false
+            $user->media_phone = false;
+        }
+
         $user->fill($formData->except(['research_areas', 'transv_research_prios'])->toArray());
         $user->save();
 

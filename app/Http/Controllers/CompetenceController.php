@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Competence;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -82,6 +83,32 @@ class CompetenceController extends Controller
             return redirect()->route('competence.index')->with('errorMessage', 'The competence could not be updated. Please try again.');
         }
 
+        $userCount = count($competence->users()->get());
+        $isOnlyUser = $competence->users()->where('uid', Auth::user()->id)->count() === 1;
+        $isAdminUser = Auth::user()->adminLevel > 0;
+
+        $editable = true;
+
+        if(!$isAdminUser) {
+            if ($userCount > 0) {
+                if($userCount === 1) {
+                    if($isOnlyUser) {
+                        $editable = true;
+                    } else {
+                        $editable = false;
+                    }
+                } else {
+                    $editable = false;
+                }
+            }
+        }
+
+        if (!$editable) {
+            // redirects to index page with error message
+            return redirect()->route('competence.index')->with('errorMessage', 'The competence is used by a user and cannot be updated.');
+        }
+
+
         // update competence
         $competence->name = $request->input('competence');
         $competence->save();
@@ -112,9 +139,27 @@ class CompetenceController extends Controller
     public function destroy(Competence $competence)
     {
 
-        $isUsed = count($competence->users()->get()) != 0;
+        $userCount = count($competence->users()->get());
+        $isOnlyUser = $competence->users()->where('uid', Auth::user()->id)->count() === 1;
+        $isAdminUser = Auth::user()->adminLevel > 0;
 
-        if ($isUsed) {
+        $deletable = true;
+
+        if(!$isAdminUser) {
+            if ($userCount > 0) {
+                if($userCount === 1) {
+                    if($isOnlyUser) {
+                        $deletable = true;
+                    } else {
+                        $deletable = false;
+                    }
+                } else {
+                    $deletable = false;
+                }
+            }
+        }
+
+        if (!$deletable) {
             // redirects to index page with error message
             return redirect()->route('competence.index')->with('errorMessage', 'The competence is used by a user and cannot be deleted.');
         }
