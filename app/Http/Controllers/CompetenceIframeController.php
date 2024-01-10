@@ -21,12 +21,8 @@ class CompetenceIframeController extends Controller
 
         $allCompetences = Competence::all();
 
-        $competencesQuery = Competence::query()->whereHas('users');
-        if($request->has('filter')) {
-            $filter = $request->input('filter');
-            $competencesQuery->whereIn('id',$filter)->get();
-        }
-        $competences = $competencesQuery->get()->load('users');
+        $filter = $request->input('filter') ?? [];
+        $competences = Competence::query()->whereHas('users')->whereIn('id',$filter)->get()->load('users');
 
         if($language == "en") {
             $view = 'media.iframe.competence-finder-en';
