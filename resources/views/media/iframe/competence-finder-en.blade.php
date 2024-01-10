@@ -1,4 +1,4 @@
-<x-iframe-layout>
+<x-iframe-competence-layout>
     <h2 class="TextImage--title  richtext">Query our competence database</h2>
     <div class="TextImage--content richtext">
         <p>In order to find the most suitable expert on a specific topic, you can use the following search function to browse the expertise recorded by our institute members.</p>
@@ -58,7 +58,7 @@
             </div>
         @endforeach
     </div>
-</x-iframe-layout>
+</x-iframe-competence-layout>
 <script>
     $(document).ready(function() {
         $('#filter').selectize({

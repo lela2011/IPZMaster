@@ -1,10 +1,10 @@
-<x-iframe-layout>
+<x-iframe-competence-layout>
     <h2 class="TextImage--title  richtext">Abfrage in unserer Kompetenzdatenbank</h2>
     <div class="TextImage--content richtext">
         <p>Um eine möglichst geeignete Fachperson zu einem bestimmten Thema zu finden, können Sie mit der folgenden
             Suchfunktion die von unseren Institutsangehörigen erfassten Fachkompetenzen durchsuchen.</p>
     </div>
-    <form class="Form iframe-form" action="{{ url()->current() }}" method="get">
+    <form id="filter-form" class="Form iframe-form" action="{{ url()->current() }}" method="get">
         <div class="FormInput">
             <label class="FormLabel" for="filter">
                 Kompetenzbereich
@@ -59,7 +59,7 @@
             </div>
         @endforeach
     </div>
-</x-iframe-layout>
+</x-iframe-competence-layout>
 <script>
     $(document).ready(function() {
         $('#filter').selectize({
