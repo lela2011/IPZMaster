@@ -55,7 +55,7 @@
                                 file.svg
                             </x-slot:image>
                             <x-slot:details>
-                                Create and Manage Files
+                                Upload and Manage Files
                             </x-slot:details>
                         </x-navtile>
                     </div>

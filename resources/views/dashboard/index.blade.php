@@ -10,6 +10,12 @@
             </div>
         </section>
         <section class="ContentArea">
+            <div class="TextImage TextImage--content richtext">
+                <p>
+                    <span style="font-weight: bold;">Notice: </span>
+                    By using this website, you acknowledge that all information entered may be publicly visible. It is your responsibility to ensure the accuracy and maintenance of your submitted data.
+                </p>
+            </div>
             @include('dashboard.navigation')
         </section>
     @else
