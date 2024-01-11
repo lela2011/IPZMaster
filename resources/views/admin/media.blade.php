@@ -7,6 +7,11 @@
                 Return to Admin Panel
             </a>
         </div>
+        <div class="TextImage">
+            <h2 class="TextImage--title richtext">
+                Press Information
+            </h2>
+        </div>
         @if ($users->isEmpty())
             @if ($filter)
                 <form class="Form js-Form" method="GET" action="{{route('admin.media')}}">

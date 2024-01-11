@@ -52,6 +52,20 @@
                         Competences and Preferred Contact Method
                     </x-slot:details>
                 </x-navtile>
+                @if(Auth::user()->managedResearchArea()->exists())
+                    <x-navtile>
+                        Research Area
+                        <x-slot:route>
+                            {{ route('research-area.show', Auth::user()->managedResearchArea->id) }}
+                        </x-slot:route>
+                        <x-slot:image>
+                            research_area.svg
+                        </x-slot:image>
+                        <x-slot:details>
+                            Manage Research Area
+                        </x-slot:details>
+                    </x-navtile>
+                @endif
                 <x-navtile>
                     External Contacts
                     <x-slot:route>

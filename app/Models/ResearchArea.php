@@ -12,10 +12,21 @@ class ResearchArea extends Model
 
     public $incrementing = false;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'id',
         'english',
-        'german'
+        'german',
+        'description_english',
+        'description_german',
+        'research_focus_english',
+        'research_focus_german',
+        'teaching_english',
+        'teaching_german',
+        'support_english',
+        'support_german',
+        'manager_uid'
     ];
 
     // sets relationship between research area and user as well as role they have
@@ -26,5 +37,11 @@ class ResearchArea extends Model
     // sets relationship between research area and research project
     public function researchProjects() : BelongsToMany {
         return $this->belongsToMany(ResearchProject::class, 'project_area', 'area_id', 'project_id');
+    }
+
+    // sets relationship between research area and manager
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_uid', 'uid');
     }
 }

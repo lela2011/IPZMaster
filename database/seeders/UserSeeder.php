@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
             rewind($csvFile);
         }
 
+        // reads csv file line by line and inserts data into user table
         while (($data = fgetcsv($csvFile)) !== FALSE) {
             DB::table('users')->insert([
                 'uid' => $data[0],

@@ -12,6 +12,11 @@
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
+        <div class="TextImage">
+            <h2 class="TextImage--title richtext">
+                Research Projects
+            </h2>
+        </div>
         @if ($projects->isEmpty())
             @if ($filter)
                 <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('research.index')}}">

@@ -35,6 +35,7 @@ class PersonalDataRequest extends FormRequest
             'research_focus_english' => 'nullable',
             'research_focus_german' => 'nullable',
             'research_areas' => 'nullable',
+            'employment_type' => 'nullable|exists:employment_types,id',
             'transv_research_prios' => 'nullable'
         ];
     }
@@ -43,6 +44,7 @@ class PersonalDataRequest extends FormRequest
     {
         return [
             'website.url' => 'The website must be a valid URL.',
+            'employment_type.exists' => 'The selected employment type is invalid.'
         ];
     }
 
@@ -52,6 +54,7 @@ class PersonalDataRequest extends FormRequest
         $temp_orcid = implode('-', $this->orcid);
         $temp_orcid = $temp_orcid === "---" ? '' : $temp_orcid;
 
+        // trims the phone number and adds the country code
         $phone = trim("+41 " . $this->phone);
         if($phone === "+41") $phone = "";
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\CompetenceIframeController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ResearchAreaController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\ResearchIframeController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,14 @@ Route::resource('externalContact', '\App\Http\Controllers\ExternalContactControl
     ->except(['show'])
     ->middleware('auth');
 
+Route::resource('research-area', '\App\Http\Controllers\ResearchAreaController')
+    ->parameter('research-area', 'researchArea')
+    ->missing(function () {
+        return Redirect::route('research-area.index');
+    })
+    ->except(['index', 'create', 'store', 'destroy'])
+    ->middleware('auth');
+
 // Post request to create external contact
 Route::post('/externalContact/createJSON', [ExternalContactController::class, 'createJSON'])->middleware('auth')->name('externalContact.createJSON');
 
@@ -86,17 +95,21 @@ Route::resource('competence', '\App\Http\Controllers\CompetenceController')
 Route::post('/competence/createJSON', [CompetenceController::class, 'createJSON'])->middleware('auth')->name('competence.createJSON');
 
 // All administration routes
-Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('admin');
+Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth','admin');
 
-Route::get('/admin/personal', [AdminController::class, 'personal'])->name('admin.personal')->middleware('admin');
+Route::get('/admin/personal', [AdminController::class, 'personal'])->name('admin.personal')->middleware('auth','admin');
 
-Route::post('/admin/promote/{user}', [AdminController::class, 'promote'])->name('admin.promote')->middleware('admin');
+Route::post('/admin/promote/{user}', [AdminController::class, 'promote'])->name('admin.promote')->middleware('auth','admin');
 
-Route::post('/admin/demote/{user}', [AdminController::class, 'demote'])->name('admin.demote')->middleware('admin');
+Route::post('/admin/demote/{user}', [AdminController::class, 'demote'])->name('admin.demote')->middleware('auth','admin');
 
-Route::get('/admin/research', [AdminController::class, 'research'])->name('admin.research')->middleware('admin');
+Route::get('/admin/research', [AdminController::class, 'research'])->name('admin.research')->middleware('auth','admin');
 
-Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media')->middleware('admin');
+Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media')->middleware('auth','admin');
+
+Route::get('admin/research-area', [AdminController::class, 'researchArea'])->name('admin.research-area')->middleware('auth','admin');
+
+Route::patch('admin/research-area/{researchArea}/manager', [AdminController::class, 'updateManager'])->name('admin.research-area.updateManager')->middleware('auth','admin');
 
 // All file routes
 Route::get('file', [FileController::class, 'index'])->name('file.index')->middleware('auth');

@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('research_areas', function (Blueprint $table) {
-            $table->string('id')->primary();
+        Schema::create('employment_types', function (Blueprint $table) {
+            $table->string('id')->primary()->unique();
             $table->string('english');
             $table->string('german');
-            $table->string('english_url');
-            $table->string('german_url');
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('research_areas');
+        Schema::dropIfExists('employment_types');
     }
 };

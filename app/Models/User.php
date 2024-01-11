@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -91,5 +93,16 @@ class User extends Authenticatable implements LdapAuthenticatable
     // sets relation between user and file
     public function files(): HasMany {
         return $this->hasMany(File::class, 'user_id', 'uid');
+    }
+
+    // sets relation between manager and research area
+    public function managedResearchArea()
+    {
+        return $this->hasOne(ResearchArea::class, 'manager_uid', 'uid');
+    }
+
+    // sets relation between user and employment type
+    public function employmentType() : BelongsTo {
+        return $this->belongsTo(EmploymentType::class, 'employment_type');
     }
 }

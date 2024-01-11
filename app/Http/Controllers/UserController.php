@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PersonalDataRequest;
+use App\Models\EmploymentType;
 use App\Models\ResearchArea;
 use App\Models\TransversalReserachPrio;
 use App\Models\User;
@@ -41,6 +42,11 @@ class UserController extends Controller
         // retrieve selected research areas from DB
         $transvResearchPrios = $user->transversalResearchPriorities()->pluck('id')->all();
 
+        // retrieve all possible employment types from DB
+        $employmentTypes = EmploymentType::all();
+        // retrieve selected employment type from DB
+        $user->load('employmentType');
+
         // retrieve orcid from DB and convert to array
         $orcid = explode('-', $user->orcid);
 
@@ -51,7 +57,8 @@ class UserController extends Controller
             'researchAreas' => $researchAreas,
             'transvResearchPrioOptions' => $transvResearchPrioOptions,
             'transvResearchPrios' => $transvResearchPrios,
-            'orcid' => $orcid
+            'orcid' => $orcid,
+            'employmentTypes' => $employmentTypes
         ]);
     }
 
@@ -75,7 +82,9 @@ class UserController extends Controller
             $user->media_phone = false;
         }
 
-        $user->fill($formData->except(['research_areas', 'transv_research_prios'])->toArray());
+        $user->employmentType()->associate($formData['employment_type']);
+
+        $user->fill($formData->except(['research_areas', 'transv_research_prios', 'employment_type'])->toArray());
         $user->save();
 
         // compare current database state and remove/insert research areas

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ResearchArea;
 use App\Models\ResearchProject;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -145,5 +146,36 @@ class AdminController extends Controller
             'users' => $users,
             'filter' => $request->input('filter')
         ]);
+    }
+
+    public function researchArea() {
+        // retrieves all research areas
+        $researchAreas = ResearchArea::all();
+        // loads manager for each research area
+        $researchAreas->load('manager');
+        // retrieves all users
+        $users = User::all();
+        // displays research area page
+        return view('admin.researchArea', compact('researchAreas', 'users'));
+    }
+
+    // updates manager of research area
+    public function updateManager(Request $request, ResearchArea $researchArea) {
+        // validates input
+        $validator = Validator::make($request->all(), [
+            'manager_uid' => 'required|exists:users,uid' // checks if manager exists
+        ]);
+
+        // checks if validation failed
+        if($validator->fails()) {
+            // redirects back to research area page with error message
+            return redirect()->back()->with('errorMessage', 'Could not update manager.');
+        }
+
+        // updates manager
+        $researchArea->manager()->associate($request->input('manager_uid'));
+        $researchArea->save();
+        // redirects back to research area page with success message
+        return redirect()->back()->with('message', 'Manager updated successfully.');
     }
 }

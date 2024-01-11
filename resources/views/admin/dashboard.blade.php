@@ -47,6 +47,18 @@
                             </x-slot:details>
                         </x-navtile>
                         <x-navtile>
+                            Research Area
+                            <x-slot:route>
+                                {{ route('admin.research-area') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                research_area.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Manage Research Area
+                            </x-slot:details>
+                        </x-navtile>
+                        <x-navtile>
                             Files
                             <x-slot:route>
                                 {{ route('file.index') }}

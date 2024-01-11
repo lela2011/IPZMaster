@@ -2,57 +2,32 @@
     <div class="ContentArea">
         <x-back>
             <x-slot:route>
-                {{ route('personal.show', $user->uid) }}
+                {{ route('research-area.show', $researchArea->id) }}
             </x-slot:route>
-            Return to Personal Page
+            Return to Research Area Page
         </x-back>
         <x-flash-message/>
-        <form class="Form js-Form" method="POST" id="Personal Data Edit" action="{{route('personal.update', $user->uid)}}">
+        <form class="Form js-Form" method="POST" id="Research Area Data Edit" action="{{route('research-area.update', $researchArea->id)}}">
             @method('PUT')
             @csrf
             <div class="Form--header">
                 <h2 class="Form--title">
-                    Please edit the personal data for {{$user->first_name}} {{$user->last_name}}
+                    Please edit the research area data for {{ $researchArea->english }}
                 </h2>
                 <p class="Form--description">
-                    - Changes will be visible on the personal page on ipz.uzh.ch<br>
+                    - Changes will be visible on the research area page on ipz.uzh.ch<br>
                     - Fields may be left empty. Those fields won't be displayed on the personal page.
                 </p>
             </div>
             <div class="Form--body">
                 <div class="FormInput">
-                    <label class="FormLabel" for="orcid_1">
-                        ORCID
+                    <label class="FormLabel" for="description_english">
+                        Description - English
                     </label>
-                    <div style="display: flex; align-items: center;">
-                        <input type="text" class="Input orcid-input" maxlength="4" name="orcid[]" id="orcid_1"
-                               value="{{ old('orcid', $orcid)[0] ?? "" }}">
-                        <span class="separator">-</span>
-                        <input type="text" class="Input orcid-input" maxlength="4" name="orcid[]" id="orcid_2"
-                               value="{{ old('orcid', $orcid)[1] ?? "" }}">
-                        <span class="separator">-</span>
-                        <input type="text" class="Input orcid-input" maxlength="4" name="orcid[]" id="orcid_3"
-                               value="{{ old('orcid', $orcid)[2] ?? "" }}">
-                        <span class="separator">-</span>
-                        <input type="text" class="Input orcid-input" maxlength="4" name="orcid[]" id="orcid_4"
-                               value="{{ old('orcid', $orcid)[3] ?? "" }}">
-                    </div>
-                    @error('orcid')
-                    <p class="has-error" style="color: red">
-                        {{$message}}
-                    </p>
-                    @enderror
-                    <p class="FormDescription">
-                        Type or paste an ORCID. When pasting hyphens may be pasted.
-                    </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="website">
-                        Website
-                    </label>
-                    <input class="Input" name="website" id="website"
-                           value="{{ old('website', $user->website) }}">
-                    @error('website')
+                    <textarea class="Input wysiwyg" name="description_english" id="description_english">
+                        {{ old('description_english', $researchArea->description_english) }}
+                    </textarea>
+                    @error('description_english')
                     <p class="has-error" style="color: red">
                         <small>
                             {{$message}}
@@ -60,19 +35,17 @@
                     </p>
                     @enderror
                     <p class="FormDescription">
-                        Please enter the link to your personal website.
+                        Please enter the english description of the research area.
                     </p>
                 </div>
                 <div class="FormInput">
-                    <label class="FormLabel" for="phone">
-                        Phone
+                    <label class="FormLabel" for="description_german">
+                        Description - German
                     </label>
-                    <div style="display: flex; align-items: center;">
-                        <span style="margin-right: 8px">+41</span>
-                        <input class="Input" name="phone" id="phone"
-                           value="{{ old('phone', substr($user->phone, 4)) }}">
-                    </div>
-                    @error('phone')
+                    <textarea class="Input wysiwyg" name="description_german" id="description_german">
+                        {{ old('description_german', $researchArea->description_german) }}
+                    </textarea>
+                    @error('description_german')
                     <p class="has-error" style="color: red">
                         <small>
                             {{$message}}
@@ -80,69 +53,17 @@
                     </p>
                     @enderror
                     <p class="FormDescription">
-                        Please enter your office phone number.
+                        Please enter the german description of the research area.
                     </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="cv_english">
-                        CV - English
-                    </label>
-                    <textarea class="Input wysiwyg" name="cv_english"
-                              id="cv_english">{{ old('cv_english', $user->cv_english) }}</textarea>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="cv_german">
-                        CV - German
-                    </label>
-                    <textarea class="Input wysiwyg" name="cv_german"
-                              id="cv_english">{{ old('cv_german', $user->cv_german) }}</textarea>
                 </div>
                 <div class="FormInput">
                     <label class="FormLabel" for="research_focus_english">
                         Research Focus - English
                     </label>
-                    <textarea class="Input wysiwyg" name="research_focus_english"
-                              id="research_focus_english">{{ old('research_focus_english', $user->research_focus_english) }}</textarea>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="research_focus_german">
-                        Research Focus - German
-                    </label>
-                    <textarea class="Input wysiwyg" name="research_focus_german"
-                              id="research_focus_german">{{ old('research_focus_german', $user->research_focus_german) }}</textarea>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="research_areas">
-                        Research Areas
-                    </label>
-                    <select id="research_areas" name="research_areas[]" multiple>
-                        @foreach($researchAreaOptions as $researchAreaOption)
-                            <option value="{{ $researchAreaOption->id }}"
-                                    @if(collect(old('research_areas', $researchAreas))->contains($researchAreaOption->id))
-                                        selected
-                                @endif
-                            >{{ $researchAreaOption->english }}</option>
-                        @endforeach
-                    </select>
-                    <p class="FormDescription">
-                        Select one or multiple research areas.
-                    </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="employment_type">
-                        Employment Type
-                    </label>
-                    <select class="Select" id="employment_type" name="employment_type">
-                        <option value=""></option>
-                        @foreach($employmentTypes as $employmentType)
-                            <option value="{{ $employmentType->id }}"
-                                @if(old('employment_type', $user->employmentType->id) == $employmentType->id))
-                                        selected
-                                @endif
-                            >{{ $employmentType->english }}</option>
-                        @endforeach
-                    </select>
-                    @error('employment_type')
+                    <textarea class="Input wysiwyg" name="research_focus_english" id="research_focus_english">
+                        {{ old('research_focus_english', $researchArea->research_focus_english) }}
+                    </textarea>
+                    @error('research_focus_english')
                     <p class="has-error" style="color: red">
                         <small>
                             {{$message}}
@@ -150,28 +71,101 @@
                     </p>
                     @enderror
                     <p class="FormDescription">
-                        Select your employment type for the research areas you work for.
+                        Please enter the english research focus of the research area.
                     </p>
                 </div>
                 <div class="FormInput">
-                    <label class="FormLabel" for="transv_research_prios">
-                        Transversal Research Priorities
+                    <label class="FormLabel" for="research_focus_german">
+                        Research Focus - German
                     </label>
-                    <select id="transv_research_prios" name="transv_research_prios[]" multiple>
-                        @foreach($transvResearchPrioOptions as $prio)
-                            <option value="{{ $prio->id }}"
-                                @if(collect(old('transv_research_prios', $transvResearchPrios))->contains($prio->id))
-                                    selected
-                                @endif
-                            >{{ $prio->english }}</option>
-                        @endforeach
-                    </select>
+                    <textarea class="Input wysiwyg" name="research_focus_german" id="research_focus_german">
+                        {{ old('research_focus_german', $researchArea->research_focus_german) }}
+                    </textarea>
+                    @error('research_focus_german')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
                     <p class="FormDescription">
-                        Select one or multiple transversal research priorities.
+                        Please enter the english research focus of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="teaching_english">
+                        Teaching and Supervision - English
+                    </label>
+                    <textarea class="Input wysiwyg" name="teaching_english" id="teaching_english">
+                        {{ old('teaching_english', $researchArea->teaching_english) }}
+                    </textarea>
+                    @error('teaching_english')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the english teaching and supervisison information of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="teaching_german">
+                        Teaching and Supervision - German
+                    </label>
+                    <textarea class="Input wysiwyg" name="teaching_german" id="teaching_german">
+                        {{ old('teaching_german', $researchArea->teaching_german) }}
+                    </textarea>
+                    @error('teaching_german')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the german teaching and supervisison information of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="support_english">
+                        Support Information - English
+                    </label>
+                    <textarea class="Input wysiwyg" name="support_english" id="support_english">
+                        {{ old('support_english', $researchArea->support_english) }}
+                    </textarea>
+                    @error('support_english')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the english support information of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="support_german">
+                        Support Information - German
+                    </label>
+                    <textarea class="Input wysiwyg" name="support_german" id="support_german">
+                        {{ old('support_german', $researchArea->support_german) }}
+                    </textarea>
+                    @error('support_german')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the german support information of the research area.
                     </p>
                 </div>
                 <div class="FormButtons">
-                    <a href="{{route('personal.show', $user->uid)}}" class="Button color-border-white size-large">
+                    <a href="{{route('research-area.show', $researchArea->id)}}" class="Button color-border-white size-large">
                         <span class="Button--inner">
                             Cancel
                         </span>

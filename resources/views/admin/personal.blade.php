@@ -4,8 +4,13 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
-                Return to Admin Panel
+                Return to Admin Data
             </a>
+        </div>
+        <div class="TextImage">
+            <h2 class="TextImage--title richtext">
+                Personal Information
+            </h2>
         </div>
         @if ($users->isEmpty())
             @if ($filter)
