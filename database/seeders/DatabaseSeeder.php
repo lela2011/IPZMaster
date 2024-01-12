@@ -187,6 +187,10 @@ class DatabaseSeeder extends Seeder
                 'german' => 'Tutorierende'
             ],
             [
+                'english' => 'Lecturors',
+                'german' => 'Dozierende'
+            ],
+            [
                 'english' => 'Associate Researchers',
                 'german' => 'Assoziierte Forschende'
             ],
