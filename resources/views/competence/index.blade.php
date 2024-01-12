@@ -29,7 +29,7 @@
             </div>
         </form>
         <div class="TextImage">
-            <div style="width: 100%; height: 1px; background-color:#666666"></div>
+            <div style="width: 100%; height: 1px; background-color:rgba(0,0,0,0.08)"></div>
         </div>
         @if ($competences->isEmpty())
             @if ($filter)

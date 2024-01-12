@@ -72,6 +72,7 @@ Route::resource('externalContact', '\App\Http\Controllers\ExternalContactControl
     ->except(['show'])
     ->middleware('auth');
 
+// All research area routes
 Route::resource('research-area', '\App\Http\Controllers\ResearchAreaController')
     ->parameter('research-area', 'researchArea')
     ->missing(function () {
@@ -110,6 +111,10 @@ Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media
 Route::get('admin/research-area', [AdminController::class, 'researchArea'])->name('admin.research-area')->middleware('auth','admin');
 
 Route::patch('admin/research-area/{researchArea}/manager', [AdminController::class, 'updateManager'])->name('admin.research-area.updateManager')->middleware('auth','admin');
+
+Route::post('admin/research-area', [AdminController::class, 'createResearchArea'])->name('admin.research-area.create')->middleware('auth','admin');
+
+Route::delete('admin/research-area{researchArea}/delete', [AdminController::class, 'deleteResearchArea'])->name('admin.research-area.delete')->middleware('auth','admin');
 
 // All file routes
 Route::get('file', [FileController::class, 'index'])->name('file.index')->middleware('auth');

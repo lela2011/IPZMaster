@@ -154,16 +154,55 @@ class AdminController extends Controller
         // loads manager for each research area
         $researchAreas->load('manager');
         // retrieves all users
-        $users = User::all();
+        $users = User::doesntHave('managedResearchArea')->get();
         // displays research area page
         return view('admin.researchArea', compact('researchAreas', 'users'));
+    }
+
+    // creates new research area
+    public function createResearchArea(Request $request) {
+        // validates input
+        $formdata = collect($request->validate([
+            'english' => 'required|string|unique:research_areas,english',
+            'german' => 'required|string|unique:research_areas,german',
+            'url_english' => 'required|url',
+            'url_german' => 'required|url',
+            'manager_uid' => 'nullable|exists:users,uid|unique:research_areas,manager_uid'
+        ],[
+            'english.required' => 'Please enter an english name.',
+            'english.string' => 'English name must be a string.',
+            'english.unique' => 'English name already exists.',
+            'german.required' => 'Please enter a german name.',
+            'german.string' => 'German name must be a string.',
+            'german.unique' => 'German name already exists.',
+            'manager_uid.exists' => 'Manager does not exist.',
+            'manager_uid.unique' => 'Manager already exists.'
+        ]));
+
+        // creates new research area
+        $researchArea = new ResearchArea($formdata->except('manager_uid')->toArray());
+
+        // saves research area and sets relationshp
+        $manager = User::find($formdata->get('manager_uid'));
+        $manager->managedResearchArea()->save($researchArea);
+
+        // redirects back to research area page with success message
+        return redirect()->back()->with('message', 'Research area created successfully.');
+    }
+
+    public function deleteResearchArea(ResearchArea $researchArea) {
+        // deletes research area
+        $researchArea->delete();
+
+        // redirects back to research area page with success message
+        return redirect()->back()->with('message', 'Research area deleted successfully.');
     }
 
     // updates manager of research area
     public function updateManager(Request $request, ResearchArea $researchArea) {
         // validates input
         $validator = Validator::make($request->all(), [
-            'manager_uid' => 'required|exists:users,uid' // checks if manager exists
+            'manager_uid' => 'nullable|exists:users,uid|unique:research_areas,manager_uid' // checks if manager exists
         ]);
 
         // checks if validation failed

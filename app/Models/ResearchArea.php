@@ -15,6 +15,8 @@ class ResearchArea extends Model
     protected $fillable = [
         'english',
         'german',
+        'url_english',
+        'url_german',
         'description_english',
         'description_german',
         'research_focus_english',

@@ -12,6 +12,7 @@ class ResearchAreaController extends Controller
 
     public function show(ResearchArea $researchArea)
     {
+        // checks if user is authorized to view research area
         $user = Auth::user();
         $this->authorize('view', $user);
 
@@ -21,6 +22,7 @@ class ResearchAreaController extends Controller
 
     public function edit(ResearchArea $researchArea) {
 
+        // checks if user is authorized to edit research area
         $user = Auth::user();
         $this->authorize('edit', $user);
 
@@ -33,6 +35,7 @@ class ResearchAreaController extends Controller
      */
     public function update(ResearchAreaRequest $request, ResearchArea $researchArea)
     {
+        // checks if user is authorized to update research area
         $user = Auth::user();
         $this->authorize('update', $user);
         // retrieves validated form data
@@ -43,6 +46,6 @@ class ResearchAreaController extends Controller
         $researchArea->save();
 
         // redirect to research area page
-        return redirect()->route('research-area.show', $researchArea->id)->with('message', 'Research Area successfully updated.');
+        return redirect()->route('research-area.show', $researchArea->id)->with('message', 'Research Area updated successfully.');
     }
 }

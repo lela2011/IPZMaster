@@ -1,3 +1,7 @@
+@php
+    $user = Auth::user();
+    $isAdmin = $user->admin_level > 0;
+@endphp
 <x-layout>
     <div class="ContentArea">
         <x-back>
@@ -20,6 +24,70 @@
                 </p>
             </div>
             <div class="Form--body">
+                <div class="FormInput">
+                    <label class="FormLabel" for="english">
+                        Name - English
+                    </label>
+                    <input class="Input" name="english" id="english" value=" {{ old('english', $researchArea->english) }}">
+                    @error('english')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the english name of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="german">
+                        Name - German
+                    </label>
+                    <input class="Input" name="german" id="german" value=" {{ old('german', $researchArea->german) }}">
+                    @error('german')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the german name of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="url_english">
+                        Link - English
+                    </label>
+                    <input class="Input" name="url_english" id="url_english" value=" {{ old('url_english', $researchArea->url_english) }}">
+                    @error('url_english')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the English link of the research area.
+                    </p>
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="url_german">
+                        Link - German
+                    </label>
+                    <input class="Input" name="url_german" id="url_german" value=" {{ old('url_german', $researchArea->url_german) }}">
+                    @error('url_german')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                    <p class="FormDescription">
+                        Please enter the German link of the research area.
+                    </p>
+                </div>
                 <div class="FormInput">
                     <label class="FormLabel" for="description_english">
                         Description - English
