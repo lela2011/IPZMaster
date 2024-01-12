@@ -168,35 +168,60 @@ class DatabaseSeeder extends Seeder
         $employment_type_data = [
             [
                 'english' => 'Senior Researchers',
-                'german' => 'Wissenschaftliche Mitarbeitende'
+                'german' => 'Wissenschaftliche Mitarbeitende',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/employees/',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/mitarbeitende/',
+                'has_personal_page' => true
             ],
             [
                 'english' => 'Post Docs',
-                'german' => 'Post Docs'
+                'german' => 'Post Docs',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/employees/',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/mitarbeitende/',
+                'has_personal_page' => true
             ],
             [
                 'english' => 'Doctoral Students/Aassistants',
                 'german' => 'Doktorierende/Assestierende',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/employees/',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/mitarbeitende/',
+                'has_personal_page' => true
             ],
             [
                 'english' => 'Auxiliary Assistants',
-                'german' => 'Hilfsassistierende'
+                'german' => 'Hilfsassistierende',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/employees/',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/mitarbeitende/',
+                'has_personal_page' => true
             ],
             [
                 'english' => 'Tutors',
-                'german' => 'Tutorierende'
+                'german' => 'Tutorierende',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/employees/',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/mitarbeitende/',
+                'has_personal_page' => true
+
             ],
             [
                 'english' => 'Lecturors',
-                'german' => 'Dozierende'
+                'german' => 'Dozierende',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/',
+                'has_personal_page' => false
             ],
             [
                 'english' => 'Associate Researchers',
-                'german' => 'Assoziierte Forschende'
+                'german' => 'Assoziierte Forschende',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/associated-researchers.html',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/assoziierte-forschende.html',
+                'has_personal_page' => false
             ],
             [
                 'english' => 'Academic Guests',
-                'german' => 'Akademische Gäste'
+                'german' => 'Akademische Gäste',
+                'url_english' => 'https://www.ipz.uzh.ch/en/people/academic-guests.html',
+                'url_german' => 'https://www.ipz.uzh.ch/de/personen/akademische-gaeste.html',
+                'has_personal_page' => false
             ],
         ];
 

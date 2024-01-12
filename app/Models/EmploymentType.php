@@ -13,6 +13,10 @@ class EmploymentType extends Model
     // sets parameters for primary key and timestamps
     public $timestamps = false;
 
+    protected $cast = [
+        'has_personal_page' => 'boolean',
+    ];
+
     // defines relationship between employment type and user
     public function users()
     {

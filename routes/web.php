@@ -9,6 +9,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ResearchAreaController;
+use App\Http\Controllers\ResearchAreaIframeController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\ResearchIframeController;
 use App\Http\Controllers\UserController;
@@ -161,7 +162,6 @@ Route::prefix('iframe/{language}')->group(function() {
             ->missing(function () {
                 return Redirect::route('empty.iframe');
             });
-
     });
 
     Route::prefix('research')->group(function() {
@@ -180,6 +180,45 @@ Route::prefix('iframe/{language}')->group(function() {
         ->missing(function () {
             return Redirect::route('empty.iframe');
         });
+
+    Route::prefix('research-area/{researchArea}')->group(function () {
+        Route::get('/description', [ResearchAreaIframeController::class, 'description'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::get('/research-focus', [ResearchAreaIframeController::class, 'researchFocus'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::get('/teaching', [ResearchAreaIframeController::class, 'teaching'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::get('/support', [ResearchAreaIframeController::class, 'support'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+
+        Route::prefix('research')->group(function() {
+            Route::get('/current', [ResearchAreaIframeController::class, 'currentResearchProjects'])
+                ->missing(function () {
+                    return Redirect::route('empty.iframe');
+                });
+
+            Route::get('/completed', [ResearchAreaIframeController::class, 'completedResearchProjects'])
+                ->missing(function () {
+                    return Redirect::route('empty.iframe');
+                });
+        });
+
+        Route::get('/employees', [ResearchAreaIframeController::class, 'employees'])
+            ->missing(function () {
+                return Redirect::route('empty.iframe');
+            });
+    });
 });
 
 Route::get('iframe', function() {

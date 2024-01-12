@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('english');
             $table->string('german');
+            $table->string('url_english');
+            $table->string('url_german');
+            $table->boolean('has_personal_page');
         });
     }
 
