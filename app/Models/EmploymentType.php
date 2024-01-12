@@ -11,7 +11,6 @@ class EmploymentType extends Model
     use HasFactory;
 
     // sets parameters for primary key and timestamps
-    public $incrementing = false;
     public $timestamps = false;
 
     // defines relationship between employment type and user

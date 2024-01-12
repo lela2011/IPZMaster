@@ -23,7 +23,7 @@
                 {{ $user->first_name }} {{ $user->last_name }}
             </h2>
             <div class="TextImage--inner">
-                @if ($user->orcid || $user->website || $user->phone || $user->cv_english || $user->cv_german || $user->research_focus_english || $user->research_focus_german || $user->researchAreas->isNotEmpty() || $user->employmentType->exists() || $user->transversalResearchPriorities->isNotEmpty())
+                @if ($user->orcid || $user->website || $user->phone || $user->cv_english || $user->cv_german || $user->research_focus_english || $user->research_focus_german || $user->researchAreas->isNotEmpty() || !empty($user->employmentType) || $user->transversalResearchPriorities->isNotEmpty())
                     <div class="TextImage--text richtext">
                         @if ($user->orcid)
                             <h4>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('project_prio', function (Blueprint $table) {
             $table->unsignedBigInteger('project_id');
-            $table->string('prio_id');
+            $table->unsignedBigInteger('prio_id');
 
             $table->foreign('project_id')->references('id')->on('research_projects')->onDelete('cascade');
             $table->foreign('prio_id')->references('id')->on('transv_research_prios')->onDelete('cascade');

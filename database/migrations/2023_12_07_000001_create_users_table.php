@@ -27,7 +27,7 @@ return new class extends Migration
             $table->boolean('media_mail')->default(false);
             $table->boolean('media_phone')->default(false);
             $table->boolean('media_secretariat')->default(false);
-            $table->string('employment_type')->nullable();
+            $table->unsignedBigInteger('employment_type')->nullable();
             $table->string('password')->nullable();
             $table->integer('adminLevel')->default(0);
             $table->rememberToken();

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employment_types', function (Blueprint $table) {
-            $table->string('id')->primary()->unique();
+            $table->id();
             $table->string('english');
             $table->string('german');
         });

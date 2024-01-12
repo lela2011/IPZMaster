@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // defines the table structure of Transversal Research Priorities Table
         Schema::create('transv_research_prios', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->string('english');
             $table->string('german');
         });

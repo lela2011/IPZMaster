@@ -22,7 +22,7 @@ class UserController extends Controller
         $this->authorize('view', $user);
 
         // load research areas and transversal research priorities
-        $user->load('researchAreas', 'transversalResearchPriorities');
+        $user->load('researchAreas', 'transversalResearchPriorities', 'employmentType');
 
         // Display personal data
         return view('user.show', compact('user'));

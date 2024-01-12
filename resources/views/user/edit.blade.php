@@ -136,7 +136,7 @@
                         <option value=""></option>
                         @foreach($employmentTypes as $employmentType)
                             <option value="{{ $employmentType->id }}"
-                                @if(old('employment_type', $user->employmentType->id) == $employmentType->id))
+                                @if(old('employment_type', $user->employmentType->id ?? '') == $employmentType->id)
                                         selected
                                 @endif
                             >{{ $employmentType->english }}</option>
