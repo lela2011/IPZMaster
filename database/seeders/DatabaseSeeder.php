@@ -167,33 +167,33 @@ class DatabaseSeeder extends Seeder
         // pre-populates employment_type table
         $employment_type_data = [
             [
+                'english' => 'Senior Researchers',
+                'german' => 'Wissenschaftliche Mitarbeitende'
+            ],
+            [
                 'english' => 'Post Docs',
                 'german' => 'Post Docs'
             ],
             [
-                'english' => 'Academic Guests',
-                'german' => 'Akademische Gäste'
-            ],
-            [
-                'english' => 'Doctoral students/assistants',
+                'english' => 'Doctoral Students/Aassistants',
                 'german' => 'Doktorierende/Assestierende',
             ],
             [
-                'english' => 'Associate researchers',
-                'german' => 'Assoziierte Forschende'
-            ],
-            [
-                'english' => 'Research assistants',
-                'german' => 'Wissenschaftliche Mitarbeitende'
-            ],
-            [
-                'english' => 'Auxiliary assistants',
+                'english' => 'Auxiliary Assistants',
                 'german' => 'Hilfsassistierende'
             ],
             [
                 'english' => 'Tutors',
                 'german' => 'Tutorierende'
-            ]
+            ],
+            [
+                'english' => 'Associate Researchers',
+                'german' => 'Assoziierte Forschende'
+            ],
+            [
+                'english' => 'Academic Guests',
+                'german' => 'Akademische Gäste'
+            ],
         ];
 
         DB::table('employment_types')->insert($employment_type_data);
