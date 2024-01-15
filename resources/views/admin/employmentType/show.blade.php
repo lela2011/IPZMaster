@@ -20,11 +20,15 @@
                     <h4>
                         Name - German (Plural):
                     </h4>
-                    {{ $employmentType->german}}
+                    <p>
+                        {{ $employmentType->german}}
+                    </p>
                     <h4>
                         Name - English (Singular):
                     </h4>
-                    {{ $employmentType->singular}}
+                    <p>
+                        {{ $employmentType->singular }}
+                    </p>
                     <h4>
                         Base URL - English:
                     </h4>
@@ -40,7 +44,9 @@
                     <h4>
                         Has Personal Page:
                     </h4>
-                    {{ $employmentType->has_personal_page ? 'Yes' : 'No' }}
+                    <p>
+                        {{ $employmentType->has_personal_page ? 'Yes' : 'No' }}
+                    </p>
                 </div>
             </div>
         </div>

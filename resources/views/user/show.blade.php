@@ -29,7 +29,9 @@
                             <h4>
                                 ORCID:
                             </h4>
-                            {{ $user->orcid}}
+                            <p>
+                                {{ $user->orcid}}
+                            </p>
                         @endif
                         @if ($user->website)
                             <h4>
@@ -87,7 +89,9 @@
                             <h4>
                                 Employment Type:
                             </h4>
-                            {{ $user->employmentType->english }}
+                            <p>
+                                {{ $user->employmentType->singular }}
+                            </p>
                         @endif
                         @if($user->transversalResearchPriorities->isNotEmpty())
                             <h4>
