@@ -83,7 +83,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                        @if($user->employmentType->exists())
+                        @if($user->employmentType)
                             <h4>
                                 Employment Type:
                             </h4>

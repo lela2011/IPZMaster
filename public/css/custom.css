@@ -272,6 +272,32 @@
     display: inline;
 }
 
+.employment-type-card {
+    width: 100%;
+    padding: 8px;
+    margin: 16px 0px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+.employment-type-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.employment-type-card:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
 .NewsListItem.research {
     display: block !important;
 }

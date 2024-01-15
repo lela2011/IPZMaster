@@ -52,7 +52,7 @@
                         Competences and Preferred Contact Method
                     </x-slot:details>
                 </x-navtile>
-                @if(Auth::user()->managedResearchArea()->exists())
+                @if(Auth::user()->managedResearchArea)
                     <x-navtile>
                         Research Area
                         <x-slot:route>

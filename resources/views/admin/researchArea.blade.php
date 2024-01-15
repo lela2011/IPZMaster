@@ -18,11 +18,17 @@
                 <div class="contactGrid">
                     @foreach ($researchAreas as $researchArea)
                         <div class="contactGridItem" style="display: flex; flex-direction: column; justify-content: space-between">
-                            <a href="{{ route('research-area.show', $researchArea->id) }}">
-                                <span class="LinkList--text" style="font-weight: bold;">
-                                    {{ $researchArea->english }}
+                            <div>
+                                <span class="LinkList--text">
+                                    ID: {{ $researchArea->id }}
                                 </span>
-                            </a>
+                                <br
+                                <a href="{{ route('research-area.show', $researchArea->id) }}">
+                                    <span class="LinkList--text" style="font-weight: bold;">
+                                        {{ $researchArea->english }}
+                                    </span>
+                                </a>
+                            </div>
                             <div>
                                 <span class="LinkList--text">
                                     Managed by:
@@ -36,7 +42,7 @@
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->uid }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                             @endforeach
-                                            @if($researchArea->manager()->exists())
+                                            @if($researchArea->manager)
                                                 <option value="{{ $researchArea->manager->uid }}" selected>{{ $researchArea->manager->first_name }} {{ $researchArea->manager->last_name }}</option>
                                             @endif
                                         </select>
@@ -47,7 +53,7 @@
                                         </button>
                                     </form>
                                 </div>
-                                @if($researchArea->manager()->exists())
+                                @if($researchArea->manager)
                                     <span class="LinkList--text manager-span">{{ $researchArea->manager->first_name }} {{ $researchArea->manager->last_name }}</span>
                                 @else
                                     <span class="LinkList--text manager-span">-</span>
@@ -101,99 +107,97 @@
                     Create a new research area.
                 </h2>
             </div>
-            <div class="Form--body">
-                <div class="FormInput">
-                    <label class="FormLabel" for="english">
-                        Research Area Name - English
-                    </label>
-                    <input class="Input" name="english" id="english" value="{{ old('english') }}">
-                    @error('english')
-                    <p class="has-error" style="color: red">
-                        <small>
-                            {{$message}}
-                        </small>
-                    </p>
-                    @enderror
-                    <p class="FormDescription">
-                        Please enter the english name of the research area.
-                    </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="german">
-                        Research Area Name - German
-                    </label>
-                    <input class="Input" name="german" id="german" value="{{ old('german') }}">
-                    @error('german')
-                    <p class="has-error" style="color: red">
-                        <small>
-                            {{$message}}
-                        </small>
-                    </p>
-                    @enderror
-                    <p class="FormDescription">
-                        Please enter the german name of the research area.
-                    </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="url_english">
-                        Link - English
-                    </label>
-                    <input class="Input" name="url_english" id="url_english" value="{{ old('url_english') }}">
-                    @error('url_english')
-                    <p class="has-error" style="color: red">
-                        <small>
-                            {{$message}}
-                        </small>
-                    </p>
-                    @enderror
-                    <p class="FormDescription">
-                        Please enter the German IPZ-Link to the research area.
-                    </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="url_german">
-                        Link - German
-                    </label>
-                    <input class="Input" name="url_german" id="url_german" value="{{ old('url_german') }}">
-                    @error('url_german')
-                    <p class="has-error" style="color: red">
-                        <small>
-                            {{$message}}
-                        </small>
-                    </p>
-                    @enderror
-                    <p class="FormDescription">
-                        Please enter German the IPZ-Link to the research area.
-                    </p>
-                </div>
-                <div class="FormInput">
-                    <label class="FormLabel" for="manager_uid">
-                        Manager
-                    </label>
-                    <select name="manager_uid" id="manager_uid" value="{{ old('manager_uid') }}">
-                        <option value="">-</option>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->uid }}">{{ $user->first_name }} {{ $user->last_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('manager_uid')
-                    <p class="has-error" style="color: red">
-                        <small>
-                            {{$message}}
-                        </small>
-                    </p>
-                    @enderror
-                    <p class="FormDescription">
-                        Please enter the manager of the research area.
-                    </p>
-                </div>
-                <div class="FormButtons">
-                    <button class="Button color-primary size-large" type="submit">
-                        <span class="Button--inner">
-                            Create
-                        </span>
-                    </button>
-                </div>
+            <div class="FormInput">
+                <label class="FormLabel" for="english">
+                    Research Area Name - English
+                </label>
+                <input class="Input" name="english" id="english" value="{{ old('english') }}">
+                @error('english')
+                <p class="has-error" style="color: red">
+                    <small>
+                        {{$message}}
+                    </small>
+                </p>
+                @enderror
+                <p class="FormDescription">
+                    Please enter the english name of the research area.
+                </p>
+            </div>
+            <div class="FormInput">
+                <label class="FormLabel" for="german">
+                    Research Area Name - German
+                </label>
+                <input class="Input" name="german" id="german" value="{{ old('german') }}">
+                @error('german')
+                <p class="has-error" style="color: red">
+                    <small>
+                        {{$message}}
+                    </small>
+                </p>
+                @enderror
+                <p class="FormDescription">
+                    Please enter the german name of the research area.
+                </p>
+            </div>
+            <div class="FormInput">
+                <label class="FormLabel" for="url_english">
+                    Link - English
+                </label>
+                <input class="Input" name="url_english" id="url_english" value="{{ old('url_english') }}">
+                @error('url_english')
+                <p class="has-error" style="color: red">
+                    <small>
+                        {{$message}}
+                    </small>
+                </p>
+                @enderror
+                <p class="FormDescription">
+                    Please enter the German IPZ-Link to the research area.
+                </p>
+            </div>
+            <div class="FormInput">
+                <label class="FormLabel" for="url_german">
+                    Link - German
+                </label>
+                <input class="Input" name="url_german" id="url_german" value="{{ old('url_german') }}">
+                @error('url_german')
+                <p class="has-error" style="color: red">
+                    <small>
+                        {{$message}}
+                    </small>
+                </p>
+                @enderror
+                <p class="FormDescription">
+                    Please enter German the IPZ-Link to the research area.
+                </p>
+            </div>
+            <div class="FormInput">
+                <label class="FormLabel" for="manager_uid">
+                    Manager
+                </label>
+                <select name="manager_uid" id="manager_uid" value="{{ old('manager_uid') }}">
+                    <option value="">-</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->uid }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                    @endforeach
+                </select>
+                @error('manager_uid')
+                <p class="has-error" style="color: red">
+                    <small>
+                        {{$message}}
+                    </small>
+                </p>
+                @enderror
+                <p class="FormDescription">
+                    Please enter the manager of the research area.
+                </p>
+            </div>
+            <div class="FormButtons">
+                <button class="Button color-primary size-large" type="submit">
+                    <span class="Button--inner">
+                        Create
+                    </span>
+                </button>
             </div>
         </form>
     </section>

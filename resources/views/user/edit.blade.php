@@ -139,7 +139,7 @@
                                 @if(old('employment_type', $user->employmentType->id ?? '') == $employmentType->id)
                                         selected
                                 @endif
-                            >{{ $employmentType->english }}</option>
+                            >{{ $employmentType->singular }}</option>
                         @endforeach
                     </select>
                     @error('employment_type')

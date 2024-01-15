@@ -43,7 +43,7 @@ class UserController extends Controller
         $transvResearchPrios = $user->transversalResearchPriorities()->pluck('id')->all();
 
         // retrieve all possible employment types from DB
-        $employmentTypes = EmploymentType::all();
+        $employmentTypes = EmploymentType::orderBy('order')->get();
         // retrieve selected employment type from DB
         $user->load('employmentType');
 

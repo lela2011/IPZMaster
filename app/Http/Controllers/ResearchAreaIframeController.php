@@ -107,7 +107,10 @@ class ResearchAreaIframeController extends Controller
             $query->where('id', $researchArea->id);
         })->with('employmentType')
             ->get()
-            ->groupBy('employmentType.id');
+            ->groupBy('employmentType.id')
+            ->sortBy(function ($users, $employmentTypeId) {
+                return $users->first()->employmentType->order;
+            });
 
         // loads all employment types
         $types = EmploymentType::all();

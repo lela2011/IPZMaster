@@ -47,7 +47,7 @@
                             </x-slot:details>
                         </x-navtile>
                         <x-navtile>
-                            Research Area
+                            Research Areas
                             <x-slot:route>
                                 {{ route('admin.research-area') }}
                             </x-slot:route>
@@ -68,6 +68,18 @@
                             </x-slot:image>
                             <x-slot:details>
                                 Upload and Manage Files
+                            </x-slot:details>
+                        </x-navtile>
+                        <x-navtile>
+                            Employment Types
+                            <x-slot:route>
+                                {{ route('admin.employment-type.index') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                employment_type.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Create, update, delete and order employment types
                             </x-slot:details>
                         </x-navtile>
                     </div>

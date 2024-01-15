@@ -17,6 +17,16 @@ class EmploymentType extends Model
         'has_personal_page' => 'boolean',
     ];
 
+    protected $fillable = [
+        'english',
+        'german',
+        'singular',
+        'url_english',
+        'url_german',
+        'has_personal_page',
+        'order'
+    ];
+
     // defines relationship between employment type and user
     public function users()
     {

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminEmploymentTypeController;
+use App\Http\Controllers\AdminResearchAreaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompetenceController;
@@ -109,13 +111,31 @@ Route::get('/admin/research', [AdminController::class, 'research'])->name('admin
 
 Route::get('/admin/media', [AdminController::class, 'media'])->name('admin.media')->middleware('auth','admin');
 
-Route::get('admin/research-area', [AdminController::class, 'researchArea'])->name('admin.research-area')->middleware('auth','admin');
+Route::get('admin/research-area', [AdminResearchAreaController::class, 'index'])->name('admin.research-area')->middleware('auth','admin');
 
-Route::patch('admin/research-area/{researchArea}/manager', [AdminController::class, 'updateManager'])->name('admin.research-area.updateManager')->middleware('auth','admin');
+Route::patch('admin/research-area/{researchArea}/manager', [AdminResearchAreaController::class, 'updateManager'])->name('admin.research-area.updateManager')->middleware('auth','admin');
 
-Route::post('admin/research-area', [AdminController::class, 'createResearchArea'])->name('admin.research-area.create')->middleware('auth','admin');
+Route::post('admin/research-area', [AdminResearchAreaController::class, 'create'])->name('admin.research-area.create')->middleware('auth','admin');
 
-Route::delete('admin/research-area{researchArea}/delete', [AdminController::class, 'deleteResearchArea'])->name('admin.research-area.delete')->middleware('auth','admin');
+Route::delete('admin/research-area{researchArea}/delete', [AdminResearchAreaController::class, 'delete'])->name('admin.research-area.delete')->middleware('auth','admin');
+
+Route::get('admin/employment-type', [AdminEmploymentTypeController::class, 'index'])->name('admin.employment-type.index')->middleware('auth','admin');
+
+Route::get('admin/employment-type/create', [AdminEmploymentTypeController::class, 'create'])->name('admin.employment-type.create')->middleware('auth','admin');
+
+Route::get('admin/employment-type/update-order', [AdminEmploymentTypeController::class, 'updateOrder'])->name('admin.employment-type.updateOrder')->middleware('auth','admin');
+
+Route::post('admin/employment-type/update-order', [AdminEmploymentTypeController::class, 'submitOrder'])->name('admin.employment-type.updateOrder.submit')->middleware('auth','admin');
+
+Route::get('admin/employment-type/{employmentType}', [AdminEmploymentTypeController::class, 'show'])->name('admin.employment-type.show')->middleware('auth','admin');
+
+Route::delete('admin/employment-type/{employmentType}', [AdminEmploymentTypeController::class, 'delete'])->name('admin.employment-type.delete')->middleware('auth','admin');
+
+Route::post('admin/employment-type', [AdminEmploymentTypeController::class, 'store'])->name('admin.employment-type.store')->middleware('auth','admin');
+
+Route::get('admin/employment-type/{employmentType}/edit', [AdminEmploymentTypeController::class, 'edit'])->name('admin.employment-type.edit')->middleware('auth','admin');
+
+Route::patch('admin/employment-type/{employmentType}', [AdminEmploymentTypeController::class, 'update'])->name('admin.employment-type.update')->middleware('auth','admin');
 
 // All file routes
 Route::get('file', [FileController::class, 'index'])->name('file.index')->middleware('auth');
