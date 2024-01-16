@@ -20,7 +20,8 @@
                     Edit the order of the employment types
                 </h2>
                 <p class="Form--description">
-                    - Changes will be visible on the research area pages on ipz.uzh.ch
+                    - Changes will be visible on the research area pages on ipz.uzh.ch<br>
+                    - Drag the employment type to the desired order and click on "Update Order"
                 </p>
             </div>
             <div style="display: flex">
