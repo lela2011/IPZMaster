@@ -48,13 +48,14 @@ class CompetenceController extends Controller
         $name = $request->input('competence');
 
         try{
-            Competence::create([
+            $competence = Competence::create([
                 'name' => $name
             ]);
 
             return response()->json([
                 'success' => true,
-                'competence' => $name
+                'id' => $competence->id,
+                'competence' => $competence->name
             ]);
 
         } catch(UniqueConstraintViolationException) {

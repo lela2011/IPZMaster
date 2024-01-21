@@ -94,7 +94,7 @@
                     success: function (response) {
                         if (response.success) {
                             $('#competence_error').hide();
-                            callback({value: response.competence, text: response.competence});
+                            callback({value: response.id, text: response.competence});
                         } else {
                             $('#competence_error').html('<small>' + response.error + '</small>');
                             $('#competence_error').show();
