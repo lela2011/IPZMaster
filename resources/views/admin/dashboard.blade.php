@@ -82,6 +82,18 @@
                                 Create, update, delete and order employment types
                             </x-slot:details>
                         </x-navtile>
+                        <x-navtile>
+                            Transversal Research Priorities
+                            <x-slot:route>
+                                {{ route('admin.transversal-research-prio.index') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                priorities.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Create, update and delete transversal research priorities
+                            </x-slot:details>
+                        </x-navtile>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@
             @method('PATCH')
             <div class="Form--header">
                 <h2 class="Form--title">
-                    Fill in this form to create a new employment type.
+                    Fill in this form to edit the employment type {{ $employmentType->english }}.
                 </h2>
                 <p class="Form--description">
                     - All fields must be filled

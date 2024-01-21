@@ -14,6 +14,13 @@ class TransversalReserachPrio extends Model
     // ensures that it's not auto-incremented
     public $incrementing = false;
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        'english',
+        'german',
+    ];
+
     // sets relationship between transversal research priority and users
     public function users() : BelongsToMany {
         return $this->belongsToMany(User::class, 'user_transv_research_prio', 'transv_research_prio_id', 'user_id');

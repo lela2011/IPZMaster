@@ -7,8 +7,8 @@
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
                 Return to Admin Panel
             </a>
-            <a href="{{ route('admin.employment-type.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                Create Employment Type
+            <a href="{{ route('admin.transversal-research-prio.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
+                Create Transversal Research Priority
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
@@ -19,12 +19,12 @@
         </div>
         <div class="TextImage">
             <div class="contactGrid">
-                @foreach ($employmentTypes as $employmentType)
-                    <a class="contactGridItem" href="{{ route('admin.employment-type.show', $employmentType->id) }}" style="display: flex; justify-content: space-between">
+                @foreach ($prios as $prio)
+                    <a class="contactGridItem" href="{{ route('admin.transversal-research-prio.show', $prio->id) }}" style="display: flex; justify-content: space-between">
                         <span class="LinkList--text" style="flex: 1">
-                            {{ $employmentType->english }}
+                            {{ $prio->english }}
                         </span>
-                        <form class="deleteForm" action="{{ route('admin.employment-type.delete', $employmentType->id) }}" data-type="{{ $employmentType->english }}" method="POST">
+                        <form class="deleteForm" action="{{ route('admin.transversal-research-prio.delete', $prio->id) }}" data-prio="{{ $prio->english }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button class="delete quickaction" style="flex: 0" type="submit">
@@ -36,12 +36,6 @@
                     </a>
                 @endforeach
             </div>
-        </div>
-        <div class="TextImage" style="display: flex">
-            <a href="{{ route('admin.employment-type.updateOrder') }}" class="Button color-border-white size-large" style="margin-left: auto;">
-                Update Order
-                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
-            </a>
         </div>
     </section>
 </x-layout>
@@ -88,9 +82,9 @@
             // retrieves form of clicked button
             var form = $(this).closest('.deleteForm');
             // retrieves name of project
-            var name = form.data('type');
+            var name = form.data('prio');
             // opens confirmation modal
-            customConfirm('Are you sure you want to delete the employment type <b style="font-weight: bold;">' + name + '</b>?')
+            customConfirm('Are you sure you want to delete the transversal research priority <b style="font-weight: bold;">' + name + '</b>?')
                 .then(function (result) {
                     // if confirmed, submits form
                     if (result) {

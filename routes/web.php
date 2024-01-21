@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminEmploymentTypeController;
 use App\Http\Controllers\AdminResearchAreaController;
+use App\Http\Controllers\AdminTransvResearchPrioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompetenceController;
@@ -136,6 +137,20 @@ Route::post('admin/employment-type', [AdminEmploymentTypeController::class, 'sto
 Route::get('admin/employment-type/{employmentType}/edit', [AdminEmploymentTypeController::class, 'edit'])->name('admin.employment-type.edit')->middleware('auth','admin');
 
 Route::patch('admin/employment-type/{employmentType}', [AdminEmploymentTypeController::class, 'update'])->name('admin.employment-type.update')->middleware('auth','admin');
+
+Route::get('admin/transversal-research-prio', [AdminTransvResearchPrioController::class, 'index'])->name('admin.transversal-research-prio.index')->middleware('auth','admin');
+
+Route::get('admin/transversal-research-prio/create', [AdminTransvResearchPrioController::class, 'create'])->name('admin.transversal-research-prio.create')->middleware('auth','admin');
+
+Route::post('admin/transversal-research-prio', [AdminTransvResearchPrioController::class, 'store'])->name('admin.transversal-research-prio.store')->middleware('auth','admin');
+
+Route::get('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioController::class, 'show'])->name('admin.transversal-research-prio.show')->middleware('auth','admin');
+
+Route::delete('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioController::class, 'delete'])->name('admin.transversal-research-prio.delete')->middleware('auth','admin');
+
+Route::get('admin/transversal-research-prio/{prio}/edit', [AdminTransvResearchPrioController::class, 'edit'])->name('admin.transversal-research-prio.edit')->middleware('auth','admin');
+
+Route::patch('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioController::class, 'update'])->name('admin.transversal-research-prio.update')->middleware('auth','admin');
 
 // All file routes
 Route::get('file', [FileController::class, 'index'])->name('file.index')->middleware('auth');
