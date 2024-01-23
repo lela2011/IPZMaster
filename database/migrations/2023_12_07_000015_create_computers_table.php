@@ -13,31 +13,31 @@ return new class extends Migration
     {
         Schema::create('computers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('type');
-            $table->unsignedBigInteger('manufacturer');
+            $table->unsignedBigInteger('type')->nullable();
+            $table->unsignedBigInteger('manufacturer')->nullable();
             $table->string('model')->nullable();
             $table->string('serial_number')->nullable();
             $table->string('product_number')->nullable();
             $table->string('mac_address')->nullable();
             $table->string('network_name')->nullable();
-            $table->unsignedBigInteger('operating_system');
+            $table->unsignedBigInteger('operating_system')->nullable();
             $table->string('cpu')->nullable();
             $table->string('ram')->nullable();
             $table->string('storage')->nullable();
-            $table->unsignedBigInteger('location');
+            $table->unsignedBigInteger('location')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('warranty_date')->nullable();
             $table->string('notes')->nullable();
             $table->string('invoice')->nullable();
-            $table->unsignedBigInteger('supplier');
-            $table->string('person');
+            $table->unsignedBigInteger('supplier')->nullable();
+            $table->string('person')->nullable();
 
-            $table->foreign('type')->references('id')->on('computer_types');
-            $table->foreign('manufacturer')->references('id')->on('manufacturers');
-            $table->foreign('operating_system')->references('id')->on('operating_systems');
-            $table->foreign('location')->references('id')->on('locations');
-            $table->foreign('supplier')->references('id')->on('suppliers');
-            $table->foreign('person')->references('uid')->on('users');
+            $table->foreign('type')->references('id')->on('computer_types')->onDelete('set null');
+            $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
+            $table->foreign('operating_system')->references('id')->on('operating_systems')->onDelete('set null');
+            $table->foreign('location')->references('id')->on('locations')->onDelete('set null');
+            $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
+            $table->foreign('person')->references('uid')->on('users')->onDelete('set null');
         });
     }
 

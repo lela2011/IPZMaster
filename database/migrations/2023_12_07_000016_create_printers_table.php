@@ -13,24 +13,24 @@ return new class extends Migration
     {
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('manufacturer');
+            $table->unsignedBigInteger('manufacturer')->nullable();
             $table->string('model')->nullable();
             $table->string('serial_number')->nullable();
             $table->string('product_number')->nullable();
             $table->string('mac_address')->nullable();
             $table->string('network_name')->nullable();
-            $table->unsignedBigInteger('location');
+            $table->unsignedBigInteger('location')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('warranty_date')->nullable();
             $table->string('notes')->nullable();
             $table->string('invoice')->nullable();
-            $table->unsignedBigInteger('supplier');
-            $table->string('person');
+            $table->unsignedBigInteger('supplier')->nullable();
+            $table->string('person')->nullable();
 
-            $table->foreign('manufacturer')->references('id')->on('manufacturers');
-            $table->foreign('location')->references('id')->on('locations');
-            $table->foreign('supplier')->references('id')->on('suppliers');
-            $table->foreign('person')->references('uid')->on('users');
+            $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
+            $table->foreign('location')->references('id')->on('locations')->onDelete('set null');
+            $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
+            $table->foreign('person')->references('uid')->on('users')->onDelete('set null');
         });
     }
 

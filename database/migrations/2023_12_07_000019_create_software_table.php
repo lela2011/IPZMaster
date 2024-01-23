@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('software', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('manufacturer');
+            $table->unsignedBigInteger('manufacturer')->nullable();
             $table->string('name')->nullable();
             $table->string('license_type')->nullable();
             $table->date('purchase_date')->nullable();
             $table->string('notes')->nullable();
             $table->string('invoice')->nullable();
-            $table->unsignedBigInteger('supplier');
-            $table->string('person');
+            $table->unsignedBigInteger('supplier')->nullable();
+            $table->string('person')->nullable();
 
-            $table->foreign('manufacturer')->references('id')->on('manufacturers');
-            $table->foreign('supplier')->references('id')->on('suppliers');
-            $table->foreign('person')->references('uid')->on('users');
+            $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
+            $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
+            $table->foreign('person')->references('uid')->on('users')->onDelete('set null');
         });
     }
 
