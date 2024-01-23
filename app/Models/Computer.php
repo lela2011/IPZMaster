@@ -59,4 +59,8 @@ class Computer extends Model
     public function person() : BelongsTo {
         return $this->belongsTo(User::class, 'person', 'uid');
     }
+
+    public function keyboardLayout() : BelongsTo {
+        return $this->belongsTo(KeyboardLayout::class, 'keyboard_layout');
+    }
 }

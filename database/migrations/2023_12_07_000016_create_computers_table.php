@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('cpu')->nullable();
             $table->string('ram')->nullable();
             $table->string('storage')->nullable();
+            $table->string('color')->nullable();
+            $table->unsignedBigInteger('keyboard_layout')->nullable();
             $table->unsignedBigInteger('location')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('warranty_date')->nullable();
@@ -35,6 +37,7 @@ return new class extends Migration
             $table->foreign('type')->references('id')->on('computer_types')->onDelete('set null');
             $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
             $table->foreign('operating_system')->references('id')->on('operating_systems')->onDelete('set null');
+            $table->foreign('keyboard_layout')->references('id')->on('keyboard_layouts')->onDelete('set null');
             $table->foreign('location')->references('id')->on('locations')->onDelete('set null');
             $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
             $table->foreign('person')->references('uid')->on('users')->onDelete('set null');
