@@ -11,7 +11,7 @@ class ComputerType extends Model
     use HasFactory;
 
     // set timestamps to false because we don't need them
-    protected $timestamps = false;
+    public $timestamps = false;
 
     // set the fillable fields for the model
     protected $fillable = [

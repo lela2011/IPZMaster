@@ -11,7 +11,7 @@ class Peripheral extends Model
     use HasFactory;
 
     // sets timestamps to false because we don't need them
-    protected $timestamps = false;
+    public $timestamps = false;
 
     // sets the fillable fields for the model
     protected $fillable = [
