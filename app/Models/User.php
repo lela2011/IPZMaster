@@ -105,4 +105,30 @@ class User extends Authenticatable implements LdapAuthenticatable
     public function employmentType() : BelongsTo {
         return $this->belongsTo(EmploymentType::class, 'employment_type');
     }
+
+    // sets relation between user and computer
+    public function computers() : HasMany {
+        return $this->hasMany(Computer::class, 'person', 'uid');
+    }
+
+    // sets relation between user and printer
+    public function printers() : HasMany {
+        return $this->hasMany(Printer::class, 'person', 'uid');
+    }
+
+    // sets relation between user and peripheral
+    public function peripherals() : HasMany {
+        return $this->hasMany(Peripheral::class, 'person', 'uid');
+    }
+
+    // sets relation between user and monitor
+    public function monitors() : HasMany {
+        return $this->hasMany(Monitor::class, 'person', 'uid');
+    }
+
+    // sets relation between user and software
+    public function softwares() : HasMany {
+        return $this->hasMany(Software::class, 'person', 'uid');
+    }
 }
+

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Peripheral extends Model
 {
@@ -27,4 +28,26 @@ class Peripheral extends Model
         'supplier',
         'person',
     ];
+
+    // sets the relationships for the model
+    public function type() : BelongsTo {
+        return $this->belongsTo(PeripheralType::class, 'type');
+    }
+
+    public function manufacturer() : BelongsTo {
+        return $this->belongsTo(Manufacturer::class, 'manufacturer');
+    }
+
+    public function location() : BelongsTo {
+        return $this->belongsTo(Location::class, 'location');
+    }
+
+    public function supplier() : BelongsTo {
+        return $this->belongsTo(Supplier::class, 'supplier');
+    }
+
+    public function person() : BelongsTo {
+        return $this->belongsTo(User::class, 'person', 'uid');
+    }
+
 }
