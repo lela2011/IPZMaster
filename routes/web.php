@@ -154,6 +154,7 @@ Route::patch('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioC
 
 // All inventory routes
 Route::prefix('admin/inventory')->group(function() {
+    
     Route::resource('comuter-type', '\App\Http\Controllers\ComputerTypeController')
         ->parameter('comuter-type', 'computerType')
         ->missing(function () {
@@ -174,50 +175,57 @@ Route::prefix('admin/inventory')->group(function() {
         })
         ->middleware('auth','admin');
 
-        Route::resource('location', '\App\Http\Controllers\LocationController')
+    Route::resource('location', '\App\Http\Controllers\LocationController')
         ->missing(function () {
             return Redirect::route('location.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('supplier', '\App\Http\Controllers\SupplierController')
+    Route::resource('supplier', '\App\Http\Controllers\SupplierController')
         ->missing(function () {
             return Redirect::route('supplier.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('operating-system', '\App\Http\Controllers\OperatingSystemController')
+    Route::resource('operating-system', '\App\Http\Controllers\OperatingSystemController')
         ->parameter('operating-system', 'operatingSystem')
         ->missing(function () {
-            return Redirect::route('manufacturer.index');
+            return Redirect::route('operating-system.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('computer', '\App\Http\Controllers\ComputerController')
+    Route::resource('keyboard-layout', '\App\Http\Controllers\KeyboardLayoutController')
+        ->parameter('keyboard-layout', 'keyboardLayout')
+        ->missing(function () {
+            return Redirect::route('keyboard-layout.index');
+        })
+        ->middleware('auth','admin');
+
+    Route::resource('computer', '\App\Http\Controllers\ComputerController')
         ->missing(function () {
             return Redirect::route('computer.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('printer', '\App\Http\Controllers\PrinterController')
+    Route::resource('printer', '\App\Http\Controllers\PrinterController')
         ->missing(function () {
             return Redirect::route('printer.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('peripheral', '\App\Http\Controllers\PeripheralController')
+    Route::resource('peripheral', '\App\Http\Controllers\PeripheralController')
         ->missing(function () {
             return Redirect::route('peripheral.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('monitor', '\App\Http\Controllers\MonitorController')
+    Route::resource('monitor', '\App\Http\Controllers\MonitorController')
         ->missing(function () {
             return Redirect::route('monitor.index');
         })
         ->middleware('auth','admin');
 
-        Route::resource('software', '\App\Http\Controllers\SoftwareController')
+    Route::resource('software', '\App\Http\Controllers\SoftwareController')
         ->missing(function () {
             return Redirect::route('software.index');
         })
