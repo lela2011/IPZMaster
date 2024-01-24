@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('software_id');
 
             $table->foreign('user_id')->references('uid')->on('users')->onDelete('cascade');
-            $table->foreign('software_id')->references('id')->on('software')->onDelete('cascade');
+            $table->foreign('software_id')->references('id')->on('softwares')->onDelete('cascade');
 
             $table->primary(['user_id', 'software_id']);
         });

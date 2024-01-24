@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('keyboard_layouts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('url')->nullable();
+            $table->string('name')->unique();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('keyboard_layouts');
     }
 };

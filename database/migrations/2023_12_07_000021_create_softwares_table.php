@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('software', function (Blueprint $table) {
+        Schema::create('softwares', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('manufacturer')->nullable();
             $table->string('name')->nullable();
