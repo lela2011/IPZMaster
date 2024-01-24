@@ -171,6 +171,13 @@ Route::prefix('admin/inventory')->group(function() {
         })
         ->middleware('auth','admin');
 
+    Route::resource('mobile-device-type', '\App\Http\Controllers\MobileDeviceTypeController')
+        ->parameter('mobile-device-type', 'mobileDeviceType')
+        ->missing(function () {
+            return Redirect::route('mobile-device-type.index');
+        })
+        ->middleware('auth','admin');
+
     Route::resource('manufacturer', '\App\Http\Controllers\ManufacturerController')
         ->missing(function () {
             return Redirect::route('manufacturer.index');
@@ -206,6 +213,13 @@ Route::prefix('admin/inventory')->group(function() {
     Route::resource('computer', '\App\Http\Controllers\ComputerController')
         ->missing(function () {
             return Redirect::route('computer.index');
+        })
+        ->middleware('auth','admin');
+
+    Route::resource('mobile-device', '\App\Http\Controllers\MobileDeviceController')
+        ->parameter('mobile-device', 'mobileDevice')
+        ->missing(function () {
+            return Redirect::route('mobile-device.index');
         })
         ->middleware('auth','admin');
 
