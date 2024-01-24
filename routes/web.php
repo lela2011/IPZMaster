@@ -154,7 +154,9 @@ Route::patch('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioC
 
 // All inventory routes
 Route::prefix('admin/inventory')->group(function() {
-    
+
+    Route::get('/dashboard', [AdminController::class, 'inventoryDashboard'])->name('admin.inventory.dashboard')->middleware('auth','admin');
+
     Route::resource('comuter-type', '\App\Http\Controllers\ComputerTypeController')
         ->parameter('comuter-type', 'computerType')
         ->missing(function () {

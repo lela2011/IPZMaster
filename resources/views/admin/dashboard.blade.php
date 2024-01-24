@@ -11,6 +11,18 @@
                 <div class="TextImage--content">
                     <div class="flex-container">
                         <x-navtile>
+                            Inventory
+                            <x-slot:route>
+                                {{ route('admin.inventory.dashboard') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                inventory.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Manage inventory
+                            </x-slot:details>
+                        </x-navtile>
+                        <x-navtile>
                             Personal Data
                             <x-slot:route>
                                 {{ route('admin.personal') }}

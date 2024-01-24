@@ -149,4 +149,8 @@ class AdminController extends Controller
             'filter' => $request->input('filter')
         ]);
     }
+
+    public function inventoryDashboard() {
+        return view('admin.inventoryDashboard');
+    }
 }
