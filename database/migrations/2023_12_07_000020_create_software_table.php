@@ -20,11 +20,10 @@ return new class extends Migration
             $table->string('notes')->nullable();
             $table->string('invoice')->nullable();
             $table->unsignedBigInteger('supplier')->nullable();
-            $table->string('person')->nullable();
+            $table->unsignedInteger('quantity')->nullable();
 
             $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
             $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
-            $table->foreign('person')->references('uid')->on('users')->onDelete('set null');
         });
     }
 

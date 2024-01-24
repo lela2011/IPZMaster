@@ -127,8 +127,8 @@ class User extends Authenticatable implements LdapAuthenticatable
     }
 
     // sets relation between user and software
-    public function softwares() : HasMany {
-        return $this->hasMany(Software::class, 'person', 'uid');
+    public function softwares() : BelongsToMany {
+        return $this->belongsToMany(Software::class, 'user_software', 'user_id', 'software_id');
     }
 }
 

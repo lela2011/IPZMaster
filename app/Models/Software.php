@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Software extends Model
 {
@@ -34,7 +35,7 @@ class Software extends Model
         return $this->belongsTo(Supplier::class, 'supplier');
     }
 
-    public function person() : BelongsTo {
-        return $this->belongsTo(User::class, 'person', 'uid');
+    public function people() : BelongsToMany {
+        return $this->belongsToMany(User::class, 'user_software', 'software_id', 'user_id');
     }
 }
