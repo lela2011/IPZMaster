@@ -13,24 +13,24 @@ return new class extends Migration
     {
         Schema::create('peripherals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('type')->nullable();
-            $table->unsignedBigInteger('manufacturer')->nullable();
-            $table->string('model')->nullable()->nullable();
+            $table->unsignedBigInteger('type_id')->nullable();
+            $table->unsignedBigInteger('manufacturer_id')->nullable();
+            $table->string('model')->nullable();
             $table->string('serial_number')->nullable();
             $table->string('product_number')->nullable();
-            $table->unsignedBigInteger('location')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('warranty_date')->nullable();
             $table->string('notes')->nullable();
             $table->string('invoice')->nullable();
-            $table->unsignedBigInteger('supplier')->nullable();
-            $table->string('person')->nullable();
+            $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->string('user_id')->nullable();
 
-            $table->foreign('type')->references('id')->on('peripheral_types')->onDelete('set null');
-            $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
-            $table->foreign('location')->references('id')->on('locations')->onDelete('set null');
-            $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
-            $table->foreign('person')->references('uid')->on('users')->onDelete('set null');
+            $table->foreign('type_id')->references('id')->on('peripheral_types')->onDelete('set null');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('set null');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('set null');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('set null');
+            $table->foreign('user_id')->references('uid')->on('users')->onDelete('set null');
         });
     }
 

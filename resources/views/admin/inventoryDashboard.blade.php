@@ -23,18 +23,6 @@
                             </x-slot:details>
                         </x-navtile>
                         <x-navtile>
-                            Printers
-                            <x-slot:route>
-                                {{ route('printer.index') }}
-                            </x-slot:route>
-                            <x-slot:image>
-                                printer.svg
-                            </x-slot:image>
-                            <x-slot:details>
-                                Manage printers
-                            </x-slot:details>
-                        </x-navtile>
-                        <x-navtile>
                             Mobile Devices
                             <x-slot:route>
                                 {{ route('mobile-device.index') }}
@@ -56,6 +44,18 @@
                             </x-slot:image>
                             <x-slot:details>
                                 Manage peripherals
+                            </x-slot:details>
+                        </x-navtile>
+                        <x-navtile>
+                            Printers
+                            <x-slot:route>
+                                {{ route('printer.index') }}
+                            </x-slot:route>
+                            <x-slot:image>
+                                printer.svg
+                            </x-slot:image>
+                            <x-slot:details>
+                                Manage printers
                             </x-slot:details>
                         </x-navtile>
                         <x-navtile>

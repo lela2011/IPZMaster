@@ -20,19 +20,19 @@ class Location extends Model
 
     // set the relationships for the model
     public function computers() : HasMany {
-        return $this->hasMany(Computer::class, 'location');
+        return $this->hasMany(Computer::class, 'location_id');
     }
 
     public function printers() : HasMany {
-        return $this->hasMany(Printer::class, 'location');
+        return $this->hasMany(Printer::class, 'location_id');
     }
 
     public function peripherals() : HasMany {
-        return $this->hasMany(Peripheral::class, 'location');
+        return $this->hasMany(Peripheral::class, 'location_id');
     }
 
     public function monitors() : HasMany {
-        return $this->hasMany(Monitor::class, 'location');
+        return $this->hasMany(Monitor::class, 'location_id');
     }
 
 }

@@ -20,6 +20,6 @@ class ComputerType extends Model
 
     // set the relationships for the model
     public function computers() : HasMany {
-        return $this->hasMany(Computer::class, 'type');
+        return $this->hasMany(Computer::class, 'type_id');
     }
 }

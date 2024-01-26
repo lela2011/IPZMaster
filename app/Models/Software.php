@@ -28,11 +28,11 @@ class Software extends Model
 
     // sets the relationships for the model
     public function manufacturer() : BelongsTo {
-        return $this->belongsTo(Manufacturer::class, 'manufacturer');
+        return $this->belongsTo(Manufacturer::class, 'manufacturer_id');
     }
 
     public function supplier() : BelongsTo {
-        return $this->belongsTo(Supplier::class, 'supplier');
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
     public function people() : BelongsToMany {

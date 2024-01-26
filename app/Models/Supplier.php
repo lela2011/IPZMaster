@@ -21,22 +21,22 @@ class Supplier extends Model
 
     // set the relationships for the model
     public function computers() : HasMany {
-        return $this->hasMany(Computer::class, 'supplier');
+        return $this->hasMany(Computer::class, 'supplier_id');
     }
 
     public function printers() : HasMany {
-        return $this->hasMany(Printer::class, 'supplier');
+        return $this->hasMany(Printer::class, 'supplier_id');
     }
 
     public function peripherals() : HasMany {
-        return $this->hasMany(Peripheral::class, 'supplier');
+        return $this->hasMany(Peripheral::class, 'supplier_id');
     }
 
     public function monitors() : HasMany {
-        return $this->hasMany(Monitor::class, 'supplier');
+        return $this->hasMany(Monitor::class, 'supplier_id');
     }
 
     public function softwares() : HasMany {
-        return $this->hasMany(Software::class, 'supplier');
+        return $this->hasMany(Software::class, 'supplier_id');
     }
 }

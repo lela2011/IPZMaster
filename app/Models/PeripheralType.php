@@ -20,6 +20,6 @@ class PeripheralType extends Model
 
     // set the relationships for the model
     public function peripherals() : HasMany {
-        return $this->hasMany(Peripheral::class, 'type');
+        return $this->hasMany(Peripheral::class, 'type_id');
     }
 }

@@ -15,52 +15,54 @@ class Computer extends Model
 
     // sets the fillable fields for the model
     protected $fillable = [
-        'type',
-        'manufacturer',
+        'type_id',
+        'manufacturer_id',
         'model',
         'serial_number',
         'product_number',
         'mac_address',
         'network_name',
-        'operating_system',
+        'operating_system_id',
         'cpu',
         'ram',
         'storage',
-        'location',
+        'color',
+        'keyboard_layout_id',
+        'location_id',
         'purchase_date',
         'warranty_date',
         'notes',
         'invoice',
-        'supplier',
-        'person',
+        'supplier_id',
+        'user_id',
     ];
 
     // sets the relationships for the model
     public function type() : BelongsTo {
-        return $this->belongsTo(ComputerType::class, 'type');
+        return $this->belongsTo(ComputerType::class, 'type_id', 'id');
     }
 
     public function manufacturer() : BelongsTo {
-        return $this->belongsTo(Manufacturer::class, 'manufacturer');
+        return $this->belongsTo(Manufacturer::class, 'manufacturer_id');
     }
 
     public function operatingSystem() : BelongsTo {
-        return $this->belongsTo(OperatingSystem::class, 'operating_system');
+        return $this->belongsTo(OperatingSystem::class, 'operating_system_id');
     }
 
     public function location() : BelongsTo {
-        return $this->belongsTo(Location::class, 'location');
+        return $this->belongsTo(Location::class, 'location_id');
     }
 
     public function supplier() : BelongsTo {
-        return $this->belongsTo(Supplier::class, 'supplier');
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
     public function person() : BelongsTo {
-        return $this->belongsTo(User::class, 'person', 'uid');
+        return $this->belongsTo(User::class, 'user_id', 'uid');
     }
 
     public function keyboardLayout() : BelongsTo {
-        return $this->belongsTo(KeyboardLayout::class, 'keyboard_layout');
+        return $this->belongsTo(KeyboardLayout::class, 'keyboard_layout_id');
     }
 }

@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('softwares', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('manufacturer')->nullable();
+            $table->unsignedBigInteger('manufacturer_id')->nullable();
             $table->string('name')->nullable();
             $table->string('license_type')->nullable();
             $table->date('purchase_date')->nullable();
             $table->string('notes')->nullable();
             $table->string('invoice')->nullable();
-            $table->unsignedBigInteger('supplier')->nullable();
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->unsignedInteger('quantity')->nullable();
 
-            $table->foreign('manufacturer')->references('id')->on('manufacturers')->onDelete('set null');
-            $table->foreign('supplier')->references('id')->on('suppliers')->onDelete('set null');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('set null');
+            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('set null');
         });
     }
 

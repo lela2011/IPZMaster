@@ -20,6 +20,6 @@ class KeyboardLayout extends Model
 
     // set the relationships for the model
     public function computers() : HasMany {
-        return $this->hasMany(Computer::class, 'keyboard_layout');
+        return $this->hasMany(Computer::class, 'keyboard_layout_id');
     }
 }

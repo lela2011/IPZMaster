@@ -184,6 +184,24 @@
     color: #666666;
 }
 
+.quickaction-anchor {
+    text-decoration: none;
+    color: #666666 !important;
+}
+
+.quickaction-anchor:hover {
+    background: none !important;
+    color: #666666;
+}
+
+.quickaction-anchor:before {
+    display: none !important;
+}
+
+.quickaction-anchor:after {
+    display: none !important;
+}
+
 .delete:hover {
     color: #f00;
     /* Color on hover */

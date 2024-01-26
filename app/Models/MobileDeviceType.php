@@ -20,6 +20,6 @@ class MobileDeviceType extends Model
 
     // set the relationships for the model
     public function mobileDevices() : HasMany {
-        return $this->hasMany(MobileDevice::class, 'type');
+        return $this->hasMany(MobileDevice::class, 'type_id');
     }
 }
