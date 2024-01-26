@@ -222,7 +222,11 @@
                                 <td>{{ $computer->purchase_date }}</td>
                                 <td>{{ $computer->warranty_date }}</td>
                                 <td>{!! nl2br(e($computer->notes)) !!}</td>
-                                <td>{{ $computer->invoice }}</td>
+                                <td>
+                                    @if ($computer->invoice())
+                                        <a href="{{ $computer->invoice() }}" target="_blank">Download Invoice</a>
+                                    @endif
+                                </td>
                                 <td>{{ optional($computer->supplier)->name }}</td>
                                 <td>{{ optional($computer->person)->first_name }} {{ optional($computer->person)->last_name }}</td>
                             </tr>

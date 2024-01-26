@@ -35,12 +35,20 @@ class FileController extends Controller
             'file.max' => 'Sorry! Maximum allowed size for a document is 5MB',
         ]);
 
+        // get the signed in user
+        $user = Auth::user();
+
         // store the file in the public storage
         $file = $request->file('file');
-        $path = $file->store('uploads', 'public');
+        // set a new filename
+        $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . "_" . now()->timestamp . "." . $file->getClientOriginalExtension();
+        // set the subdirectory
+        $subdir = request()->session()->get('mode', 'user') == 'admin' ? 'admin' : $user->uid;
+        // store the file
+        $path = $file->storeAs('uploads/' . $subdir, $fileName, 'public');
 
         // create a new file entry in the database
-        Auth::user()->files()->create([
+        $user->files()->create([
             'filename' => $file->getClientOriginalName(),
             'path' => $path
         ]);

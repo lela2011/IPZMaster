@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class Computer extends Model
 {
@@ -36,6 +38,16 @@ class Computer extends Model
         'supplier_id',
         'user_id',
     ];
+
+    public function invoice() {
+        // checks if invoice is null
+        if($this->invoice == null) {
+            return null;
+        }
+
+        // returns the URL to the invoice
+        return URL::to(route('home')) . Storage::url($this->invoice);
+    }
 
     // sets the relationships for the model
     public function type() : BelongsTo {

@@ -13,7 +13,7 @@
                 Create a new Computer
             </h2>
         </div>
-        <form class="js-Form Form" action="{{ route('computer.store') }}" method="POST">
+        <form class="js-Form Form" action="{{ route('computer.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
             <div class="Form--body">
                 <div class="FormInput">
@@ -192,6 +192,15 @@
                     <p class="has-error" style="color: red">
                         {{$message}}
                     </p>
+                    @enderror
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="invoice">Invoice</label>
+                    <input class="File--input" type="file" accept=".pdf,.doc,.docx,.txt" value="{{ old('invoice') }}" name="invoice" id="invoice">
+                    @error('invoice')
+                        <p class="has-error" style="color: red">
+                            {{$message}}
+                        </p>
                     @enderror
                 </div>
                 <div class="FormInput">

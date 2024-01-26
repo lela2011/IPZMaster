@@ -13,7 +13,7 @@
                 Update the Computer: {{ $computer->model ?? 'Unknown Model' }}
             </h2>
         </div>
-        <form class="js-Form Form" action="{{ route('computer.update', $computer->id) }}" method="POST">
+        <form class="js-Form Form" action="{{ route('computer.update', $computer->id) }}" enctype="multipart/form-data" method="POST">
             @csrf
             @method('PUT')
             <div class="Form--body">
@@ -196,6 +196,33 @@
                     @enderror
                 </div>
                 <div class="FormInput">
+                    <label class="FormLabel" for="invoice">Invoice</label>
+                    @if ($computer->invoice)
+                        <a id="current_invoice" href="{{ $computer->invoice() }}" target="_blank" style="align-items: center; margin: 8px 0 16px 0" class="Button color-border-white size-large">
+                            <span class="material-icons">
+                                description
+                            </span>
+                            <span style="margin: 0 8px;">Current Invoice</span>
+                            <span class="material-icons">
+                                download
+                            </span>
+                        </a>
+                        <button type="button" id="remove_invoice" target="_blank" style="align-items: center; margin: 8px 0 16px 8px" class="Button color-border-white size-large">
+                            <span class="material-icons">
+                                delete
+                            </span>
+                            <span style="margin: 0 8px;">Remove Invoice</span>
+                        </button>
+                    @endif
+                    <input id="remove_invoice_input" type="hidden" name="remove_invoice_input" value="0">
+                    <input class="File--input" type="file" accept=".pdf,.doc,.docx" name="invoice" id="invoice">
+                    @error('invoice')
+                        <p class="has-error" style="color: red">
+                            {{$message}}
+                        </p>
+                    @enderror
+                </div>
+                <div class="FormInput">
                     <label class="FormLabel" for="supplier_id">Supplier</label>
                     <select class="selectFilter" name="supplier_id" id="supplier_id">
                         <option value=""></option>
@@ -238,8 +265,16 @@
     </div>
 </x-layout>
 <script>
-    $('.selectFilter').selectize({
+    $(document).ready(function() {
+        $('#remove_invoice').click(function() {
+            $('#remove_invoice_input').val(1);
+            $('#current_invoice').hide();
+            $('#remove_invoice').hide();
+        });
+
+        $('.selectFilter').selectize({
             create: false,
             sortField: 'text'
         });
+    });
 </script>

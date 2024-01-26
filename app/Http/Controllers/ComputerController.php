@@ -11,6 +11,7 @@ use App\Models\OperatingSystem;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -117,7 +118,7 @@ class ComputerController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_date' => 'nullable|date',
             'notes' => 'nullable|string',
-            'invoice' => 'nullable|file|mimes:pdf,doc,docx,txt',
+            'invoice' => 'required|file|mimes:pdf,doc,docx,txt',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
         ],[
@@ -132,12 +133,21 @@ class ComputerController extends Controller
             'warranty_date.date' => 'The warranty date must be a valid date',
         ]);
 
-        // replaces the new lines with <br>
-        //$formdata['notes'] = nl2br($formdata['notes']);
-
         // checks if the form is empty
         if(!array_filter($formdata)) {
             return redirect()->back()->with('errorMessage', 'Computer not created. Please fill at least one field.');
+        }
+
+        // store the invoice file
+        $file = $formdata['invoice'];
+        // checks if the file is not empty
+        if($file) {
+            // generate a filename with the original filename and a timestamp
+            $fileName = $file->getClientOriginalName() . "_" . now()->timestamp . "." . $file->getClientOriginalExtension();
+            // store the file
+            $path = $file->storeAs('uploads/invoices/computers', $fileName, 'public');
+            // set the path in the formdata
+            $formdata['invoice'] = $path;
         }
 
         // create the computer
@@ -201,6 +211,7 @@ class ComputerController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_date' => 'nullable|date',
             'notes' => 'nullable|string',
+            'remove_invoice_input' => 'required|boolean',
             'invoice' => 'nullable|file|mimes:pdf,doc,docx,txt',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
@@ -216,12 +227,33 @@ class ComputerController extends Controller
             'warranty_date.date' => 'The warranty date must be a valid date',
         ]);
 
-        // replaces the new lines with <br>
-        //$formdata['notes'] = nl2br($formdata['notes']);
-
         // checks if the form is empty
         if(!array_filter($formdata)) {
             return redirect()->back()->with('errorMessage', 'Computer not updated. Please fill at least one field or delete it.');
+        }
+
+        // store the invoice file
+        $file = $formdata['invoice'] ?? null;
+
+        // checks if the remove invoice was clicked or a new file was uploaded
+        if($formdata['remove_invoice_input'] || $file) {
+            // checks if the invoice exists
+            if (Storage::disk('public')->exists($computer->invoice)) {
+                // delete the invoice
+                Storage::disk('public')->delete($computer->invoice);
+                $computer->invoice = null;
+                $computer->save();
+            }
+        }
+
+        // checks if the file is not empty
+        if($file) {
+            // generate a filename with the original filename and a timestamp
+            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . "_" . now()->timestamp . "." . $file->getClientOriginalExtension();
+            // store the file
+            $path = $file->storeAs('uploads/invoices/computers', $fileName, 'public');
+            // set the path in the formdata
+            $formdata['invoice'] = $path;
         }
 
         // update the computer
