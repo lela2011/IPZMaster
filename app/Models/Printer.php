@@ -15,19 +15,19 @@ class Printer extends Model
 
     // sets the fillable fields for the model
     protected $fillable = [
-        'manufacturer',
+        'manufacturer_id',
         'model',
         'serial_number',
         'product_number',
         'mac_address',
         'network_name',
-        'location',
+        'location_id',
         'purchase_date',
         'warranty_date',
         'notes',
         'invoice',
-        'supplier',
-        'person',
+        'supplier_id',
+        'user_id',
     ];
 
     // sets the relationships for the model

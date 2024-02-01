@@ -11,19 +11,22 @@ class Software extends Model
 {
     use HasFactory;
 
+    // sets the table name for the model
+    protected $table = 'softwares';
+
     // sets timestamps to false because we don't need them
     public $timestamps = false;
 
     // sets the fillable fields for the model
     protected $fillable = [
-        'manufacturer',
+        'manufacturer_id',
         'name',
         'license_type',
         'purchase_date',
         'notes',
         'invoice',
-        'supplier',
-        'person',
+        'supplier_id',
+        'quantity'
     ];
 
     // sets the relationships for the model

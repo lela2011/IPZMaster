@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OperatingSystem;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class OperatingSystemController extends Controller
 {
@@ -12,7 +13,11 @@ class OperatingSystemController extends Controller
      */
     public function index()
     {
-        //
+        // get all the mobile device types
+        $operatingSystems = OperatingSystem::orderBy('name')->paginate(20);
+
+        // display the index page
+        return view('admin.operatingSystem.index', compact('operatingSystems'));
     }
 
     /**
@@ -20,7 +25,8 @@ class OperatingSystemController extends Controller
      */
     public function create()
     {
-        //
+        // display the create form
+        return view('admin.operatingSystem.create');
     }
 
     /**
@@ -28,15 +34,19 @@ class OperatingSystemController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // validate the form data
+        $formdata = $request->validate([
+            'name' => ['required','string', Rule::unique('operating_systems', 'name')]
+        ],[
+            'name.required' => 'Operating System name is required',
+            'name.unique' => 'Operating System name already exists'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(OperatingSystem $operatingSystem)
-    {
-        //
+        // create a mobile device type
+        OperatingSystem::create($formdata);
+
+        // redirect to mobile device type index
+        return redirect()->route('operating-system.index')->with('message', 'Operating System created successfully');
     }
 
     /**
@@ -44,7 +54,8 @@ class OperatingSystemController extends Controller
      */
     public function edit(OperatingSystem $operatingSystem)
     {
-        //
+        // display the edit form
+        return view('admin.operatingSystem.edit', compact('operatingSystem'));
     }
 
     /**
@@ -52,7 +63,19 @@ class OperatingSystemController extends Controller
      */
     public function update(Request $request, OperatingSystem $operatingSystem)
     {
-        //
+        // validate the form data
+        $formdata = $request->validate([
+            'name' => ['required','string', Rule::unique('operating_systems', 'name')->ignore($operatingSystem->id)]
+        ],[
+            'name.required' => 'Operating System name is required',
+            'name.unique' => 'Operating System name already exists'
+        ]);
+
+        // update the mobile device type
+        $operatingSystem->update($formdata);
+
+        // redirect to mobile device type index
+        return redirect()->route('operating-system.index')->with('message', 'Operating System updated successfully');
     }
 
     /**
@@ -60,6 +83,10 @@ class OperatingSystemController extends Controller
      */
     public function destroy(OperatingSystem $operatingSystem)
     {
-        //
+        // delete the computer type
+        $operatingSystem->delete();
+
+        // redirect to computer type index
+        return redirect()->route('operating-system.index')->with('message', 'Operating System deleted successfully');
     }
 }

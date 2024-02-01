@@ -15,19 +15,23 @@ class MobileDevice extends Model
 
     // set fillable fields
     protected $fillable = [
-        'type',
-        'manufacturer',
+        'type_id',
+        'manufacturer_id',
         'model',
         'serial_number',
+        'product_number',
+        'network_name',
         'imei',
-        'operating_system',
-        'location',
+        'operating_system_id',
+        'storage',
+        'color',
+        'location_id',
         'purchase_date',
         'warranty_date',
         'notes',
         'invoice',
-        'supplier',
-        'person',
+        'supplier_id',
+        'user_id',
     ];
 
     // sets the relationships for the model

@@ -11,7 +11,7 @@
             <a href="{{ route('computer.create') }}" class="Button color-border-white size-large"
                 style="margin-bottom: 8px">
                 Add new Computer
-                <i class="fa fa-arrow-right" style="margin-right: 8px; vertical-align: bottom"></i>
+                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
         </div>
         <div class="TextImage">
@@ -181,7 +181,7 @@
                         @foreach ($computers as $computer)
                             <tr>
                                 <td style="text-align: center">
-                                    <a href="{{ route('computer.show', $computer->id) }}" class="quickaction-anchor">
+                                    <a href="{{ route('computer.show', $computer->id) }}" class="quickaction-anchor edit">
                                         <span class="material-icons">
                                             visibility
                                         </span>
@@ -223,8 +223,8 @@
                                 <td>{{ $computer->warranty_date }}</td>
                                 <td>{!! nl2br(e($computer->notes)) !!}</td>
                                 <td>
-                                    @if ($computer->invoice())
-                                        <a href="{{ $computer->invoice() }}" target="_blank">Download Invoice</a>
+                                    @if ($computer->invoice)
+                                        <a href="{{ route('admin.inventory.invoice.download', $computer->invoice) }}" target="_blank">View Invoice</a>
                                     @endif
                                 </td>
                                 <td>{{ optional($computer->supplier)->name }}</td>

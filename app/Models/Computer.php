@@ -39,16 +39,6 @@ class Computer extends Model
         'user_id',
     ];
 
-    public function invoice() {
-        // checks if invoice is null
-        if($this->invoice == null) {
-            return null;
-        }
-
-        // returns the URL to the invoice
-        return URL::to(route('home')) . Storage::url($this->invoice);
-    }
-
     // sets the relationships for the model
     public function type() : BelongsTo {
         return $this->belongsTo(ComputerType::class, 'type_id', 'id');

@@ -188,7 +188,7 @@
                 </div>
                 <div class="FormInput">
                     <label class="FormLabel" for="notes">Notes</label>
-                    <textarea class="Input" type="text" name="notes" id="notes">{!! nl2br(e(old('notes', $computer->notes))) !!}</textarea>
+                    <textarea class="Input" type="text" name="notes" id="notes">{!! e(old('notes', $computer->notes)) !!}</textarea>
                     @error('notes')
                     <p class="has-error" style="color: red">
                         {{$message}}
@@ -198,21 +198,21 @@
                 <div class="FormInput">
                     <label class="FormLabel" for="invoice">Invoice</label>
                     @if ($computer->invoice)
-                        <a id="current_invoice" href="{{ $computer->invoice() }}" target="_blank" style="align-items: center; margin: 8px 0 16px 0" class="Button color-border-white size-large">
-                            <span class="material-icons">
-                                description
-                            </span>
-                            <span style="margin: 0 8px;">Current Invoice</span>
-                            <span class="material-icons">
-                                download
-                            </span>
-                        </a>
-                        <button type="button" id="remove_invoice" target="_blank" style="align-items: center; margin: 8px 0 16px 8px" class="Button color-border-white size-large">
-                            <span class="material-icons">
-                                delete
-                            </span>
-                            <span style="margin: 0 8px;">Remove Invoice</span>
-                        </button>
+                        <div id="current_invoice" style="display: flex; justify-items: center; align-items: center; font-size: 0.875rem; line-height: 1.5; font-weight: 400; color: #666666; margin-bottom: 8pt">
+                            <a href="{{ route('admin.inventory.invoice.download', $computer->invoice) }}" target="_blank" style="display: flex; align-items: center; margin-right: 8pt">
+                                <span class="material-icons" style="margin-right: 4pt">
+                                    open_in_new
+                                </span>
+                                <span>
+                                    {{ basename($computer->invoice) }}
+                                </span>
+                            </a>
+                            <button type="button" style="display: flex; align-items: center;" title="Press to remove file">
+                               <span class="material-icons">
+                                    delete
+                               </span>
+                            </button>
+                        </div>
                     @endif
                     <input id="remove_invoice_input" type="hidden" name="remove_invoice_input" value="0">
                     <input class="File--input" type="file" accept=".pdf,.doc,.docx" name="invoice" id="invoice">
@@ -266,12 +266,15 @@
 </x-layout>
 <script>
     $(document).ready(function() {
-        $('#remove_invoice').click(function() {
+
+        $("#current_invoice button").on("click", function () {
+            // Find the closest parent div and remove it
+            $(this).closest("#current_invoice").remove();
+            // set the remove_invoice_input to true
             $('#remove_invoice_input').val(1);
-            $('#current_invoice').hide();
-            $('#remove_invoice').hide();
         });
 
+        // Initialize selecctize
         $('.selectFilter').selectize({
             create: false,
             sortField: 'text'

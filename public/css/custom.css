@@ -194,6 +194,10 @@
     color: #666666;
 }
 
+.quickaction-anchor.edit:hover {
+    color: green !important;
+}
+
 .quickaction-anchor:before {
     display: none !important;
 }

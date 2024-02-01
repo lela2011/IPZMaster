@@ -63,7 +63,7 @@
                         Operating System:
                     </h4>
                     <p>
-                        {{ $computer->operating_system->name ?? "-"}}
+                        {{ $computer->operatingSystem->name ?? "-"}}
                     </p>
                     <h4>
                         CPU:
@@ -117,14 +117,16 @@
                         Notes:
                     </h4>
                     <p>
-                        {!! nl2br(e($computer->notes)) ?? "-" !!}
+                        {!! $computer->notes ? nl2br(e($computer->notes)) : "-" !!}
                     </p>
                     <h4>
                         Invoice:
                     </h4>
-                    <p>
-                        {{ $computer->invoice ?? "-" }}
-                    </p>
+                    @if ($computer->invoice)
+                        <a href="{{ route('admin.inventory.invoice.download', $computer->invoice) }}" target="_blank">View Invoice</a>
+                    @else
+                        <p>-</p>
+                    @endif
                     <h4>
                         Supplier:
                     </h4>

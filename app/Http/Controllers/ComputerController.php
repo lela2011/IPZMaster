@@ -51,7 +51,7 @@ class ComputerController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_date' => 'nullable|date',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
-            'user_id' => 'nullable|integer|exists:users,uid',
+            'user_id' => 'nullable|string|exists:users,uid',
         ]);
 
         // create the query
@@ -118,7 +118,7 @@ class ComputerController extends Controller
             'purchase_date' => 'nullable|date',
             'warranty_date' => 'nullable|date',
             'notes' => 'nullable|string',
-            'invoice' => 'required|file|mimes:pdf,doc,docx,txt',
+            'invoice' => 'nullable|file|mimes:pdf,doc,docx',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
         ],[
@@ -139,13 +139,13 @@ class ComputerController extends Controller
         }
 
         // store the invoice file
-        $file = $formdata['invoice'];
+        $file = $formdata['invoice'] ?? null;
         // checks if the file is not empty
         if($file) {
             // generate a filename with the original filename and a timestamp
-            $fileName = $file->getClientOriginalName() . "_" . now()->timestamp . "." . $file->getClientOriginalExtension();
+            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . "_" . now()->timestamp . "." . $file->getClientOriginalExtension();
             // store the file
-            $path = $file->storeAs('uploads/invoices/computers', $fileName, 'public');
+            $path = $file->storeAs('invoices/computers', $fileName, 'secure');
             // set the path in the formdata
             $formdata['invoice'] = $path;
         }
@@ -163,7 +163,7 @@ class ComputerController extends Controller
     public function show(Computer $computer)
     {
         // loads all realtionships
-        $computer->load('type', 'manufacturer', 'operatingSystem', 'location', 'supplier', 'person');
+        $computer->load('type', 'manufacturer', 'operatingSystem', 'keyboardLayout', 'location', 'supplier', 'person');
 
         // return the view
         return view('admin.computer.show', compact('computer'));
@@ -212,7 +212,7 @@ class ComputerController extends Controller
             'warranty_date' => 'nullable|date',
             'notes' => 'nullable|string',
             'remove_invoice_input' => 'required|boolean',
-            'invoice' => 'nullable|file|mimes:pdf,doc,docx,txt',
+            'invoice' => 'nullable|file|mimes:pdf,doc,docx',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
         ],[
@@ -238,9 +238,9 @@ class ComputerController extends Controller
         // checks if the remove invoice was clicked or a new file was uploaded
         if($formdata['remove_invoice_input'] || $file) {
             // checks if the invoice exists
-            if (Storage::disk('public')->exists($computer->invoice)) {
+            if ($computer->invoice && Storage::disk('secure')->exists($computer->invoice)) {
                 // delete the invoice
-                Storage::disk('public')->delete($computer->invoice);
+                Storage::disk('secure')->delete($computer->invoice);
                 $computer->invoice = null;
                 $computer->save();
             }
@@ -251,7 +251,7 @@ class ComputerController extends Controller
             // generate a filename with the original filename and a timestamp
             $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . "_" . now()->timestamp . "." . $file->getClientOriginalExtension();
             // store the file
-            $path = $file->storeAs('uploads/invoices/computers', $fileName, 'public');
+            $path = $file->storeAs('invoices/computers', $fileName, 'secure');
             // set the path in the formdata
             $formdata['invoice'] = $path;
         }
@@ -268,6 +268,12 @@ class ComputerController extends Controller
      */
     public function destroy(Computer $computer)
     {
+        // checks if the invoice exists
+        if ($computer->invoice && Storage::disk('secure')->exists($computer->invoice)) {
+            // delete the invoice
+            Storage::disk('secure')->delete($computer->invoice);
+        }
+
         // delete the computer
         $computer->delete();
 

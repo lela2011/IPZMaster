@@ -15,18 +15,18 @@ class Peripheral extends Model
 
     // sets the fillable fields for the model
     protected $fillable = [
-        'type',
-        'manufacturer',
+        'type_id',
+        'manufacturer_id',
         'model',
         'serial_number',
         'product_number',
-        'location',
+        'location_id',
         'purchase_date',
         'warranty_date',
         'notes',
         'invoice',
-        'supplier',
-        'person',
+        'supplier_id',
+        'user_id',
     ];
 
     // sets the relationships for the model

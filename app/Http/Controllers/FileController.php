@@ -69,4 +69,33 @@ class FileController extends Controller
         // redirect back to the file index page
         return redirect()->back()->with('message', 'File deleted successfully.');
     }
+
+    // downloads a file from the server
+    public function secure(string $filePath) {
+        // retrieves the secure storage base path
+        $basePath = realpath(Storage::disk('secure')->path(''));
+        // retrieves the real file path
+        $realFilePath = realpath(Storage::disk('secure')->path($filePath));
+
+        // check if the file path is valid
+        if($basePath === false || $realFilePath === false) {
+            // return 404
+            return abort(404);
+        }
+
+        // check if the file path is inside the secure storage
+        if(strpos($realFilePath, $basePath) !== 0) {
+            // return 404
+            return abort(404);
+        }
+
+        // check if the file exists
+        if (Storage::disk('secure')->exists($filePath)) {
+            //return the file
+            return response()->file($realFilePath);
+        } else {
+            // return 404
+            return abort(404);
+        }
+    }
 }

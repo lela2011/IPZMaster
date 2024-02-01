@@ -15,18 +15,18 @@ class Monitor extends Model
 
     // sets the fillable fields for the model
     protected $fillable = [
-        'manufacturer',
+        'manufacturer_id',
         'model',
         'size',
         'serial_number',
         'product_number',
-        'location',
+        'location_id',
         'purchase_date',
         'warranty_date',
         'notes',
         'invoice',
-        'supplier',
-        'person',
+        'supplier_id',
+        'user_id',
     ];
 
     // sets the relationships for the model

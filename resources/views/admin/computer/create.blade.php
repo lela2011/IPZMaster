@@ -187,7 +187,7 @@
                 </div>
                 <div class="FormInput">
                     <label class="FormLabel" for="notes">Notes</label>
-                    <textarea class="Input" type="text" name="notes" id="notes">{!! nl2br(e(old('notes'))) !!}</textarea>
+                    <textarea class="Input" type="text" name="notes" id="notes">{!! e(old('notes')) !!}</textarea>
                     @error('notes')
                     <p class="has-error" style="color: red">
                         {{$message}}

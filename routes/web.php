@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\CompetenceIframeController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\FileController;
@@ -155,16 +156,23 @@ Route::patch('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioC
 // All inventory routes
 Route::prefix('admin/inventory')->group(function() {
 
-    Route::get('/dashboard', [AdminController::class, 'inventoryDashboard'])->name('admin.inventory.dashboard')->middleware('auth','admin');
+    Route::get('/', [AdminController::class, 'inventoryDashboard'])->name('admin.inventory.dashboard')->middleware('auth','admin');
 
-    Route::resource('comuter-type', '\App\Http\Controllers\ComputerTypeController')
-        ->parameter('comuter-type', 'computerType')
+    Route::get('/secure-download/{filePath}', [FileController::class, 'secure'])
+        ->where('filePath', '.*')
+        ->name('admin.inventory.invoice.download')
+        ->middleware('auth','admin');
+
+    Route::resource('computer-type', '\App\Http\Controllers\ComputerTypeController')
+        ->except(['show'])
+        ->parameter('computer-type', 'computerType')
         ->missing(function () {
             return Redirect::route('comuter-type.index');
         })
         ->middleware('auth','admin');
 
     Route::resource('peripheral-type', '\App\Http\Controllers\PeripheralTypeController')
+        ->except(['show'])
         ->parameter('peripheral-type', 'peripheralType')
         ->missing(function () {
             return Redirect::route('peripheral-type.index');
@@ -172,6 +180,7 @@ Route::prefix('admin/inventory')->group(function() {
         ->middleware('auth','admin');
 
     Route::resource('mobile-device-type', '\App\Http\Controllers\MobileDeviceTypeController')
+        ->except(['show'])
         ->parameter('mobile-device-type', 'mobileDeviceType')
         ->missing(function () {
             return Redirect::route('mobile-device-type.index');
@@ -179,24 +188,28 @@ Route::prefix('admin/inventory')->group(function() {
         ->middleware('auth','admin');
 
     Route::resource('manufacturer', '\App\Http\Controllers\ManufacturerController')
+        ->except(['show'])
         ->missing(function () {
             return Redirect::route('manufacturer.index');
         })
         ->middleware('auth','admin');
 
     Route::resource('location', '\App\Http\Controllers\LocationController')
+        ->except(['show'])
         ->missing(function () {
             return Redirect::route('location.index');
         })
         ->middleware('auth','admin');
 
     Route::resource('supplier', '\App\Http\Controllers\SupplierController')
+        ->except(['show'])
         ->missing(function () {
             return Redirect::route('supplier.index');
         })
         ->middleware('auth','admin');
 
     Route::resource('operating-system', '\App\Http\Controllers\OperatingSystemController')
+        ->except(['show'])
         ->parameter('operating-system', 'operatingSystem')
         ->missing(function () {
             return Redirect::route('operating-system.index');
@@ -204,6 +217,7 @@ Route::prefix('admin/inventory')->group(function() {
         ->middleware('auth','admin');
 
     Route::resource('keyboard-layout', '\App\Http\Controllers\KeyboardLayoutController')
+        ->except(['show'])
         ->parameter('keyboard-layout', 'keyboardLayout')
         ->missing(function () {
             return Redirect::route('keyboard-layout.index');
