@@ -42,6 +42,12 @@
                         {{ $printer->product_number ?? "-" }}
                     </p>
                     <h4>
+                        IP Address:
+                    </h4>
+                    <p>
+                        {{ $printer->ip_address ?? "-" }}
+                    </p>
+                    <h4>
                         Location:
                     </h4>
                     <p>

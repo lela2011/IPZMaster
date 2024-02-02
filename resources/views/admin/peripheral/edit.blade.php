@@ -73,6 +73,15 @@
                     @enderror
                 </div>
                 <div class="FormInput">
+                    <label class="FormLabel" for="mac_address">MAC Address</label>
+                    <input class="Input" type="text" name="mac_address" id="mac_address" value="{{ old('mac_address', $peripheral->mac_address) }}">
+                    @error('mac_address')
+                    <p class="has-error" style="color: red">
+                        {{$message}}
+                    </p>
+                    @enderror
+                </div>
+                <div class="FormInput">
                     <label class="FormLabel" for="location_id">Location</label>
                     <select class="selectFilter" name="location_id" id="location_id">
                         <option value=""></option>

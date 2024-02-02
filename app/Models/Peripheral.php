@@ -20,6 +20,7 @@ class Peripheral extends Model
         'model',
         'serial_number',
         'product_number',
+        'mac_address',
         'location_id',
         'purchase_date',
         'warranty_date',

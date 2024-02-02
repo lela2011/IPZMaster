@@ -55,6 +55,10 @@
                         <input class="Input" type="text" name="network_name" id="network_name" value="{{ optional($filters)['network_name'] }}">
                     </div>
                     <div class="FormInput">
+                        <label class="FormLabel" for="ip_address">IP Address</label>
+                        <input class="Input" type="text" name="ip_address" id="ip_address" value="{{ optional($filters)['ip_address'] }}">
+                    </div>
+                    <div class="FormInput">
                         <label class="FormLabel" for="location_id">Location</label>
                         <select class="selectFilter" name="location_id" id="location_id">
                             <option value="">All</option>
@@ -118,6 +122,7 @@
                             <th scope="col">Product Number</th>
                             <th scope="col">MAC Address</th>
                             <th scope="col">Network Name</th>
+                            <th scope="col">IP Address</th>
                             <th scope="col">Location</th>
                             <th scope="col">Purchase Date</th>
                             <th scope="col">Warranty Expiration</th>
@@ -161,6 +166,7 @@
                                 <td>{{ $printer->product_number }}</td>
                                 <td>{{ $printer->mac_address }}</td>
                                 <td>{{ $printer->network_name }}</td>
+                                <td>{{ $printer->ip_address }}</td>
                                 <td>{{ optional($printer->location)->name }}</td>
                                 <td>{{ $printer->purchase_date }}</td>
                                 <td>{{ $printer->warranty_date }}</td>
@@ -176,7 +182,7 @@
                         @endforeach
                         @if ($printers->isEmpty())
                             <tr>
-                                <td colspan="16">No printers found.</td>
+                                <td colspan="17">No printers found.</td>
                             </tr>
                         @endif
                     </tbody>

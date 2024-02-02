@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('product_number')->nullable();
             $table->string('mac_address')->nullable();
             $table->string('network_name')->nullable();
+            $table->string('ip_address')->nullable();
             $table->unsignedBigInteger('location_id')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('warranty_date')->nullable();

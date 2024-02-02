@@ -77,6 +77,15 @@
                     @enderror
                 </div>
                 <div class="FormInput">
+                    <label class="FormLabel" for="ip_address">IP Address</label>
+                    <input class="Input" type="text" name="ip_address" id="ip_address" value="{{ old('ip_address', $printer->ip_address) }}">
+                    @error('ip_address')
+                    <p class="has-error" style="color: red">
+                        {{$message}}
+                    </p>
+                    @enderror
+                </div>
+                <div class="FormInput">
                     <label class="FormLabel" for="location_id">Location</label>
                     <select class="selectFilter" name="location_id" id="location_id">
                         <option value=""></option>

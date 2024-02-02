@@ -48,6 +48,12 @@
                         {{ $peripheral->product_number ?? "-" }}
                     </p>
                     <h4>
+                        MAC Address:
+                    </h4>
+                    <p>
+                        {{ $peripheral->mac_address ?? "-" }}
+                    </p>
+                    <h4>
                         Location:
                     </h4>
                     <p>

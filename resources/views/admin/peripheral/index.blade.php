@@ -56,6 +56,10 @@
                         <input class="Input" type="text" name="product_number" id="product_number" value="{{ optional($filters)['product_number'] }}">
                     </div>
                     <div class="FormInput">
+                        <label class="FormLabel" for="mac_address">MAC Address</label>
+                        <input class="Input" type="text" name="mac_address" id="mac_address" value="{{ optional($filters)['mac_address'] }}">
+                    </div>
+                    <div class="FormInput">
                         <label class="FormLabel" for="location_id">Location</label>
                         <select class="selectFilter" name="location_id" id="location_id">
                             <option value="">All</option>
@@ -118,6 +122,7 @@
                             <th scope="col">Model</th>
                             <th scope="col">Serial Number</th>
                             <th scope="col">Product Number</th>
+                            <th scope="col">MAC Address</th>
                             <th scope="col">Location</th>
                             <th scope="col">Purchase Date</th>
                             <th scope="col">Warranty Expiration</th>
@@ -160,6 +165,7 @@
                                 <td>{{ $peripheral->model }}</td>
                                 <td>{{ $peripheral->serial_number }}</td>
                                 <td>{{ $peripheral->product_number }}</td>
+                                <td>{{ $peripheral->mac_address }}</td>
                                 <td>{{ optional($peripheral->location)->name }}</td>
                                 <td>{{ $peripheral->purchase_date }}</td>
                                 <td>{{ $peripheral->warranty_date }}</td>
@@ -175,7 +181,7 @@
                         @endforeach
                         @if ($peripherals->isEmpty())
                             <tr>
-                                <td colspan="15">No peripherals found.</td>
+                                <td colspan="16">No peripherals found.</td>
                             </tr>
                         @endif
                     </tbody>

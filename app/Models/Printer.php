@@ -21,6 +21,7 @@ class Printer extends Model
         'product_number',
         'mac_address',
         'network_name',
+        'ip_address',
         'location_id',
         'purchase_date',
         'warranty_date',
