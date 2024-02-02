@@ -168,7 +168,7 @@ class PeripheralController extends Controller
     {
         // validate the request
         $formdata = $request->validate([
-            'type_id' => 'nullable|integer|exists:mobile_device_types,id',
+            'type_id' => 'nullable|integer|exists:peripheral_types,id',
             'manufacturer_id' => 'nullable|integer|exists:manufacturers,id',
             'model' => 'nullable|string',
             'serial_number' => 'nullable|string',
