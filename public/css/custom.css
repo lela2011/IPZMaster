@@ -194,6 +194,15 @@
     color: #666666;
 }
 
+.quickaction-anchor.view {
+    padding-left: 0px;
+}
+
+.quickaction-anchor.view:hover {
+    color: #000000 !important;
+    text-decoration-line: none !important;
+}
+
 .quickaction-anchor.edit {
     padding-left: 0px;
 }

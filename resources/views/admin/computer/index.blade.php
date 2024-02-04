@@ -181,14 +181,14 @@
                         @foreach ($computers as $computer)
                             <tr>
                                 <td style="text-align: center">
-                                    <a href="{{ route('computer.show', $computer->id) }}" class="quickaction-anchor edit">
+                                    <a href="{{ route('computer.show', $computer->id) }}" class="quickaction-anchor view">
                                         <span class="material-icons">
                                             visibility
                                         </span>
                                     </a>
                                 </td>
                                 <td style="text-align: center">
-                                    <a href="{{ route('computer.edit', $computer->id) }}" class="quickaction-anchor">
+                                    <a href="{{ route('computer.edit', $computer->id) }}" class="quickaction-anchor edit">
                                         <span class="material-icons">
                                             edit
                                         </span>

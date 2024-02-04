@@ -136,7 +136,7 @@
                         @foreach ($peripherals as $peripheral)
                             <tr>
                                 <td style="text-align: center">
-                                    <a href="{{ route('peripheral.show', $peripheral->id) }}" class="quickaction-anchor">
+                                    <a href="{{ route('peripheral.show', $peripheral->id) }}" class="quickaction-anchor view">
                                         <span class="material-icons">
                                             visibility
                                         </span>

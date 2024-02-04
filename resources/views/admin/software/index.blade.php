@@ -105,7 +105,7 @@
                         @foreach ($softwares as $software)
                             <tr>
                                 <td style="text-align: center">
-                                    <a href="{{ route('software.show', $software->id) }}" class="quickaction-anchor">
+                                    <a href="{{ route('software.show', $software->id) }}" class="quickaction-anchor view">
                                         <span class="material-icons">
                                             visibility
                                         </span>
