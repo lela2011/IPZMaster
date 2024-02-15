@@ -370,3 +370,7 @@
 .iframe-form-body {
     padding-right: 0px;
 }
+
+.ZoraCitation.Link::before {
+    top: 0 !important;
+}
