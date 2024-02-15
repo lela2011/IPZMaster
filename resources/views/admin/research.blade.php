@@ -51,7 +51,7 @@
                 </div>
             @endif
         @else
-            <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('research.index')}}">
+            <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('admin.research')}}">
                 <div class="FormInput">
                     <div style="display: flex">
                         <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research projects by name">
