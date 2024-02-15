@@ -122,7 +122,7 @@
                         </li>
                     @endforeach
                 </ul>
-                {{ $projects->links() }}
+                {{ $projects->withQueryString()->links('pagination.uzh-pagination-en') }}
             </section>
         @endif
     </div>
