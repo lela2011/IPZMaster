@@ -109,7 +109,7 @@ class AdminController extends Controller
         }
 
         // retrieves all projects after filter was applied
-        $projects = $projectQuery->get();
+        $projects = $projectQuery->paginate(20);
 
         // displays list page
         return view('admin.research', [
