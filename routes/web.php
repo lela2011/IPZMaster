@@ -375,7 +375,4 @@ Route::get('deploy', function() {
     Artisan::call('route:clear');
     Artisan::call('config:clear');
     Artisan::call('view:clear');
-    Artisan::call('config:cache');
-    Artisan::call('route:cache');
-    Artisan::call('view:cache');
 });
