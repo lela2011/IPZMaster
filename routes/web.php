@@ -37,8 +37,6 @@ use Illuminate\Support\Facades\URL;
 |
 */
 
-URL::forceRootUrl(config('app.url'));
-
 // Home Route
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
