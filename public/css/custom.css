@@ -372,5 +372,5 @@
 }
 
 .ZoraCitation .Link::before {
-    top: 0 !important;
+    top: .0825em !important;
 }
