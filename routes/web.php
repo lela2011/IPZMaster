@@ -19,6 +19,7 @@ use App\Http\Controllers\ResearchIframeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserIframeController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
@@ -369,3 +370,12 @@ Route::prefix('iframe/{language}')->group(function() {
 Route::get('iframe', function() {
     return view('empty-iframe');
 })->name('empty.iframe');
+
+Route::get('deploy', function() {
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+});
