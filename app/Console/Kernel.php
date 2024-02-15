@@ -13,6 +13,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('ldap:import users', [
+            '--no-interaction' => true,
+            '--scope' => 'App\Ldap\Scopes\OnlyIPZ'
+        ])->dailyAt('06:00');
+
+        $schedule->command('ldap:import users', [
+            '--no-interaction' => true,
+            '--scope' => 'App\Ldap\Scopes\OnlyPWI'
+        ])->dailyAt('06:10');
+
     }
 
     /**

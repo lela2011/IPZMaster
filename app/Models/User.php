@@ -64,6 +64,7 @@ class User extends Authenticatable implements LdapAuthenticatable
     //Sets id-key to 'uid' and ensures that it's not auto-incremented
     protected $primaryKey = "uid";
     public $incrementing = false;
+    public $timestamps = false;
 
     // sets relation between competence and user
     public function competences() : BelongsToMany {

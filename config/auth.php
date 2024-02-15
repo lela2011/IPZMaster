@@ -70,6 +70,7 @@ return [
             'database' => [
                 'model' => App\Models\User::class,
                 'sync_passwords' => false,
+                'password_column' => false,
                 'sync_attributes' => [
                     'uid' => 'uid',
                     'first_name' => 'givenName',
@@ -77,7 +78,10 @@ return [
                     'email' => 'mail'
                 ],
                 'sync_existing' => [
-                    'uid' => 'uid'
+                    'uid' => 'uid',
+                    'first_name' => 'givenName',
+                    'last_name' => 'sn',
+                    'email' => 'mail'
                 ]
             ],
         ],
