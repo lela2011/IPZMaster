@@ -7,7 +7,7 @@
                 Return to Admin Data
             </a>
             <a href="{{ route('admin.sync-users') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-sync" style="margin-right: 8px; vertical-align: bottom"></i>
+                <i class="fa-solid fa-arrows-rotate" style="margin-right: 8px; vertical-align: bottom"></i>
                 Sync Users
                 <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
             </a>
