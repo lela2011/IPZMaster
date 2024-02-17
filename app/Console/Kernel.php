@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,14 +15,22 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('ldap:import users', [
-            '--no-interaction' => true,
+            '--no-interaction',
             '--scope' => 'App\Ldap\Scopes\OnlyIPZ'
-        ])->dailyAt('06:00');
+        ])
+        ->dailyAt('06:00')
+        ->onSuccess(function () {
+            Log::info('IPZ LDAP import successful');
+        });
 
         $schedule->command('ldap:import users', [
-            '--no-interaction' => true,
+            '--no-interaction',
             '--scope' => 'App\Ldap\Scopes\OnlyPWI'
-        ])->dailyAt('06:10');
+        ])
+        ->dailyAt('06:10')
+        ->onSuccess(function () {
+            Log::info('PWI LDAP import successful');
+        });
 
     }
 

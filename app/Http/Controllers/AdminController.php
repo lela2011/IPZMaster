@@ -9,7 +9,9 @@ use App\Models\ResearchProject;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -79,6 +81,24 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with('message', $user->first_name . ' ' . $user->last_name . ' demoted.');
+    }
+
+    public function syncUsers() {
+
+        // sync all users from ldap to database
+        Artisan::call('ldap:import users', [ // IPZ group
+            '--no-interaction',
+            '--scope' => 'App\Ldap\Scopes\OnlyIPZ'
+        ]);
+        Artisan::call('ldap:import users', [ // PWI group
+            '--no-interaction',
+            '--scope' => 'App\Ldap\Scopes\OnlyPWI'
+        ]);
+
+        Log::info('Users synchronized successfully');
+
+        // redirects to previous page with success message
+        redirect()->back()->with('message', 'Users synchronized successfully.');
     }
 
     /**
