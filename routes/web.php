@@ -155,7 +155,7 @@ Route::get('admin/transversal-research-prio/{prio}/edit', [AdminTransvResearchPr
 
 Route::patch('admin/transversal-research-prio/{prio}', [AdminTransvResearchPrioController::class, 'update'])->name('admin.transversal-research-prio.update')->middleware('auth','admin');
 
-Route::get('admin/sync-users', [AdminController::class, 'syncUsers'])->name('admin.sync-users')->middleware('auth','admin');
+Route::post('admin/sync-users', [AdminController::class, 'syncUsers'])->name('admin.sync-users')->middleware('auth','admin');
 
 // All inventory routes
 Route::prefix('admin/inventory')->group(function() {

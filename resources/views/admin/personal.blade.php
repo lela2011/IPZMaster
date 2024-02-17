@@ -6,10 +6,12 @@
                 <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
                 Return to Admin Data
             </a>
-            <a href="{{ route('admin.sync-users') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                Sync Users
-                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
-            </a>
+            <form method="POST" action="{{ route('admin.sync-users')}}">
+                <button class="Button color-border-white size-large" style="margin-bottom: 8px" type="submit">
+                    Sync Users
+                    <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+                </button>
+            </form>
         </div>
         <div class="TextImage">
             <h2 class="TextImage--title richtext">
