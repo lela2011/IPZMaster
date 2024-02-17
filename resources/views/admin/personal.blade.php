@@ -7,6 +7,7 @@
                 Return to Admin Data
             </a>
             <form method="POST" action="{{ route('admin.sync-users')}}">
+                @csrf
                 <button class="Button color-border-white size-large" style="margin-bottom: 8px" type="submit">
                     Sync Users
                     <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>

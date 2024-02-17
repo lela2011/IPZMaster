@@ -32,7 +32,7 @@
                 <label class="FormLabel" for="uid">
                     UZH-Shortname
                 </label>
-                <input type="text" class="Input" name="uid" value="{{old('uid')}}"/>
+                <input type="text" class="Input" name="uid" value="{{old('uid')}}" autocomplete="username"/>
                 @error('uid')
                 <p class="has-error" style="color: red">
                     <small>
@@ -45,7 +45,7 @@
                 <label class="FormLabel" for="password">
                     Password
                 </label>
-                <input type="password" class="Input" name="password"/>
+                <input type="password" class="Input" name="password" autocomplete="current-password"/>
                 @error('password')
                 <p class="has-error" style="color: red">
                     <small>
