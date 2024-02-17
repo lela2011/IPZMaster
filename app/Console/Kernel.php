@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('ldap:import users', [
             '--no-interaction',
-            '--scope' => 'App\Ldap\Scopes\OnlyIPZ'
+            '--scopes' => 'App\Ldap\Scopes\OnlyIPZ'
         ])
         ->dailyAt('06:00')
         ->onSuccess(function () {
@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('ldap:import users', [
             '--no-interaction',
-            '--scope' => 'App\Ldap\Scopes\OnlyPWI'
+            '--scopes' => 'App\Ldap\Scopes\OnlyPWI'
         ])
         ->dailyAt('06:10')
         ->onSuccess(function () {

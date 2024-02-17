@@ -89,12 +89,12 @@ class AdminController extends Controller
         Artisan::call('ldap:import', [ // IPZ group
             'provider' => 'ldap',
             '--no-interaction',
-            '--scope' => 'App\Ldap\Scopes\OnlyIPZ'
+            '--scopes' => 'App\Ldap\Scopes\OnlyIPZ'
         ]);
         Artisan::call('ldap:import', [ // PWI group
             'provider' => 'ldap',
             '--no-interaction',
-            '--scope' => 'App\Ldap\Scopes\OnlyPWI'
+            '--scopes' => 'App\Ldap\Scopes\OnlyPWI'
         ]);
 
         Log::info('Users synchronized successfully');
