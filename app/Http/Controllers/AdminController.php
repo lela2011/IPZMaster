@@ -86,11 +86,13 @@ class AdminController extends Controller
     public function syncUsers() {
 
         // sync all users from ldap to database
-        Artisan::call('ldap:import users', [ // IPZ group
+        Artisan::call('ldap:import', [ // IPZ group
+            'provider' => 'ldap',
             '--no-interaction',
             '--scope' => 'App\Ldap\Scopes\OnlyIPZ'
         ]);
-        Artisan::call('ldap:import users', [ // PWI group
+        Artisan::call('ldap:import', [ // PWI group
+            'provider' => 'ldap',
             '--no-interaction',
             '--scope' => 'App\Ldap\Scopes\OnlyPWI'
         ]);
