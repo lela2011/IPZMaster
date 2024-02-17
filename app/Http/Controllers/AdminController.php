@@ -87,12 +87,12 @@ class AdminController extends Controller
 
         // sync all users from ldap to database
         Artisan::call('ldap:import', [ // IPZ group
-            'provider' => 'ldap',
+            'users',
             '--no-interaction',
             '--scopes' => 'App\Ldap\Scopes\OnlyIPZ'
         ]);
         Artisan::call('ldap:import', [ // PWI group
-            'provider' => 'ldap',
+            'users',
             '--no-interaction',
             '--scopes' => 'App\Ldap\Scopes\OnlyPWI'
         ]);
@@ -100,7 +100,7 @@ class AdminController extends Controller
         Log::info('Users synchronized successfully');
 
         // redirects to previous page with success message
-        redirect()->back()->with('message', 'Users synchronized successfully.');
+        redirect()->route('admin.personal')->with('message', 'Users synchronized successfully.');
     }
 
     /**
