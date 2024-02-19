@@ -103,13 +103,14 @@ class ResearchAreaIframeController extends Controller
 
     public function employees(string $language, ResearchArea $researchArea) {
         // loads all employees of research area and groups them by employment type
-        $employeesByType = User::whereHas('researchAreas', function ($query) use ($researchArea) {
+        $employeesByType = User::has('employmentType')
+        ->whereHas('researchAreas', function ($query) use ($researchArea) {
             $query->where('id', $researchArea->id);
         })->with('employmentType')
             ->get()
             ->groupBy('employmentType.id')
             ->sortBy(function ($users, $employmentTypeId) {
-                return $users->first()->employmentType->order;
+                return optional($users->first()->employmentType)->order;
             });
 
         // loads all employment types
