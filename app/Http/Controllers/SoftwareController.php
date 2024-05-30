@@ -24,7 +24,7 @@ class SoftwareController extends Controller
         $people = User::all();
 
         // validate the request
-        $filters = $request->validate([
+        $params = collect($request->validate([
             'manufacturer_id' => 'nullable|integer|exists:manufacturers,id',
             'name' => 'nullable|string',
             'license_type' => 'nullable|string',
@@ -33,7 +33,12 @@ class SoftwareController extends Controller
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'people' => 'nullable|array',
             'people.*' => 'nullable|string|exists:users,uid',
-        ]);
+            'sort' => 'nullable|string|in:manufacturer_id,name,license_type,notes,purchase_date,supplier_id',
+            'direction' => 'nullable|string|in:asc,desc'
+        ]));
+
+        $filters = $params->except(['sort', 'direction'])->all();
+        $sort = $params->only(['sort', 'direction'])->all();
 
         // create the query
         $softwaresQuery = Software::query()->with('manufacturer', 'supplier', 'people');
@@ -50,6 +55,22 @@ class SoftwareController extends Controller
                 } else {
                     $softwaresQuery->where($field, 'like', '%' . $value . '%');
                 }
+            }
+        }
+
+        // apply sorting
+        if($sort) {
+            $sortKey = $sort['sort'];
+            $sortDirection = $sort['direction'] ?? 'asc';
+
+            if($sortKey === 'manufacturer_id') {
+                $softwaresQuery->join('manufacturers', 'softwares.manufacturer_id', '=', 'manufacturers.id')
+                    ->orderBy('manufacturers.name', $sortDirection);
+            } else if($sortKey === 'supplier_id') {
+                $softwaresQuery->join('suppliers', 'softwares.supplier_id', '=', 'suppliers.id')
+                    ->orderBy('suppliers.name', $sortDirection);
+            } else {
+                $softwaresQuery->orderBy($sortKey, $sortDirection);
             }
         }
 
@@ -72,6 +93,18 @@ class SoftwareController extends Controller
 
         // return the view
         return view('admin.software.create', compact('manufacturers', 'suppliers', 'people'));
+
+    }
+
+    public function copy(Software $software)
+    {
+        // get all the data for the dropdowns
+        $manufacturers = Manufacturer::all();
+        $suppliers = Supplier::all();
+        $people = User::all();
+
+        // return the view
+        return view('admin.software.copy', compact('software', 'manufacturers', 'suppliers', 'people'));
 
     }
 

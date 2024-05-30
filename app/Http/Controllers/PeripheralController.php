@@ -26,7 +26,7 @@ class PeripheralController extends Controller
         $people = User::all();
 
         // validate the request
-        $filters = $request->validate([
+        $params = collect($request->validate([
             'type_id' => 'nullable|integer|exists:peripheral_types,id',
             'manufacturer_id' => 'nullable|integer|exists:manufacturers,id',
             'model' => 'nullable|string',
@@ -39,24 +39,56 @@ class PeripheralController extends Controller
             'warranty_date' => 'nullable|date',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
-        ]);
+            'sort' => 'nullable|string|in:type_id,manufacturer_id,model,serial_number,product_number,mac_address,notes,location_id,purchase_date,warranty_date,supplier_id,user_id',
+            'direction' => 'nullable|string|in:asc,desc'
+        ]));
+
+        $filters = $params->except(['sort', 'direction'])->all();
+        $sort = $params->only(['sort', 'direction'])->all();
 
         // create the query
-        $periveralsQuery = Peripheral::query()->with('type', 'manufacturer', 'location', 'supplier', 'person');
+        $peripheralsQuery = Peripheral::query()->with('type', 'manufacturer', 'location', 'supplier', 'person');
 
         // apply the filters
         foreach($filters as $field => $value) {
             if($value) {
                 if(str_ends_with($field, '_id')) {
-                    $periveralsQuery->where($field, $value);
+                    $peripheralsQuery->where($field, $value);
                 } else {
-                    $periveralsQuery->where($field, 'like', '%' . $value . '%');
+                    $peripheralsQuery->where($field, 'like', '%' . $value . '%');
                 }
             }
         }
 
+        // apply sorting
+        if($sort) {
+            $sortKey = $sort['sort'];
+            $sortDirection = $sort['direction'] ?? 'asc';
+
+            if($sortKey === 'type_id') {
+                $peripheralsQuery->join('peripheral_types', 'peripherals.type_id', '=', 'peripheral_types.id')
+                    ->orderBy('peripheral_types.name', $sortDirection);
+            } else if($sortKey === 'manufacturer_id') {
+                $peripheralsQuery->join('manufacturers', 'peripherals.manufacturer_id', '=', 'manufacturers.id')
+                    ->orderBy('manufacturers.name', $sortDirection);
+            } else if($sortKey === 'location_id') {
+                $peripheralsQuery->join('locations', 'peripherals.location_id', '=', 'locations.id')
+                    ->orderBy('locations.name', $sortDirection);
+            } else if($sortKey === 'supplier_id') {
+                $peripheralsQuery->join('suppliers', 'peripherals.supplier_id', '=', 'suppliers.id')
+                    ->orderBy('suppliers.name', $sortDirection);
+            } else if($sortKey === 'user_id') {
+                $peripheralsQuery->join('users', 'peripherals.user_id', '=', 'users.uid')
+                    ->orderBy('users.name', $sortDirection);
+            } else {
+                $peripheralsQuery->orderBy($sortKey, $sortDirection);
+            }
+        }
+
+        //dd($peripheralsQuery->get()->pluck('type.name'));
+
         // get the results
-        $peripherals = $periveralsQuery->paginate(10);
+        $peripherals = $peripheralsQuery->paginate(10);
 
         // return the view
         return view('admin.peripheral.index', compact('peripherals', 'types', 'manufacturers', 'locations', 'suppliers', 'people', 'filters'));
@@ -77,6 +109,19 @@ class PeripheralController extends Controller
 
         // return the view
         return view('admin.peripheral.create', compact('types', 'manufacturers', 'locations', 'suppliers', 'people'));
+    }
+
+    public function copy(Peripheral $peripheral)
+    {
+        // get all the data for the dropdowns
+        $types = PeripheralType::all();
+        $manufacturers = Manufacturer::all();
+        $locations = Location::all();
+        $suppliers = Supplier::all();
+        $people = User::all();
+
+        // return the view
+        return view('admin.peripheral.copy', compact('peripheral', 'types', 'manufacturers', 'locations', 'suppliers', 'people'));
     }
 
     /**

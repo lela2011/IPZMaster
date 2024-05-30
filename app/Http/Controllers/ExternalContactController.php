@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmploymentType;
 use App\Models\ExternalContact;
+use App\Models\ResearchArea;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -118,7 +120,13 @@ class ExternalContactController extends Controller
      */
     public function create()
     {
-        return view('externalContact.create');
+        // retrieve all possible research areas from DB
+        $researchAreaOptions = ResearchArea::all();
+
+        // retrieve all possible employment types from DB
+        $employmentTypes = EmploymentType::orderBy('order')->get();
+
+        return view('externalContact.create', compact('researchAreaOptions', 'employmentTypes'));
     }
 
     /**
@@ -130,12 +138,17 @@ class ExternalContactController extends Controller
         $formData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:external_contacts,email',
-            'organization' => 'nullable|string'
+            'organization' => 'nullable|string',
+            'research_areas' => 'nullable|array',
+            'research_areas.*' => 'exists:research_areas,id',
+            'employment_type' => 'nullable|exists:employment_types,id'
         ],[
             'name.required' => 'Please enter a name.',
             'email.required' => 'Please enter an email.',
             'email.email' => 'The entered email is not valid.',
-            'email.unique' => 'A user with the entered email already exists.'
+            'email.unique' => 'A user with the entered email already exists.',
+            'research_areas.*.exists' => 'The selected research area is invalid.',
+            'employment_type.exists' => 'The selected employment type is invalid.'
         ]);
 
         if (!isset($formData['organization'])) {
@@ -143,8 +156,12 @@ class ExternalContactController extends Controller
             unset($formData['organization']);
         }
 
+        $formData = collect($formData);
+
         // creates external contact
-        ExternalContact::create($formData);
+        $externalContact = ExternalContact::create($formData->except('research_areas')->toArray());
+        // attaches research areas to external contact
+        $externalContact->researchAreas()->attach($formData->get('research_areas'));
 
         // redirects to index page with success message
         return redirect()->route('externalContact.index')->with('message', 'External Contact created successfully');
@@ -155,9 +172,17 @@ class ExternalContactController extends Controller
      */
     public function edit(ExternalContact $externalContact)
     {
-        return view('externalContact.edit', [
-            'externalContact' => $externalContact
-        ]);
+        // retrieve all possible research areas from DB
+        $researchAreaOptions = ResearchArea::all();
+        // loads research areas
+        $researchAreas = $externalContact->researchAreas()->pluck('id')->all();
+
+        // retrieve all possible employment types from DB
+        $employmentTypes = EmploymentType::orderBy('order')->get();
+        // retrieve selected employment type from DB
+        $externalContact->load('employmentType');
+
+        return view('externalContact.edit', compact('externalContact', 'researchAreaOptions', 'researchAreas', 'employmentTypes'));
     }
 
     /**
@@ -166,21 +191,28 @@ class ExternalContactController extends Controller
     public function update(Request $request, string $id)
     {
         // validates form data
-        $formData = $request->validate([
+        $formData = collect($request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'organization' => 'nullable|string'
+            'organization' => 'nullable|string',
+            'research_areas' => 'nullable|array',
+            'research_areas.*' => 'exists:research_areas,id',
+            'employment_type' => 'nullable|exists:employment_types,id'
         ],[
             'name.required' => 'Please enter a name.',
             'email.required' => 'Please enter an email.',
             'email.email' => 'The entered email is not valid.',
-        ]);
+            'research_areas.*.exists' => 'The selected research area is invalid.',
+            'employment_type.exists' => 'The selected employment type is invalid.'
+        ]));
 
         // current external contact
         $externalContact = ExternalContact::findOrFail($id);
 
         // updates external contact
-        $externalContact->update($formData);
+        $externalContact->update($formData->except('research_areas')->toArray());
+        // syncs research areas with external contact
+        $externalContact->researchAreas()->sync($formData->get('research_areas'));
 
         // redirects to index page with success message
         return redirect()->route('externalContact.index')->with('message', 'External Contact updated successfully.');

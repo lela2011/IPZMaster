@@ -28,7 +28,7 @@ class MobileDeviceController extends Controller
         $people = User::all();
 
         // validate the request
-        $filters = $request->validate([
+        $params = collect($request->validate([
             'type_id' => 'nullable|integer|exists:mobile_device_types,id',
             'manufacturer_id' => 'nullable|integer|exists:manufacturers,id',
             'model' => 'nullable|string',
@@ -45,7 +45,12 @@ class MobileDeviceController extends Controller
             'warranty_date' => 'nullable|date',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
-        ]);
+            'sort' => 'nullable|string|in:type_id,manufacturer_id,model,serial_number,product_number,network_name,imei,operating_system_id,storage,color,notes,location_id,purchase_date,warranty_date,supplier_id,user_id',
+            'direction' => 'nullable|string|in:asc,desc'
+        ]));
+
+        $filters = $params->except(['sort', 'direction'])->all();
+        $sort = $params->only(['sort', 'direction'])->all();
 
         // create the query
         $mobileDevicesQuery = MobileDevice::query()->with('type', 'manufacturer', 'operatingSystem', 'location', 'supplier', 'person');
@@ -58,6 +63,35 @@ class MobileDeviceController extends Controller
                 } else {
                     $mobileDevicesQuery->where($field, 'like', '%' . $value . '%');
                 }
+            }
+        }
+
+        // apply sorting
+        if($sort) {
+            $sortKey = $sort['sort'];
+            $sortDirection = $sort['direction'] ?? 'asc';
+
+            if($sortKey === 'type_id') {
+                $mobileDevicesQuery->join('mobile_device_types', 'mobile_devices.type_id', '=', 'mobile_device_types.id')
+                    ->orderBy('mobile_device_types.name', $sortDirection);
+            } else if($sortKey === 'manufacturer_id') {
+                $mobileDevicesQuery->join('manufacturers', 'mobile_devices.manufacturer_id', '=', 'manufacturers.id')
+                    ->orderBy('manufacturers.name', $sortDirection);
+            } else if($sortKey === 'operating_system_id') {
+                $mobileDevicesQuery->join('operating_systems', 'mobile_devices.operating_system_id', '=', 'operating_systems.id')
+                    ->orderBy('operating_systems.name', $sortDirection);
+            } else if($sortKey === 'location_id') {
+                $mobileDevicesQuery->join('locations', 'mobile_devices.location_id', '=', 'locations.id')
+                    ->orderBy('locations.name', $sortDirection);
+            } else if($sortKey === 'supplier_id') {
+                $mobileDevicesQuery->join('suppliers', 'mobile_devices.supplier_id', '=', 'suppliers.id')
+                    ->orderBy('suppliers.name', $sortDirection);
+            } else if($sortKey === 'user_id') {
+                $mobileDevicesQuery->join('users', 'mobile_devices.user_id', '=', 'users.uid')
+                    ->orderBy('users.last_name', $sortDirection)
+                    ->orderBy('users.first_name', $sortDirection);
+            } else {
+                $mobileDevicesQuery->orderBy($sortKey, $sortDirection);
             }
         }
 
@@ -84,6 +118,21 @@ class MobileDeviceController extends Controller
 
         // return the view
         return view('admin.mobileDevice.create', compact('types', 'manufacturers', 'operatingSystems', 'locations', 'suppliers', 'people'));
+
+    }
+
+    public function copy(MobileDevice $mobileDevice)
+    {
+        // get all the data for the dropdowns
+        $types = MobileDeviceType::all();
+        $manufacturers = Manufacturer::all();
+        $operatingSystems = OperatingSystem::all();
+        $locations = Location::all();
+        $suppliers = Supplier::all();
+        $people = User::all();
+
+        // return the view
+        return view('admin.mobileDevice.copy', compact('mobileDevice', 'types', 'manufacturers', 'operatingSystems', 'locations', 'suppliers', 'people'));
 
     }
 

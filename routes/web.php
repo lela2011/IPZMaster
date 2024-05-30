@@ -1,30 +1,36 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AdminEmploymentTypeController;
-use App\Http\Controllers\AdminResearchAreaController;
-use App\Http\Controllers\AdminTransvResearchPrioController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CompetenceController;
-use App\Http\Controllers\CompetenceIframeController;
-use App\Http\Controllers\DownloadController;
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\ExternalContactController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\ResearchAreaController;
-use App\Http\Controllers\ResearchAreaIframeController;
-use App\Http\Controllers\ResearchController;
-use App\Http\Controllers\ResearchIframeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserIframeController;
-use App\Http\Controllers\UsersController;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ComputerController;
+use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\UserIframeController;
+use App\Http\Controllers\ResearchAreaController;
+use App\Http\Controllers\ResearchIframeController;
+use App\Http\Controllers\ExternalContactController;
+use App\Http\Controllers\CompetenceIframeController;
+use App\Http\Controllers\AdminResearchAreaController;
+use App\Http\Controllers\ResearchAreaIframeController;
+use App\Http\Controllers\AdminEmploymentTypeController;
+use App\Http\Controllers\AdminTransvResearchPrioController;
+use App\Http\Controllers\MobileDeviceController;
+use App\Http\Controllers\MonitorController;
+use App\Http\Controllers\PeripheralController;
+use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\SoftwareController;
 
 /*
 |--------------------------------------------------------------------------
@@ -234,8 +240,22 @@ Route::prefix('admin/inventory')->group(function() {
         })
         ->middleware('auth','admin');
 
+    Route::get('computer/{computer}/copy', [ComputerController::class, 'copy'])
+        ->name('computer.copy')
+        ->missing(function () {
+            return Redirect::route('computer.index');
+        })
+        ->middleware('auth','admin');
+
     Route::resource('mobile-device', '\App\Http\Controllers\MobileDeviceController')
         ->parameter('mobile-device', 'mobileDevice')
+        ->missing(function () {
+            return Redirect::route('mobile-device.index');
+        })
+        ->middleware('auth','admin');
+
+    Route::get('mobile-device/{mobileDevice}/copy', [MobileDeviceController::class, 'copy'])
+        ->name('mobile-device.copy')
         ->missing(function () {
             return Redirect::route('mobile-device.index');
         })
@@ -247,7 +267,21 @@ Route::prefix('admin/inventory')->group(function() {
         })
         ->middleware('auth','admin');
 
+    Route::get('printer/{printer}/copy', [PrinterController::class, 'copy'])
+        ->name('printer.copy')
+        ->missing(function () {
+            return Redirect::route('printer.index');
+        })
+        ->middleware('auth','admin');
+
     Route::resource('peripheral', '\App\Http\Controllers\PeripheralController')
+        ->missing(function () {
+            return Redirect::route('peripheral.index');
+        })
+        ->middleware('auth','admin');
+
+    Route::get('peripheral/{peripheral}/copy', [PeripheralController::class, 'copy'])
+        ->name('peripheral.copy')
         ->missing(function () {
             return Redirect::route('peripheral.index');
         })
@@ -259,7 +293,21 @@ Route::prefix('admin/inventory')->group(function() {
         })
         ->middleware('auth','admin');
 
+    Route::get('monitor/{monitor}/copy', [MonitorController::class, 'copy'])
+        ->name('monitor.copy')
+        ->missing(function () {
+            return Redirect::route('monitor.index');
+        })
+        ->middleware('auth','admin');
+
     Route::resource('software', '\App\Http\Controllers\SoftwareController')
+        ->missing(function () {
+            return Redirect::route('software.index');
+        })
+        ->middleware('auth','admin');
+
+    Route::get('software/{software}/copy', [SoftwareController::class, 'copy'])
+        ->name('software.copy')
         ->missing(function () {
             return Redirect::route('software.index');
         })

@@ -24,7 +24,7 @@ class PrinterController extends Controller
         $people = User::all();
 
         // validate the request
-        $filters = $request->validate([
+        $params = collect($request->validate([
             'manufacturer_id' => 'nullable|integer|exists:manufacturers,id',
             'model' => 'nullable|string',
             'serial_number' => 'nullable|string',
@@ -38,7 +38,12 @@ class PrinterController extends Controller
             'warranty_date' => 'nullable|date',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
-        ]);
+            'sort' => 'nullable|string|in:manufacturer_id,model,serial_number,product_number,mac_address,network_name,ip_address,notes,location_id,purchase_date,warranty_date,supplier_id,user_id',
+            'direction' => 'nullable|string|in:asc,desc'
+        ]));
+
+        $filters = $params->except(['sort', 'direction'])->all();
+        $sort = $params->only(['sort', 'direction'])->all();
 
         // create the query
         $printersQuery = Printer::query()->with('manufacturer', 'location', 'supplier', 'person');
@@ -51,6 +56,29 @@ class PrinterController extends Controller
                 } else {
                     $printersQuery->where($field, 'like', '%' . $value . '%');
                 }
+            }
+        }
+
+        // apply sort
+        if($sort) {
+            $sortKey = $sort['sort'];
+            $sortDirection = $sort['direction'] ?? 'asc';
+
+            if($sortKey === 'manufacturer_id') {
+                $printersQuery->join('manufacturers', 'printers.manufacturer_id', '=', 'manufacturers.id')
+                    ->orderBy('manufacturers.name', $sortDirection);
+            } else if($sortKey === 'location_id') {
+                $printersQuery->join('locations', 'printers.location_id', '=', 'locations.id')
+                    ->orderBy('locations.name', $sortDirection);
+            } else if($sortKey === 'supplier_id') {
+                $printersQuery->join('suppliers', 'printers.supplier_id', '=', 'suppliers.id')
+                    ->orderBy('suppliers.name', $sortDirection);
+            } else if($sortKey === 'user_id') {
+                $printersQuery->join('users', 'printers.user_id', '=', 'users.uid')
+                    ->orderBy('users.last_name', $sortDirection)
+                    ->orderBy('users.first_name', $sortDirection);
+            } else {
+                $printersQuery->orderBy($sortKey, $sortDirection);
             }
         }
 
@@ -74,6 +102,19 @@ class PrinterController extends Controller
 
         // return the view
         return view('admin.printer.create', compact('manufacturers', 'locations', 'suppliers', 'people'));
+
+    }
+
+    public function copy(Printer $printer)
+    {
+        // get all the data for the dropdowns
+        $manufacturers = Manufacturer::all();
+        $locations = Location::all();
+        $suppliers = Supplier::all();
+        $people = User::all();
+
+        // return the view
+        return view('admin.printer.copy', compact('printer', 'manufacturers', 'locations', 'suppliers', 'people'));
 
     }
 

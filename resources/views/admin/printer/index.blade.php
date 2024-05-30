@@ -115,21 +115,164 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col" colspan="3">Actions</th>
-                            <th scope="col">Manufacturer</th>
-                            <th scope="col">Model</th>
-                            <th scope="col">Serial Number</th>
-                            <th scope="col">Product Number</th>
-                            <th scope="col">MAC Address</th>
-                            <th scope="col">Network Name</th>
-                            <th scope="col">IP Address</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Purchase Date</th>
-                            <th scope="col">Warranty Expiration</th>
-                            <th scope="col">Notes</th>
+                            <th scope="col" colspan="4">Actions</th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'manufacturer_id', 'direction' => request('sort') === 'manufacturer_id' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Manufacturer
+                                    @if(request('sort') === 'manufacturer_id')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'model', 'direction' => request('sort') === 'model' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Model
+                                    @if(request('sort') === 'model')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'serial_number', 'direction' => request('sort') === 'serial_number' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Serial Number
+                                    @if(request('sort') === 'serial_number')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'product_number', 'direction' => request('sort') === 'product_number' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Product Number
+                                    @if(request('sort') === 'product_number')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'mac_address', 'direction' => request('sort') === 'mac_address' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    MAC Address
+                                    @if(request('sort') === 'mac_address')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'network_name', 'direction' => request('sort') === 'network_name' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Network Name
+                                    @if(request('sort') === 'network_name')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'network_name', 'direction' => request('sort') === 'network_name' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    IP Address
+                                    @if(request('sort') === 'ip_address')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'location_id', 'direction' => request('sort') === 'location_id' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Location
+                                    @if(request('sort') === 'location_id')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'purchase_date', 'direction' => request('sort') === 'purchase_date' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Purchase Date
+                                    @if(request('sort') === 'purchase_date')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'warranty_date', 'direction' => request('sort') === 'warranty_date' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Warranty Expiration
+                                    @if(request('sort') === 'warranty_date')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'notes', 'direction' => request('sort') === 'notes' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Notes
+                                    @if(request('sort') === 'notes')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
                             <th scope="col">Invoice</th>
-                            <th scope="col">Supplier</th>
-                            <th scope="col">Person</th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'supplier_id', 'direction' => request('sort') === 'supplier_id' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Supplier
+                                    @if(request('sort') === 'supplier_id')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('printer.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'user_id', 'direction' => request('sort') === 'user_id' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Person
+                                    @if(request('sort') === 'user_id')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,6 +289,13 @@
                                     <a href="{{ route('printer.edit', $printer->id) }}" class="quickaction-anchor edit">
                                         <span class="material-icons">
                                             edit
+                                        </span>
+                                    </a>
+                                </td>
+                                <td style="text-align: center">
+                                    <a href="{{ route('printer.copy', $printer->id) }}" class="quickaction-anchor copy">
+                                        <span class="material-icons">
+                                            content_copy
                                         </span>
                                     </a>
                                 </td>
@@ -182,7 +332,7 @@
                         @endforeach
                         @if ($printers->isEmpty())
                             <tr>
-                                <td colspan="17">No printers found.</td>
+                                <td colspan="18">No printers found.</td>
                             </tr>
                         @endif
                     </tbody>

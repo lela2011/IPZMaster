@@ -1,12 +1,14 @@
 <x-iframe-layout>
-    <h2 class="TextImage--title  richtext">Mitarbeiter</h2>
+    <h2 class="TextImage--title  richtext">Mitarbeitende</h2>
     <div class="TextImage--inner">
         <div class="TextImage--content richtext">
-            @foreach ($employeesByType as $typeId => $employees)
+            @foreach ($orderIds as $orderId)
                 @php
-                    $type = $types->firstWhere('id', $typeId);
+                    $type = $types->firstWhere('order', $orderId);
+                    $employees = $employeesByType[$orderId] ?? [];
+                    $guests = $guestsByType[$orderId] ?? [];
                 @endphp
-                <p>
+                <P>
                     <strong>{{ $type->german }}</strong>
                     <br>
                     @foreach ($employees as $employee)
@@ -15,7 +17,16 @@
                             <br>
                         @endif
                     @endforeach
-                </p>
+                    @if(count($guests) == 0)
+                        <br>
+                    @endif
+                    @foreach ($guests as $guest)
+                        <a href="mailto:{{ $guest->email }}">{{ $guest->name }} ({{ $guest->organization }})</a>
+                        @if(!$loop->last)
+                            <br>
+                        @endif
+                    @endforeach
+                </P>
             @endforeach
         </div>
     </div>

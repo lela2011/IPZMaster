@@ -109,35 +109,52 @@ class AdminController extends Controller
     public function research(Request $request) : View
     {
         // validates filter to reduce the danger of SQL injections
-        $validator = Validator::make($request->all(), [
-            'filter' => 'nullable|string'
+        $filters = $request->validate([
+            'title' => 'nullable|string',
+            'user_id' => 'nullable|string|exists:users,uid',
         ]);
 
-        // checks if validation failed
-        if ($validator->fails()) {
-            // redirects to index page to display error message
-            return redirect()->route('admin.research')->withErrors($validator)->withInput();
-        }
+        // retrieves all users
+        $people = User::all();
 
         // prepares query for managable projects
         $projectQuery = ResearchProject::query();
 
-        // checks if filter is set
-        if($request->has('filter')) {
-            // prepares filter value
-            $filterValue = "%" . $request->input('filter') . "%";
-            // applies filter to both queries
-            $projectQuery->where('title', 'like', $filterValue);
+        // applies filters to query
+        foreach($filters as $field => $value) {
+            // checks if filter is set
+            if($value) {
+                // handles id filters
+                if(str_ends_with($field, '_id')) {
+                    // checks if filter is for user_id
+                    if($field == 'user_id') {
+                        // filters for projects where user is leader or member
+                        $projectQuery->whereHas('leaders', function($query) use ($value) {
+                            $query->where('uid', $value);
+                        })
+                        ->orWhereHas('members', function($query) use ($value) {
+                            $query->where('uid', $value);
+                        });
+                    } else {
+                        // filters for projects with specific id
+                        $projectQuery->where($field, $value);
+                    }
+                } else {
+                    // filters for projects where field contains value
+                    $projectQuery->where($field, 'like', '%' . $value . '%');
+                }
+            }
         }
+
+        // orders projects by start date and end date
+        $projectQuery->orderBy('start_date', 'desc')
+            ->orderBy('end_date', 'asc');
 
         // retrieves all projects after filter was applied
         $projects = $projectQuery->paginate(20);
 
         // displays list page
-        return view('admin.research', [
-            'projects' => $projects,
-            'filter' => $request->input('filter')
-        ]);
+        return view('admin.research', compact('projects', 'people', 'filters'));
     }
 
     public function media(Request $request) : View {

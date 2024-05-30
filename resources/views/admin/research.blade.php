@@ -17,60 +17,36 @@
                 Research Projects
             </h2>
         </div>
-        @if ($projects->isEmpty())
-            @if ($filter)
-                <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('admin.research')}}">
-                    <div class="FormInput">
-                        <div style="display: flex">
-                            <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research projects by name">
-                            <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
-                            <span class="Button--inner">
-                                Search
-                            </span>
-                            </button>
-                        </div>
-                        @error('filter')
-                        <p class="has-error" style="color: red">
-                            <small>
-                                {{$message}}
-                            </small>
-                        </p>
-                        @enderror
-                    </div>
-                </form>
-                <div class="TextImage TextImage--inner TextImage--content richtext">
-                    <p>
-                        There are no research projects under the name "{{ $filter }}" yet. Consider creating a new research project.
-                    </p>
-                </div>
-            @else
-                <div class="TextImage TextImage--inner TextImage--content richtext">
-                    <p>
-                        There are no research projects yet. Consider creating a new research project.
-                    </p>
-                </div>
-            @endif
-        @else
-            <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('admin.research')}}">
+        <form class="Form js-Form" method="GET" id="Personal Data Edit" action="{{route('admin.research')}}">
+            <div class="Form--header">
+                <h2 id="expandSurface" class="Form--title" style="cursor: pointer">Filter (click to expand)</h2>
+            </div>
+            <div id="expandable" style="display: none">
                 <div class="FormInput">
-                    <div style="display: flex">
-                        <input class="Input" name="filter" id="filter" value="{{ old('filter', $filter) }}" placeholder="Filter research projects by name">
-                        <button class="Button color-primary size-large" type="submit" style="margin-left: 8px">
-                        <span class="Button--inner">
-                            Search
-                        </span>
-                        </button>
-                    </div>
-                    @error('filter')
-                    <p class="has-error" style="color: red">
-                        <small>
-                            {{$message}}
-                        </small>
-                    </p>
-                    @enderror
+                    <label class="FormLabel" for="title">Title</label>
+                    <input class="Input" name="title" id="title" value="{{ old('title', optional($filters)['title']) }}">
                 </div>
-            </form>
-        @endif
+                <div class="FormInput">
+                    <label class="FormLabel" for="user_id">Person</label>
+                    <select class="selectFilter" name="user_id" id="user_id">
+                        <option value="">All</option>
+                        @foreach ($people as $person)
+                            <option value="{{ $person->uid }}" @if($person->uid == optional($filters)['user_id']) selected @endif>{{ $person->first_name }} {{ $person->last_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="FormButtons">
+                    <a href="{{route('admin.research')}}" class="Button color-border-white size-large">
+                        <span class="Button--inner">
+                            Reset Filters
+                        </span>
+                    </a>
+                    <button class="Button color-primary size-large" type="submit">
+                        <span class="Button--inner">Filter</span>
+                    </button>
+                </div>
+            </div>
+        </form>
         @if($projects->isNotEmpty())
             <section class="ZoraPublications js-ZoraPublications">
                 <ul class="ZoraPublications--list" data-level="1">
@@ -124,6 +100,20 @@
                 </ul>
                 {{ $projects->withQueryString()->links('pagination.uzh-pagination-en') }}
             </section>
+        @else
+            @if ($filters)
+                <div class="TextImage TextImage--inner TextImage--content richtext">
+                    <p>
+                        There are no research projects for the given filter yet. Consider creating a new research project.
+                    </p>
+                </div>
+            @else
+                <div class="TextImage TextImage--inner TextImage--content richtext">
+                    <p>
+                        There are no research projects yet. Consider creating a new research project.
+                    </p>
+                </div>
+            @endif
         @endif
     </div>
 </x-layout>
@@ -189,5 +179,20 @@
 
         // attaches listener to form
         $('.deleteForm').on('submit', handleFormSubmission);
+
+        $('#expandSurface').on('click', function() {
+            $('#expandable').slideToggle(300);
+
+            if ($(this).text() == 'Filter (click to expand)') {
+                $(this).text('Filter (click to collapse)');
+            } else {
+                $(this).text('Filter (click to expand)');
+            }
+        });
+
+        $('.selectFilter').selectize({
+            create: false,
+            sortField: 'text'
+        });
     });
 </script>

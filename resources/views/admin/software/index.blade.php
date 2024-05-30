@@ -89,14 +89,80 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col" colspan="3">Actions</th>
-                            <th scope="col">Manufacturer</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">License Type</th>
-                            <th scope="col">Purchase Date</th>
-                            <th scope="col">Notes</th>
+                            <th scope="col" colspan="4">Actions</th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('software.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'manufacturer_id', 'direction' => request('sort') === 'manufacturer_id' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Manufacturer
+                                    @if(request('sort') === 'manufacturer_id')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('software.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'name', 'direction' => request('sort') === 'name' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Name
+                                    @if(request('sort') === 'name')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('software.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'license_type', 'direction' => request('sort') === 'license_type' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    License Type
+                                    @if(request('sort') === 'license_type')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('software.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'purchase_date', 'direction' => request('sort') === 'purchase_date' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Purchase Date
+                                    @if(request('sort') === 'purchase_date')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('software.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'notes', 'direction' => request('sort') === 'notes' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Notes
+                                    @if(request('sort') === 'notes')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
                             <th scope="col">Invoice</th>
-                            <th scope="col">Supplier</th>
+                            <th scope="col">
+                                <a class="quickaction-anchor sort" href="{{ route('software.index', array_merge(request()->except(['sort', 'direction']), ['sort' => 'supplier_id', 'direction' => request('sort') === 'supplier_id' && request('direction') === 'asc' ? 'desc' : 'asc'])) }}">
+                                    Supplier
+                                    @if(request('sort') === 'supplier_id')
+                                        @if(request('direction') === 'asc')
+                                            &uarr;
+                                        @else
+                                            &darr;
+                                        @endif
+                                    @endif
+                                </a>
+                            </th>
                             <th scope="col">Quantity</th>
                             <th scope="col">People</th>
                         </tr>
@@ -115,6 +181,13 @@
                                     <a href="{{ route('software.edit', $software->id) }}" class="quickaction-anchor edit">
                                         <span class="material-icons">
                                             edit
+                                        </span>
+                                    </a>
+                                </td>
+                                <td style="text-align: center">
+                                    <a href="{{ route('software.copy', $software->id) }}" class="quickaction-anchor copy">
+                                        <span class="material-icons">
+                                            content_copy
                                         </span>
                                     </a>
                                 </td>
@@ -152,7 +225,7 @@
                         @endforeach
                         @if ($softwares->isEmpty())
                             <tr>
-                                <td colspan="12">No softwares found.</td>
+                                <td colspan="13">No softwares found.</td>
                             </tr>
                         @endif
                     </tbody>

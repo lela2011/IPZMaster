@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EmploymentType;
+use App\Models\ExternalContact;
 use App\Models\ResearchArea;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -108,10 +109,25 @@ class ResearchAreaIframeController extends Controller
             $query->where('id', $researchArea->id);
         })->with('employmentType')
             ->get()
-            ->groupBy('employmentType.id')
+            ->groupBy('employmentType.order')
             ->sortBy(function ($users, $employmentTypeId) {
                 return optional($users->first()->employmentType)->order;
             });
+
+        $guestsByType = ExternalContact::has('employmentType')
+        ->whereHas('researchAreas', function ($query) use ($researchArea) {
+            $query->where('id', $researchArea->id);
+        })->with('employmentType')
+            ->get()
+            ->groupBy('employmentType.order')
+            ->sortBy(function ($users, $employmentTypeId) {
+                return optional($users->first()->employmentType)->order;
+            });
+
+        $orderIds = collect(array_keys($employeesByType->toArray()))
+            ->merge(array_keys($guestsByType->toArray()))
+            ->unique()
+            ->sort();
 
         // loads all employment types
         $types = EmploymentType::all();
@@ -123,6 +139,6 @@ class ResearchAreaIframeController extends Controller
             $view = 'researchArea.iframes.employees.employees-de';
         }
 
-        return view($view, compact('employeesByType', 'types'));
+        return view($view, compact('orderIds', 'employeesByType', 'guestsByType', 'types'));
     }
 }

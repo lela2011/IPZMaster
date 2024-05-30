@@ -33,6 +33,11 @@ class ResearchArea extends Model
         return $this->belongsToMany(User::class, 'user_research_area', 'research_area_id', 'user_id')->withPivot('role');
     }
 
+    // sets relationship between research area and external contact
+    public function externalContacts() : BelongsToMany {
+        return $this->belongsToMany(ExternalContact::class, 'external_contact_research_area', 'research_area_id', 'external_id');
+    }
+
     // sets relationship between research area and research project
     public function researchProjects() : BelongsToMany {
         return $this->belongsToMany(ResearchProject::class, 'project_area', 'area_id', 'project_id');

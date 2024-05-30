@@ -34,7 +34,8 @@ class PersonalDataRequest extends FormRequest
             'cv_german' => 'nullable',
             'research_focus_english' => 'nullable',
             'research_focus_german' => 'nullable',
-            'research_areas' => 'nullable',
+            'research_areas' => 'nullable|array',
+            'research_areas.*' => 'exists:research_areas,id',
             'employment_type' => 'nullable|exists:employment_types,id',
             'transv_research_prios' => 'nullable'
         ];
@@ -44,6 +45,7 @@ class PersonalDataRequest extends FormRequest
     {
         return [
             'website.url' => 'The website must be a valid URL.',
+            'research_areas.*.exists' => 'The selected research area is invalid.',
             'employment_type.exists' => 'The selected employment type is invalid.'
         ];
     }

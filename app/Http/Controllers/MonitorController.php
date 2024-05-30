@@ -24,7 +24,7 @@ class MonitorController extends Controller
         $people = User::all();
 
         // validate the request
-        $filters = $request->validate([
+        $params = collect($request->validate([
             'manufacturer_id' => 'nullable|integer|exists:manufacturers,id',
             'model' => 'nullable|string',
             'size' => 'nullable|string',
@@ -36,7 +36,12 @@ class MonitorController extends Controller
             'warranty_date' => 'nullable|date',
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'user_id' => 'nullable|string|exists:users,uid',
-        ]);
+            'sort' => 'nullable|string|in:type_id,manufacturer_id,model,size,serial_number,product_number,notes,location_id,purchase_date,warranty_date,supplier_id,user_id',
+            'direction' => 'nullable|string|in:asc,desc'
+        ]));
+
+        $filters = $params->except(['sort', 'direction'])->all();
+        $sort = $params->only(['sort', 'direction'])->all();
 
         // create the query
         $monitorsQuery = Monitor::query()->with('manufacturer', 'location', 'supplier', 'person');
@@ -49,6 +54,29 @@ class MonitorController extends Controller
                 } else {
                     $monitorsQuery->where($field, 'like', '%' . $value . '%');
                 }
+            }
+        }
+
+        // apply sort
+        if($sort) {
+            $sortKey = $sort['sort'];
+            $sortDirection = $sort['direction'] ?? 'asc';
+
+            if($sortKey === 'manufacturer_id') {
+                $monitorsQuery->join('manufacturers', 'monitors.manufacturer_id', '=', 'manufacturers.id')
+                    ->orderBy('manufacturers.name', $sortDirection);
+            } else if($sortKey === 'location_id') {
+                $monitorsQuery->join('locations', 'monitors.location_id', '=', 'locations.id')
+                    ->orderBy('locations.name', $sortDirection);
+            } else if($sortKey === 'supplier_id') {
+                $monitorsQuery->join('suppliers', 'monitors.supplier_id', '=', 'suppliers.id')
+                    ->orderBy('suppliers.name', $sortDirection);
+            } else if($sortKey === 'user_id') {
+                $monitorsQuery->join('users', 'monitors.user_id', '=', 'users.uid')
+                    ->orderBy('users.last_name', $sortDirection)
+                    ->orderBy('users.first_name', $sortDirection);
+            } else {
+                $monitorsQuery->orderBy($sortKey, $sortDirection);
             }
         }
 
@@ -72,6 +100,19 @@ class MonitorController extends Controller
 
         // return the view
         return view('admin.monitor.create', compact('manufacturers', 'locations', 'suppliers', 'people'));
+
+    }
+
+    public function copy(Monitor $monitor)
+    {
+        // get all the data for the dropdowns
+        $manufacturers = Manufacturer::all();
+        $locations = Location::all();
+        $suppliers = Supplier::all();
+        $people = User::all();
+
+        // return the view
+        return view('admin.monitor.copy', compact('monitor', 'manufacturers', 'locations', 'suppliers', 'people'));
 
     }
 

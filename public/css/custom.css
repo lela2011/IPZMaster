@@ -203,12 +203,31 @@
     text-decoration-line: none !important;
 }
 
+.quickaction-anchor.sort {
+    padding-left: 0px;
+    color: #000000 !important;
+}
+
+.quickaction-anchor.sort:hover {
+    color: #000000 !important;
+    text-decoration-line: none !important;
+}
+
 .quickaction-anchor.edit {
     padding-left: 0px;
 }
 
 .quickaction-anchor.edit:hover {
     color: green !important;
+    text-decoration-line: none !important;
+}
+
+.quickaction-anchor.copy {
+    padding-left: 0px;
+}
+
+.quickaction-anchor.copy:hover {
+    color: #000000 !important;
     text-decoration-line: none !important;
 }
 
