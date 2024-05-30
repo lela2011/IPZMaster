@@ -14,7 +14,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     </head>
-    <body>
+    <body style="min-height: 0px">
         {{ $slot }}
     </body>
 </html>
