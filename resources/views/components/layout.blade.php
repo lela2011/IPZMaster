@@ -8,16 +8,14 @@
         <title>IPZ Master</title>
         <link rel="icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}">
         <link rel="stylesheet" href="https://www.uzh.ch/static/magnolia/assets/css/main.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="//unpkg.com/alpinejs" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <link rel="stylesheet" href="{{ asset('material/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('selectize/selectize.css')}}" />
+        <link rel="stylesheet" href="{{ asset('flatpickr/flatpickr.min.css')}}" />
+        <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+        <script src="{{ asset('alpine/cdn.min.js')}}"></script>
+        <script src="{{ asset('selectize/selectize.min.js') }}"></script>
+        <script src="{{ asset('flatpickr/flatpickr.min.js') }}"></script>
         <x-head.tinymce-config/>
-
         <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     </head>
     <body class="template-st04">

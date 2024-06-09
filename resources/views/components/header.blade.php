@@ -14,8 +14,8 @@
             <form method="POST" action=" {{ route('logout') }} " style="margin-left: auto;">
                 @csrf
                 <button type="submit">
-                    <i class="fa fa-sign-out"></i>
-                    Logout
+                    <span class="material-icons" style="vertical-align: middle">logout</span>
+                    <span>Logout</span>
                 </button>
             </form>
         @endauth

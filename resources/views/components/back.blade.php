@@ -1,6 +1,6 @@
 <div class="TextImage">
     <a href="{{ $route }}" class="Button color-border-white size-large">
-        <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+        <span class="material-icons" style="margin-right: 8px">arrow_back</span>
         {{ $slot }}
     </a>
 </div>

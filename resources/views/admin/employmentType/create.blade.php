@@ -4,7 +4,7 @@
         <x-flash-message />
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.employment-type.index') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-right: 8px">arrow_back</span>
                 Return to List
             </a>
         </div>

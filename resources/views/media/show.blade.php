@@ -4,18 +4,18 @@
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             @if (request()->session()->get('mode', 'user') == 'admin')
                 <a href="{{ route('admin.media') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                    <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                    <span class="material-icons" style="margin-right: 8px">arrow_back</span>
                     Return to List
                 </a>
             @else
                 <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                    <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                    <span class="material-icons" style="margin-right: 8px">arrow_back</span>
                     Return to Dashboard
                 </a>
             @endif
             <a href="{{ route('media.edit', $user->uid) }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 Edit Press Information
-                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-left: 8px">arrow_forward</span>
             </a>
         </div>
         <div class="TextImage">

@@ -4,12 +4,12 @@
         <x-flash-message />
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-right: 8px">arrow_back</span>
                 Return to Admin Panel
             </a>
             <a href="{{ route('admin.employment-type.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 Create Employment Type
-                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-left: 8px">arrow_forward</span>
             </a>
         </div>
         <div class="TextImage">
@@ -40,7 +40,7 @@
         <div class="TextImage" style="display: flex">
             <a href="{{ route('admin.employment-type.updateOrder') }}" class="Button color-border-white size-large" style="margin-left: auto;">
                 Update Order
-                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-left: 8px">arrow_forward</span>
             </a>
         </div>
     </section>

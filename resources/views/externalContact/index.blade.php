@@ -4,12 +4,12 @@
         <x-flash-message />
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('home') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-right: 8px">arrow_back</span>
                 Return to Dashboard
             </a>
             <a href="{{ route('externalContact.create') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
                 Create a new External Contact
-                <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-left: 8px">arrow_forward</span>
             </a>
         </div>
         @if ($externalContacts->isEmpty())

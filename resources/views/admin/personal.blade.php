@@ -3,14 +3,14 @@
         <x-flash-message />
         <div class="TextImage" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <a href="{{ route('admin.dashboard') }}" class="Button color-border-white size-large" style="margin-bottom: 8px">
-                <i class="fa fa-arrow-left" style="margin-right: 8px; vertical-align: bottom"></i>
+                <span class="material-icons" style="margin-right: 8px">arrow_back</span>
                 Return to Admin Data
             </a>
             <form method="POST" action="{{ route('admin.sync-users')}}">
                 @csrf
                 <button class="Button color-border-white size-large" style="margin-bottom: 8px" type="submit">
                     Sync Users
-                    <i class="fa fa-arrow-right" style="margin-left: 8px; vertical-align: bottom"></i>
+                    <span class="material-icons" style="margin-left: 8px">arrow_forward</span>
                 </button>
             </form>
         </div>

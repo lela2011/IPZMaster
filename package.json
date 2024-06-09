@@ -13,7 +13,6 @@
         "vite-plugin-copy": "^0.1.6"
     },
     "dependencies": {
-        "@selectize/selectize": "^0.15.2",
         "follow-redirects": "^1.15.5"
     }
 }

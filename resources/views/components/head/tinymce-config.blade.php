@@ -1,4 +1,4 @@
-<script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+<script src="{{ asset('tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
         selector: 'textarea.wysiwyg', // Targets only textareas with id='cv'
