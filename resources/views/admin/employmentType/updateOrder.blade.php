@@ -58,7 +58,7 @@
         </form>
     </section>
 </x-layout>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script src="{{ asset('sortable/Sortable.min.js') }}"></script>
 <script>
     $draggable = $('#order')[0]
     new Sortable($draggable, {
