@@ -36,6 +36,19 @@
                     @enderror
                 </div>
                 <div class="FormInput">
+                    <label class="FormLabel" for="url">
+                        URL
+                    </label>
+                    <input class="Input" id="url" name="url" value="{{ old('url', $externalContact->url) }}">
+                    @error('url')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                </div>
+                <div class="FormInput">
                     <label class="FormLabel" for="organization">
                         Organization
                     </label>

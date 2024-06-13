@@ -21,7 +21,11 @@
                         <br>
                     @endif
                     @foreach ($guests as $guest)
-                        <a href="mailto:{{ $guest->email }}">{{ $guest->name }} ({{ $guest->organization }})</a>
+                        @if($guest->url)
+                            <a href="{{ $guest->url }}">{{ $guest->name }} ({{ $guest->organization }})</a>
+                        @else
+                            <a href="mailto:{{ $guest->email }}">{{ $guest->name }} ({{ $guest->organization }})</a>
+                        @endif
                         @if(!$loop->last)
                             <br>
                         @endif

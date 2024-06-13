@@ -14,6 +14,7 @@ class ExternalContact extends Model
     protected $fillable = [
         'name',
         'email',
+        'url',
         'organization',
         'employment_type'
     ];
