@@ -37,10 +37,23 @@
                 </div>
                 <div class="FormInput">
                     <label class="FormLabel" for="url">
-                        URL
+                        URL - German
                     </label>
                     <input class="Input" id="url" name="url" value="{{ old('url', $externalContact->url) }}">
                     @error('url')
+                    <p class="has-error" style="color: red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </p>
+                    @enderror
+                </div>
+                <div class="FormInput">
+                    <label class="FormLabel" for="url_en">
+                        URL - English
+                    </label>
+                    <input class="Input" id="url_en" name="url_en" value="{{ old('url_en', $externalContact->url_en) }}">
+                    @error('url_en')
                     <p class="has-error" style="color: red">
                         <small>
                             {{$message}}

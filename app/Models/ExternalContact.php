@@ -15,6 +15,7 @@ class ExternalContact extends Model
         'name',
         'email',
         'url',
+        'url_en',
         'organization',
         'employment_type'
     ];

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('external_contacts', function (Blueprint $table) {
-            $table->string('url')->nullable();
+            $table->string('url_en')->nullable();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('external_contacts', function (Blueprint $table) {
-            $table->dropColumn('url');
+            $table->dropColumn('url_en');
         });
     }
 };

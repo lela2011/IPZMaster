@@ -139,6 +139,7 @@ class ExternalContactController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:external_contacts,email',
             'url' => 'nullable|url',
+            'url_en' => 'nullable|url',
             'organization' => 'nullable|string',
             'research_areas' => 'nullable|array',
             'research_areas.*' => 'exists:research_areas,id',
@@ -149,6 +150,7 @@ class ExternalContactController extends Controller
             'email.email' => 'The entered email is not valid.',
             'email.unique' => 'A user with the entered email already exists.',
             'url.url' => "The entered url is not valid",
+            'url_en.url' => "The entered url is not valid",
             'research_areas.*.exists' => 'The selected research area is invalid.',
             'employment_type.exists' => 'The selected employment type is invalid.'
         ]);
@@ -197,6 +199,7 @@ class ExternalContactController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'url' => 'nullable|url',
+            'url_en' => 'nullable|url',
             'organization' => 'nullable|string',
             'research_areas' => 'nullable|array',
             'research_areas.*' => 'exists:research_areas,id',
@@ -206,6 +209,7 @@ class ExternalContactController extends Controller
             'email.required' => 'Please enter an email.',
             'email.email' => 'The entered email is not valid.',
             'url.url' => "The entered url is not valid",
+            'url_en.url' => "The entered url is not valid",
             'research_areas.*.exists' => 'The selected research area is invalid.',
             'employment_type.exists' => 'The selected employment type is invalid.'
         ]));

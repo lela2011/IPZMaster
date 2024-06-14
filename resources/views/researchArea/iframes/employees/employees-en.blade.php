@@ -21,8 +21,8 @@
                         <br>
                     @endif
                     @foreach ($guests as $guest)
-                        @if($guest->url)
-                            <a href="{{ $guest->url }}">{{ $guest->name }} ({{ $guest->organization }})</a>
+                        @if($guest->url_en)
+                            <a href="{{ $guest->url_en }}">{{ $guest->name }} ({{ $guest->organization }})</a>
                         @else
                             <a href="mailto:{{ $guest->email }}">{{ $guest->name }} ({{ $guest->organization }})</a>
                         @endif
