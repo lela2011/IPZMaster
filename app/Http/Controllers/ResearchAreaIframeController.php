@@ -103,18 +103,16 @@ class ResearchAreaIframeController extends Controller
     }
 
     public function employees(string $language, ResearchArea $researchArea) {
-        // defines employment type of head of research area
-        $excludedEmploymentTypeId = 10;
+        // retrieves head of research area
+        $manager = $researchArea->manager;
 
         // loads all employees of research area and groups them by employment type
         $employeesByType = User::has('employmentType')
+            ->where('uid', '!=', optional($manager)->uid)
             ->whereHas('researchAreas', function ($query) use ($researchArea) {
                 $query->where('id', $researchArea->id);
             })
             ->with('employmentType')
-            ->whereDoesntHave('employmentType', function ($query) use ($excludedEmploymentTypeId) {
-                $query->where('id', $excludedEmploymentTypeId);
-            })
             ->get()
             ->groupBy('employmentType.order')
             ->sortBy(function ($users, $employmentTypeId) {
@@ -126,9 +124,6 @@ class ResearchAreaIframeController extends Controller
                 $query->where('id', $researchArea->id);
             })
             ->with('employmentType')
-            ->whereDoesntHave('employmentType', function ($query) use ($excludedEmploymentTypeId) {
-                $query->where('id', $excludedEmploymentTypeId);
-            })
             ->get()
             ->groupBy('employmentType.order')
             ->sortBy(function ($users, $employmentTypeId) {
