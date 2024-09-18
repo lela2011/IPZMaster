@@ -61,16 +61,21 @@ class ResearchAreaRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
+        // allow target="_blank" and target="_self" in links
+        $config = [
+            'Attr.AllowedFrameTargets' => ['_blank', '_self']
+        ];
+        
         // cleans the form data
         $this->merge([
-            'description_english' => Purifier::clean($this->description_english) ?? '',
-            'description_german' => Purifier::clean($this->description_german) ?? '',
-            'research_focus_english' => Purifier::clean($this->research_focus_english) ?? '',
-            'research_focus_german' => Purifier::clean($this->research_focus_german) ?? '',
-            'teaching_english' => Purifier::clean($this->teaching_english) ?? '',
-            'teaching_german' => Purifier::clean($this->teaching_german) ?? '',
-            'support_english' => Purifier::clean($this->support_english) ?? '',
-            'support_german' => Purifier::clean($this->support_german) ?? '',
+            'description_english' => Purifier::clean($this->description_english, $config) ?? '',
+            'description_german' => Purifier::clean($this->description_german, $config) ?? '',
+            'research_focus_english' => Purifier::clean($this->research_focus_english, $config) ?? '',
+            'research_focus_german' => Purifier::clean($this->research_focus_german, $config) ?? '',
+            'teaching_english' => Purifier::clean($this->teaching_english, $config) ?? '',
+            'teaching_german' => Purifier::clean($this->teaching_german, $config) ?? '',
+            'support_english' => Purifier::clean($this->support_english, $config) ?? '',
+            'support_german' => Purifier::clean($this->support_german, $config) ?? '',
         ]);
     }
 }
