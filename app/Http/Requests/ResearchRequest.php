@@ -91,9 +91,14 @@ class ResearchRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        // allow target="_blank" and target="_self" in links
+        $config = [
+            'Attr.AllowedFrameTargets' => ['_blank', '_self']
+        ];
+        
         // prepares data for validation
         $this->merge([
-            "summary" => Purifier::clean($this->summary) ?? "",
+            "summary" => Purifier::clean($this->summary, $config) ?? "",
             "summary_urls" => filterEmptyArray($this->summary_urls),
             "zora_ids" => filterEmptyArray($this->zora_ids),
             "project_urls" => filterEmptyArray($this->project_urls),
