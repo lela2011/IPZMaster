@@ -61,6 +61,11 @@ class PersonalDataRequest extends FormRequest
         if($phone === "+41") $phone = "";
 
 
+        // allow target="_blank" and target="_self" in links
+        $config = [
+            'Attr.AllowedFrameTargets' => ['_blank', '_self']
+        ];
+        
         // merges the correction with the
         $this->merge([
             'research_areas' => filterEmptyArray($this->research_areas),
@@ -68,10 +73,10 @@ class PersonalDataRequest extends FormRequest
             'phone' => $phone,
             'research_areas' => $this->research_areas ?? [],
             'transv_research_prios' => $this->transv_research_prios ?? [],
-            'cv_english' => Purifier::clean($this->cv_english) ?? '',
-            'cv_german' => Purifier::clean($this->cv_german) ?? '',
-            'research_focus_english' => Purifier::clean($this->research_focus_english) ?? '',
-            'research_focus_german' => Purifier::clean($this->research_focus_german) ?? '',
+            'cv_english' => Purifier::clean($this->cv_english, $config) ?? '',
+            'cv_german' => Purifier::clean($this->cv_german, $config) ?? '',
+            'research_focus_english' => Purifier::clean($this->research_focus_english, $config) ?? '',
+            'research_focus_german' => Purifier::clean($this->research_focus_german, $config) ?? '',
         ]);
     }
 }
